@@ -1,6 +1,6 @@
 ---
 name: KPT Card
-about: KPT 회고 이슈카드 마크다운 템플릿
+about: Keep, Problem, Try 방식으로 기록하는 프로젝트 회고 템플릿입니다.
 title: ''
 labels: ''
 assignees: ''
