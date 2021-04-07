@@ -23,6 +23,7 @@ const Button = styled.button`
   }
   & + button {
     margin-left: 1rem;
+    color: red;
   }
 `;
 
