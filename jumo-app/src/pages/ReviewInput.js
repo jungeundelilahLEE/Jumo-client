@@ -1,23 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
+import star from '../images/star.png';
 
 const ReviewInput = () => {
   return (
     <StyleInputBox>
       <div>
-        <StyleStar>ㅁㅁㅁㅁㅁ</StyleStar>
+        <StyleStarBox>
+          <StyleStar />
+          <StyleStar />
+          <StyleStar />
+          <StyleStar />
+          <StyleStar />
+        </StyleStarBox>
         <StyleInputWrap>
           <StyleInputItem>
-            <StyleInput />
+            <StyleInput placeholder="리뷰를 입력해주세요(300자 이내)" />
           </StyleInputItem>
-          <StylebtnItem>
-            <StyleSaveBtn>save</StyleSaveBtn>
-          </StylebtnItem>
+          <StyleBtnItem>
+            <StyleSaveBtn>SAVE</StyleSaveBtn>
+          </StyleBtnItem>
         </StyleInputWrap>
         <StyleBtnWrap>
           <StyleBtnArea>
             <StyleBtn>photo</StyleBtn>
-            <StyleBtn>list</StyleBtn>
           </StyleBtnArea>
         </StyleBtnWrap>
       </div>
@@ -26,19 +32,82 @@ const ReviewInput = () => {
 };
 
 const StyleInputBox = styled.div`
+  width: 100vw;
+  padding-top: 10vmin;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media ${props => props.theme.mobile} {
+  }
+
+  @media ${props => props.theme.tablet} {
+  }
+
+  @media ${props => props.theme.desktop} {
+  }
 `;
 
-const StyleStar = styled.div``;
+const StyleStarBox = styled.div`
+  display: flex;
+  justify-content: center;
+
+  @media ${props => props.theme.mobile} {
+  }
+
+  @media ${props => props.theme.tablet} {
+    justify-content: flex-start;
+  }
+
+  @media ${props => props.theme.desktop} {
+  }
+`;
+
+const StyleStar = styled.div`
+  width: 8vmin;
+  height: 8vmin;
+  max-width: 40px;
+  max-height: 40px;
+  background-image: url(${star});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  @media ${props => props.theme.mobile} {
+  }
+
+  @media ${props => props.theme.tablet} {
+    width: 5vmin;
+    height: 5vmin;
+    max-width: 5vmin;
+    max-height: 5vmin;
+  }
+
+  @media ${props => props.theme.desktop} {
+  }
+`;
 
 const StyleInputWrap = styled.div`
+  width: 100vw;
+  height: 20vmin;
   display: flex;
-  border: 2px red solid;
-  width: 1000px;
-  height: 100px;
+  border-top: 2px red solid;
+
+  /* position: fixed;
+  bottom: 50px; */
+
+  @media ${props => props.theme.mobile} {
+  }
+
+  @media ${props => props.theme.tablet} {
+  }
+
+  @media ${props => props.theme.desktop} {
+    width: 80vw;
+    height: 15vmin;
+    border: 2px red solid;
+  }
 `;
 
 const StyleInputItem = styled.div`
@@ -50,6 +119,18 @@ const StyleInput = styled.textarea`
   height: 96%;
   border: none;
   resize: none;
+  font-size: 1.5rem;
+  padding: 2vmin;
+
+  @media ${props => props.theme.mobile} {
+  }
+
+  @media ${props => props.theme.tablet} {
+  }
+
+  @media ${props => props.theme.desktop} {
+    font-size: 1.2rem;
+  }
 `;
 
 const StyleBtnWrap = styled.div`
@@ -65,7 +146,7 @@ const StyleBtn = styled.button`
   margin-left: 20px;
 `;
 
-const StylebtnItem = styled.div`
+const StyleBtnItem = styled.div`
   flex: 1;
   padding: 3px;
 `;
@@ -73,6 +154,16 @@ const StylebtnItem = styled.div`
 const StyleSaveBtn = styled.button`
   width: 100%;
   height: 100%;
+  font-size: 1.3rem;
+
+  @media ${props => props.theme.mobile} {
+  }
+
+  @media ${props => props.theme.tablet} {
+  }
+
+  @media ${props => props.theme.desktop} {
+  }
 `;
 
 export default ReviewInput;
