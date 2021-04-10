@@ -101,6 +101,7 @@ const StyleInputWrap = styled.div`
   }
 
   @media ${props => props.theme.tablet} {
+    border-bottom: 2px red solid;
   }
 
   @media ${props => props.theme.desktop} {
