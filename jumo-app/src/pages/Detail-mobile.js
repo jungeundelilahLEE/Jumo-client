@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import makgeolli from '../images/mak-sample-1.png';
 import ReviewInput from './ReviewInput';
+import ReviewList from './ReviewList-mobile';
 
 const Detail = () => {
   return (
@@ -58,6 +59,7 @@ const Detail = () => {
         <StyleLikeBtn>LIKE</StyleLikeBtn>
       </StyleVertical>
       <ReviewInput />
+      <ReviewList />
     </StyleDetailes>
   );
 };
