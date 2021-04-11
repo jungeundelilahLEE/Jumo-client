@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import Makgeollis from './Makgeollis';
 
 import makgeolli from '../images/mak-sample-1.png';
-// import logo from '../images/logo.png';
-// import ribbon from '../images/ribbon.png';
+import logo from '../images/logo.png';
+import ribbon from '../images/ribbon.png';
 
 const BestMakgeollis = () => {
   return (
@@ -15,19 +15,40 @@ const BestMakgeollis = () => {
           <StyleLeftArrow>{'<'}</StyleLeftArrow>
 
           <StyleBestList>
-            {/* <StyleMark>
-              <StyleRank>1</StyleRank>
-              <StyleRibbon>
-                <StyleLogo />
-              </StyleRibbon>
-            </StyleMark> */}
-            <StyleLightImg />
-            <StyleLightImg />
+            <StyleLightImg>
+              <StyleMark>
+                <StyleRank>8</StyleRank>
+              </StyleMark>
+            </StyleLightImg>
+
+            <StyleLightImg>
+              <StyleMark>
+                <StyleRank>9</StyleRank>
+              </StyleMark>
+            </StyleLightImg>
+
             <StyleBoder>
-              <StyleMainImg />
+              <StyleMainImg>
+                <StyleMark>
+                  <StyleRank>10</StyleRank>
+                  <StyleRibbon>
+                    <StyleLogo />
+                  </StyleRibbon>
+                </StyleMark>
+              </StyleMainImg>
             </StyleBoder>
-            <StyleLightImg />
-            <StyleLightImg />
+
+            <StyleLightImg>
+              <StyleMark>
+                <StyleRank>1</StyleRank>
+              </StyleMark>
+            </StyleLightImg>
+
+            <StyleLightImg>
+              <StyleMark>
+                <StyleRank>2</StyleRank>
+              </StyleMark>
+            </StyleLightImg>
           </StyleBestList>
 
           <StyleRightArrow>{'>'}</StyleRightArrow>
@@ -35,11 +56,11 @@ const BestMakgeollis = () => {
       </StyleBestBox>
 
       <StyleMobileList>
-        <StyleMoboleImg />
+        <StyleMobileImg />
         <StyleBoder>
-          <StyleMoboleImg />
+          <StyleMobileImg />
         </StyleBoder>
-        <StyleMoboleImg />
+        <StyleMobileImg />
       </StyleMobileList>
 
       <Makgeollis />
@@ -99,49 +120,51 @@ const StyleBestMain = styled.div`
   }
 `;
 
-// const StyleMark = styled.div`
-//   display: flex;
-// `;
+const StyleMark = styled.div`
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
 
-// const StyleRank = styled.div`
-//   width: 30px;
-//   height: 25px;
-//   background-color: lightskyblue;
-//   color: white;
-//   font-size: 1.8rem;
-//   text-align: center;
-//   font-weight: bold;
-//   position: absolute;
-//   left: 40px;
-//   top: 80px;
-//   z-index: 4;
-// `;
+const StyleRank = styled.div`
+  width: 35px;
+  height: 28px;
+  padding: 3px;
+  background-color: lightskyblue;
+  color: white;
+  font-size: 1.8rem;
+  text-align: center;
+  font-weight: bold;
+  position: absolute;
+  left: -10px;
+  top: -10px;
+  z-index: 2;
+`;
 
-// const StyleLogo = styled.div`
-//   background-image: url(${logo});
-//   background-size: cover;
-//   background-repeat: no-repeat;
-//   background-position: center;
-//   width: 40px;
-//   height: 40px;
-//   position: absolute;
-//   left: 10px;
-//   top: 10px;
-//   z-index: 3;
-// `;
+const StyleLogo = styled.div`
+  background-image: url(${logo});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 25px;
+  top: 10px;
+  z-index: 4;
+`;
 
-// const StyleRibbon = styled.div`
-//   background-image: url(${ribbon});
-//   background-size: cover;
-//   background-repeat: no-repeat;
-//   background-position: center;
-//   width: 105px;
-//   height: 100px;
-//   position: absolute;
-//   left: 15px;
-//   top: 110px;
-//   z-index: 2;
-// `;
+const StyleRibbon = styled.div`
+  background-image: url(${ribbon});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 105px;
+  height: 100px;
+  position: relative;
+  z-index: 3;
+`;
 
 const StyleLeftArrow = styled.div`
   @media ${props => props.theme.mobile} {
@@ -158,7 +181,6 @@ const StyleLeftArrow = styled.div`
 const StyleRightArrow = styled.div``;
 
 const StyleBestList = styled.div`
-  /* justify-content: space-around; */
   @media ${props => props.theme.mobile} {
   }
 
@@ -186,6 +208,8 @@ const StyleLightImg = styled.div`
     width: 100px;
     height: 20vh;
     margin: 2vmin;
+    position: relative;
+    z-index: 1;
   }
 
   @media ${props => props.theme.desktop} {
@@ -202,7 +226,7 @@ const StyleMainImg = styled.div`
   background-position: center;
   width: 200px;
   height: 40vh;
-  /* position: relative; */
+  position: relative;
   z-index: 1;
 
   @media ${props => props.theme.mobile} {
@@ -242,7 +266,7 @@ const StyleMobileList = styled.div`
   padding: 5vmin 0;
 `;
 
-const StyleMoboleImg = styled.div`
+const StyleMobileImg = styled.div`
   display: block;
   background-image: url(${makgeolli});
   background-size: cover;
