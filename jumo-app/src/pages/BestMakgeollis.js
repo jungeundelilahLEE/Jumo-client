@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import Makgeollis from './Makgeollis';
+
 import makgeolli from '../images/mak-sample-1.png';
 // import logo from '../images/logo.png';
 // import ribbon from '../images/ribbon.png';
@@ -39,6 +41,8 @@ const BestMakgeollis = () => {
         </StyleBoder>
         <StyleMoboleImg />
       </StyleMobileList>
+
+      <Makgeollis />
     </StyleListTop>
   );
 };
