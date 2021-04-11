@@ -4,7 +4,7 @@ import makgeolli from '../images/mak-sample-1.png';
 // import logo from '../images/logo.png';
 // import ribbon from '../images/ribbon.png';
 
-const Makgeollis = () => {
+const BestMakgeollis = () => {
   return (
     <StyleListTop>
       <StyleBestBox>
@@ -262,4 +262,4 @@ const StyleMoboleImg = styled.div`
   }
 `;
 
-export default Makgeollis;
+export default BestMakgeollis;
