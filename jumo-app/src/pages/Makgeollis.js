@@ -10,7 +10,24 @@ const Makgeollis = () => {
         개의 막걸리가 검색되었습니다.
       </StyleResultText>
       <StyleListBox>
-        <StyleItem />
+        <div className="StyleCard">
+          <StyleItem>
+            <StyleItemInfo>
+              <StyleInfoTop>
+                <div className="StyleInfoName">
+                  느린마을 막걸리입니다아아아아
+                </div>
+                <StyleInfoVol>4.5 % vol</StyleInfoVol>
+              </StyleInfoTop>
+              <StyleInfoBox>
+                <div className="StyleViews">Views: 1002</div>
+                <div className="StyleLikes">Likes: 500</div>
+                <div className="StyleReviews">Reviews: 7809</div>
+              </StyleInfoBox>
+            </StyleItemInfo>
+          </StyleItem>
+        </div>
+
         <StyleItem />
         <StyleItem />
         <StyleItem />
@@ -88,6 +105,47 @@ const StyleListBox = styled.div`
   }
 `;
 
+const StyleItemInfo = styled.div`
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+
+  @media ${props => props.theme.mobile} {
+  }
+
+  @media ${props => props.theme.tablet} {
+  }
+
+  @media ${props => props.theme.desktop} {
+  }
+`;
+
+const StyleInfoTop = styled.div`
+  font-size: 1.4rem;
+  text-align: center;
+`;
+
+const StyleInfoVol = styled.div`
+  font-size: 1.2rem;
+  margin-top: 2vmin;
+`;
+
+const StyleInfoBox = styled.div`
+  border: 0.5vmin hotpink solid;
+  padding: 2vmin;
+
+  @media ${props => props.theme.mobile} {
+  }
+
+  @media ${props => props.theme.tablet} {
+  }
+
+  @media ${props => props.theme.desktop} {
+    padding: 1vmin;
+  }
+`;
+
 const StyleItem = styled.div`
   background-image: url(${makgeolli});
   background-size: cover;
@@ -96,6 +154,13 @@ const StyleItem = styled.div`
   width: 170px;
   height: 35vh;
   margin: 3vmin 1vmin;
+
+  &:hover ${StyleItemInfo} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
 
   @media ${props => props.theme.mobile} {
   }
