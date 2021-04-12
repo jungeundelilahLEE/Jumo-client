@@ -10,8 +10,8 @@ import Nav from './pages/header';
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <Nav />
       <GlobalStyles />
+      <Nav />
       <BestMakgeollis />
     </ThemeProvider>
   </React.StrictMode>,
