@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import logo from './logo.svg';
 import './App.css';
-
+// eslint-disable-next-line import/extensions
 const Container = styled.div`
   background-color: lightgray;
   width: 100%;
@@ -39,13 +38,13 @@ const StyledButton = styled.button`
 function App() {
   return (
     <div className="App">
+      <Nav />
       <Container>
         <Button>버튼1</Button>
         <Button color="red">버튼2</Button>
       </Container>
       <header className="App-header">
         <StyledButton>test</StyledButton>
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
