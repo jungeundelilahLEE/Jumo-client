@@ -5,10 +5,12 @@ import theme from './styles/theme';
 import GlobalStyles from './styles/GlobalStyles';
 // import Detail from './pages/Detail';
 import BestMakgeollis from './pages/BestMakgeollis';
+import Nav from './pages/header';
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
+      <Nav />
       <GlobalStyles />
       <BestMakgeollis />
     </ThemeProvider>

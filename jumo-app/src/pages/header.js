@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import icon from '../JumoIcon.PNG';
+import icon from '../images/JumoIcon.PNG';
 
 const Navbar = styled.div`
   display: flex;
