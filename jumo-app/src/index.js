@@ -6,10 +6,13 @@ import GlobalStyles from './styles/GlobalStyles';
 // import Detail from './pages/Detail';
 import BestMakgeollis from './pages/BestMakgeollis';
 import Nav from './pages/header';
+import SignIn from './pages/SignIn';
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
+      <Nav />
+      <SignIn />
       <GlobalStyles />
       <Nav />
       <BestMakgeollis />
