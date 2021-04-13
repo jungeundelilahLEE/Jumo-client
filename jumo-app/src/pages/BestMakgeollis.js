@@ -220,7 +220,7 @@ const StyleLightImg = styled.div`
 `;
 
 const StyleMainImg = styled.div`
-  background-image: url(${makgeolli});
+  background-image: url(${'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/%E1%84%91%E1%85%A9%E1%84%8E%E1%85%A5%E1%86%AB%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%83%E1%85%A9%E1%86%BC%E1%84%86%E1%85%A1%E1%86%A8%E1%84%80%E1%85%A5%E1%86%AF%E1%84%85%E1%85%B5.jpg'});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

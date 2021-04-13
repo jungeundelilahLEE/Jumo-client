@@ -14,6 +14,7 @@ ReactDOM.render(
       <Nav />
       <SignIn />
       <GlobalStyles />
+      <Nav />
       <BestMakgeollis />
     </ThemeProvider>
   </React.StrictMode>,
