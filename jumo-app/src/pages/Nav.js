@@ -1,5 +1,15 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  withRouter,
+} from 'react-router-dom';
+import Mypage from '../pages/Mypage';
+import Intro from '../pages/Intro';
+import Makgeollis from '../pages/Makgeollis';
 
 import RemoteMypage from '../images/remote-mypage1.png';
 import RemoteLogout from '../images/remote-logout1.png';
@@ -101,28 +111,48 @@ function Nav() {
   `;
 
   return (
-    <StyledNav>
-      <Button>
-        <Img src={remoteMypage} alt="mypage" dd />
-      </Button>
+    <Router>
+      <Switch>
+        <StyledNav>
+          <Link to="/mypage">
+            <Button>
+              <Route exact path="/mypage" component={() => <Mypage />} />
+              <Img src={remoteMypage} alt="mypage" dd />
+            </Button>
+          </Link>
 
-      <Button>
-        <Img src={remoteLogout} alt="logout" dd />
-      </Button>
+          <Link to="/">
+            <Button>
+              {/* <Route exact path = "/mypage" component = {  } /> 
+                // 로그아웃 누르면 홈으로? or 보고있던 페이지로? 보던 페이지가 로그인을 해야만 하는 페이지였다면? */}
+              <Img src={remoteLogout} alt="logout" dd />
+            </Button>
+          </Link>
 
-      <Button>
-        <Img src={remoteIntro} alt="intro" dd />
-      </Button>
+          <Link to="/intro">
+            <Button>
+              <Route exact path="/intro" component={() => <Intro />} />
+              <Img src={remoteIntro} alt="intro" dd />
+            </Button>
+          </Link>
 
-      <Button>
-        <Img src={remoteMak} alt="mak" dd />
-      </Button>
+          <Link to="/makgeollis">
+            <Route exact path="/makgeollis" component={() => <Makgeollis />} />
+            <Button>
+              <Img src={remoteMak} alt="mak" dd />
+            </Button>
+          </Link>
 
-      <Button>
-        <Img src={remoteBrew} alt="brew" dd />
-      </Button>
-    </StyledNav>
+          <Link to="/brewery">
+            {/* <Route exact path = "/brewery" component = {() => <Brewery />} /> */}
+            <Button>
+              <Img src={remoteBrew} alt="brew" dd />
+            </Button>
+          </Link>
+        </StyledNav>
+      </Switch>
+    </Router>
   );
 }
 
-export default Nav;
+export default withRouter(Nav);
