@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import starIcon from '../images/star.png';
+import StarIcon from './StarIcon';
 
 const ReviewCard = ({ review }) => {
   const { id, userId, star, userName, createAt, image, comment } = review;
@@ -10,11 +10,9 @@ const ReviewCard = ({ review }) => {
       <StyleWriter>
         <StyleNickname>{userName}</StyleNickname>
         <StyleStarBox>
-          <StyleStars />
-          <StyleStars />
-          <StyleStars />
-          <StyleStars />
-          <StyleStars />
+          {[1, 2, 3, 4, 5].map(el => (
+            <StarIcon base={el} star={star} key={el} />
+          ))}
         </StyleStarBox>
         <StyleCreated>{createAt}</StyleCreated>
       </StyleWriter>
@@ -23,8 +21,11 @@ const ReviewCard = ({ review }) => {
 
         <StyleEffective>
           <StyleText>{comment}</StyleText>
+
+          {/* id test.. 작성자게만 버튼 보이는 기능 구현 필요 */}
           <div>id : {id}</div>
           <div>userId : {userId}</div>
+
           <StyleModifyBox>
             <StyleChangeBtn>edit</StyleChangeBtn>
             <StyleChangeBtn>delete</StyleChangeBtn>
@@ -33,6 +34,23 @@ const ReviewCard = ({ review }) => {
       </StyleContents>
     </StyleReviewsBox>
   );
+};
+
+ReviewCard.defaultProps = {
+  review: {},
+};
+
+ReviewCard.propTypes = {
+  review: PropTypes.shape({
+    id: PropTypes.number,
+    userId: PropTypes.number,
+    userName: PropTypes.string,
+    star: PropTypes.number,
+    comment: PropTypes.string,
+    image: PropTypes.string,
+    createAt: PropTypes.string,
+    updateAt: PropTypes.string,
+  }),
 };
 
 const StyleReviewsBox = styled.div`
@@ -64,26 +82,6 @@ const StyleStarBox = styled.div`
 
   @media ${props => props.theme.tablet} {
     justify-content: flex-start;
-  }
-
-  @media ${props => props.theme.desktop} {
-  }
-`;
-
-const StyleStars = styled.div`
-  width: 20px;
-  height: 20px;
-  background-image: url(${starIcon});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-
-  @media ${props => props.theme.mobile} {
-  }
-
-  @media ${props => props.theme.tablet} {
-    width: 15px;
-    height: 15px;
   }
 
   @media ${props => props.theme.desktop} {
@@ -188,22 +186,5 @@ const StyleChangeBtn = styled.button`
   @media ${props => props.theme.desktop} {
   }
 `;
-
-ReviewCard.defaultProps = {
-  review: {},
-};
-
-ReviewCard.propTypes = {
-  review: PropTypes.shape({
-    id: PropTypes.string,
-    userId: PropTypes.number,
-    userName: PropTypes.string,
-    star: PropTypes.number,
-    comment: PropTypes.string,
-    image: PropTypes.string,
-    createAt: PropTypes.string,
-    updateAt: PropTypes.string,
-  }),
-};
 
 export default ReviewCard;
