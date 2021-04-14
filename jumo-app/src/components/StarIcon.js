@@ -8,10 +8,10 @@ const StarIcon = props => {
   const { star, index } = props;
 
   const fillColor = useMemo(() => {
-    if (star >= index) {
+    if (star >= index + 1) {
       return '#ffdb58'; // #ffdb58 === 노란색
     }
-    if (star < index && index - star < 1) {
+    if (star < index + 1 && index - star < 0) {
       return 'half';
     }
     return '#dcdcdc'; // #dcdcdc === 회색

@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import ReviewCard from './ReviewCard';
 
 const ReviewList = () => {
-  const state = useSelector(state => state.reviewReducer);
-  const { reviews } = state;
+  const state = useSelector(states => states.reviewReducer);
+  const { reviewList } = state;
 
   return (
     <StyleReviewList>
@@ -14,11 +14,13 @@ const ReviewList = () => {
         <div>6,047</div>
       </StyleReviewsTop>
       <div>
-        {!reviews.length ? (
+        {!reviewList.length ? (
           <span>리뷰를 작성해주세요.</span>
         ) : (
-          reviews &&
-          reviews.map(review => <ReviewCard review={review} key={review.id} />)
+          reviewList &&
+          reviewList.map(review => (
+            <ReviewCard review={review} key={review.id} />
+          ))
         )}
         {/* {reviews &&
           reviews.map(review => <ReviewCard review={review} key={review.id} />)} */}

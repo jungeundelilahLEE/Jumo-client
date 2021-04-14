@@ -10,8 +10,8 @@ const ReviewCard = ({ review }) => {
       <StyleWriter>
         <StyleNickname>{userName}</StyleNickname>
         <StyleStarBox>
-          {[1, 2, 3, 4, 5].map(el => (
-            <StarIcon index={el} star={star} key={el} />
+          {['a', 'b', 'c', 'd', 'e'].map((el, idx) => (
+            <StarIcon index={idx} star={star} key={el} />
           ))}
         </StyleStarBox>
         <StyleCreated>{createAt}</StyleCreated>
