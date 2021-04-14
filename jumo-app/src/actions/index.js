@@ -32,11 +32,18 @@ export const signOut = () => {
   };
 };
 
-export const addReview = (id, star, comment, image, userId, userName) => {
+export const addReview = review => {
   return {
     type: ADD_REVIEW,
     payload: {
-      reviews: { id, star, comment, image, userId, userName },
+      review,
     },
+  };
+};
+
+export const addLike = itemId => {
+  return {
+    type: ADD_LIKE,
+    payload: [itemId],
   };
 };

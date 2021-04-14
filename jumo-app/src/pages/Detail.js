@@ -1,62 +1,92 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import makgeolli from '../images/mak-sample-1.png';
+import { addLike } from '../actions';
+// import makgeolliImg from '../images/mak-sample-1.png';
 import ReviewInput from '../components/ReviewInput';
 import ReviewList from '../components/ReviewList';
 
 const Detail = () => {
+  const state = useSelector(states => states.userReducer);
+  const { likesItem } = state;
+  const dispatch = useDispatch();
+
+  const [makgeolli, setMakgeolli] = useState({
+    // id: '',
+    // name: '',
+    // area: '',
+    // content: '',
+    // explain: '',
+    // material: '',
+    // likes: 0,
+    // views: 0,
+    // reviews: 0
+    // image: '',
+
+    // test dummy data..
+    id: 1,
+    name: '느린 막걸리',
+    area: '서울',
+    content: '750ml',
+    explain:
+      'ㅇㅇ막걸리는.... 느린마을 막걸리는 일체의 인공감미료 없이, 엄선된 원료와 최적의 발효과정을 거쳐 빚어낸 프리미엄 수제 생 막걸리 입니다. 배상면주가의 오랜 연구개발과 제조 노하우로 빚어낸 부드러운 단맛과 목넘김, 효모가 만들어내는 풍성한 과실향과 산미가 잘 조화되어 있습니다. 또한 계절이 변하듯 시간의 흐름에 따라, 살아있는 효모가 만들어내는 다채로운 맛의 사계를 느낄 수 있습니다. 그렇기 때문에, 느린마을막걸리는 맛을 아시는 분들이 꾸준히 다시 찾아주시고 주변에 권해주시는, 입소문 제대로 난 막걸리입니다. ㅇㅇ막걸리는.... 느린마을 막걸리는 일체의 인공감미료 없이, 엄선된 원료와 최적의 발효과정을 거쳐 빚어낸 프리미엄 수제 생 막걸리 입니다. 배상면주가의 오랜 연구개발과 제조 노하우로 빚어낸 부드러운 단맛과 목넘김, 효모가 만들어내는 풍성한 과실향과 산미가 잘 조화되어 있습니다. 또한 계절이 변하듯 시간의 흐름에 따라, 살아있는 효모가 만들어내는 다채로운 맛의 사계를 느낄 수 있습니다. 그렇기 때문에, 느린마을막걸리는 맛을 아시는 분들이 꾸준히 다시 찾아주시고 주변에 권해주시는, 입소문 제대로 난 막걸리입니다.ㅇㅇ막걸리는.... 느린마을 막걸리는 일체의 인공감미료 없이, 엄선된 원료와 최적의 발효과정을 거쳐 빚어낸 프리미엄 수제 생 막걸리 입니다. 배상면주가의 오랜 연구개발과 제조 노하우로 빚어낸 부드러운 단맛과 목넘김, 효모가 만들어내는 풍성한 과실향과 산미가 잘 조화되어 있습니다. 또한 계절이 변하듯 시간의 흐름에 따라, 살아있는 효모가 만들어내는 다채로운 맛의 사계를 느낄 수 있습니다. 그렇기 때문에, 느린마을막걸리는 맛을 아시는 분들이 꾸준히 다시 찾아주시고 주변에 권해주시는, 입소문 제대로 난 막걸리입니다.',
+    material: 'ㅇㅇㅇ 양조장',
+    likes: 456,
+    views: 1234567,
+    reviews: 277,
+    image:
+      'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/%E1%84%91%E1%85%A9%E1%84%8E%E1%85%A5%E1%86%AB%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%83%E1%85%A9%E1%86%BC%E1%84%86%E1%85%A1%E1%86%A8%E1%84%80%E1%85%A5%E1%86%AF%E1%84%85%E1%85%B5.jpg',
+  });
+
+  const handleLike = () => {
+    dispatch(addLike(makgeolli.id));
+  };
+
   return (
     <StyleDetailes>
       <StyleDetailesImageBox>
-        <StyleBackgroundImg />
-        <StyleImg />
+        <StyleBackgroundImg makgeolliImg={makgeolli.image} />
+        <StyleImg makgeolliImg={makgeolli.image} />
       </StyleDetailesImageBox>
       <StyleVertical>
         <StyleDescBox>
           <StyleDescInfo>
-            <div>조회수 : 1,444</div>
+            <div>{likesItem}</div>
+            <div>조회수 : {makgeolli.views}</div>
             <div>
-              <StyleSmallLikeBtn>LIKE</StyleSmallLikeBtn>
-              <StyleTextLike>LIKE</StyleTextLike> : 707
+              {!likesItem.includes(makgeolli.id) ? (
+                <StyleSmallLikeBtn onClick={() => handleLike()}>
+                  {makgeolli.likes}
+                </StyleSmallLikeBtn>
+              ) : (
+                <StyleSmallLikeBtn>Not like</StyleSmallLikeBtn>
+              )}
+
+              {/* <StyleSmallLikeBtn onClick={() => handleLike()}>
+                {makgeolli.likes}
+              </StyleSmallLikeBtn> */}
+              <StyleTextLike>LIKE : {makgeolli.likes}</StyleTextLike>
             </div>
-            <div>리뷰 : 49</div>
+            <div>리뷰 : {makgeolli.reviews}</div>
           </StyleDescInfo>
           <StyleExplanation>
-            <StyleTitle>느린마을 oo 막걸리</StyleTitle>
+            <StyleTitle>{makgeolli.name}</StyleTitle>
             <StyleKinds>
-              <p>종류 : 탁주 </p>
-              <p>용량 : 750ml</p>
-              <p>원재료 : 아스파탐, 살... </p>
-              <p>생산지역 :ㅇㅇ </p>
+              <p>종류 : 탁주??? </p>
+              <p>용량 : {makgeolli.content}</p>
+              <p>양조장 :{makgeolli.material} </p>
+              <p>생산지역 :{makgeolli.area} </p>
             </StyleKinds>
           </StyleExplanation>
-          <StyleDescBottom>
-            ㅇㅇ막걸리는.... 느린마을 막걸리는 일체의 인공감미료 없이, 엄선된
-            원료와 최적의 발효과정을 거쳐 빚어낸 프리미엄 수제 생 막걸리 입니다.
-            배상면주가의 오랜 연구개발과 제조 노하우로 빚어낸 부드러운 단맛과
-            목넘김, 효모가 만들어내는 풍성한 과실향과 산미가 잘 조화되어
-            있습니다. 또한 계절이 변하듯 시간의 흐름에 따라, 살아있는 효모가
-            만들어내는 다채로운 맛의 사계를 느낄 수 있습니다. 그렇기 때문에,
-            느린마을막걸리는 맛을 아시는 분들이 꾸준히 다시 찾아주시고 주변에
-            권해주시는, 입소문 제대로 난 막걸리입니다. ㅇㅇ막걸리는.... 느린마을
-            막걸리는 일체의 인공감미료 없이, 엄선된 원료와 최적의 발효과정을
-            거쳐 빚어낸 프리미엄 수제 생 막걸리 입니다. 배상면주가의 오랜
-            연구개발과 제조 노하우로 빚어낸 부드러운 단맛과 목넘김, 효모가
-            만들어내는 풍성한 과실향과 산미가 잘 조화되어 있습니다. 또한 계절이
-            변하듯 시간의 흐름에 따라, 살아있는 효모가 만들어내는 다채로운 맛의
-            사계를 느낄 수 있습니다. 그렇기 때문에, 느린마을막걸리는 맛을 아시는
-            분들이 꾸준히 다시 찾아주시고 주변에 권해주시는, 입소문 제대로 난
-            막걸리입니다.ㅇㅇ막걸리는.... 느린마을 막걸리는 일체의 인공감미료
-            없이, 엄선된 원료와 최적의 발효과정을 거쳐 빚어낸 프리미엄 수제 생
-            막걸리 입니다. 배상면주가의 오랜 연구개발과 제조 노하우로 빚어낸
-            부드러운 단맛과 목넘김, 효모가 만들어내는 풍성한 과실향과 산미가 잘
-            조화되어 있습니다. 또한 계절이 변하듯 시간의 흐름에 따라, 살아있는
-            효모가 만들어내는 다채로운 맛의 사계를 느낄 수 있습니다. 그렇기
-            때문에, 느린마을막걸리는 맛을 아시는 분들이 꾸준히 다시 찾아주시고
-            주변에 권해주시는, 입소문 제대로 난 막걸리입니다.
-          </StyleDescBottom>
+          <StyleDescBottom>{makgeolli.explain}</StyleDescBottom>
         </StyleDescBox>
-        <StyleLikeBtn>LIKE</StyleLikeBtn>
+        {/* <StyleLikeBtn onClick={() => handleLike()}>LIKE</StyleLikeBtn> */}
+
+        {!likesItem.includes(makgeolli.id) ? (
+          <StyleLikeBtn onClick={() => handleLike()}>LIKE</StyleLikeBtn>
+        ) : (
+          <StyleLikeBtn>Not like</StyleLikeBtn>
+        )}
       </StyleVertical>
       <ReviewInput />
       <ReviewList />
@@ -112,7 +142,7 @@ const StyleBackgroundImg = styled.div`
 
   @media ${props => props.theme.desktop} {
     display: block;
-    background-image: url(${makgeolli});
+    background-image: url(${props => props.makgeolliImg});
     background-size: cover;
     background-repeat: no-repeat;
     filter: grayscale(100%);
@@ -127,7 +157,7 @@ const StyleBackgroundImg = styled.div`
 `;
 
 const StyleImg = styled.div`
-  background-image: url(${makgeolli});
+  background-image: url(${props => props.makgeolliImg});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -138,10 +168,6 @@ const StyleImg = styled.div`
   }
 
   @media ${props => props.theme.tablet} {
-    background-image: url(${makgeolli});
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
     width: 50%;
     height: 60vh;
   }
