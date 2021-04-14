@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import ReviewCard from '../components/ReviewCard';
+import ReviewCard from './ReviewCard';
 
 const ReviewList = () => {
   const state = useSelector(state => state.reviewReducer);
@@ -14,9 +14,14 @@ const ReviewList = () => {
         <div>6,047</div>
       </StyleReviewsTop>
       <div>
-        {reviews.map(review => (
-          <ReviewCard review={review} key={review.id} />
-        ))}
+        {!reviews.length ? (
+          <span>리뷰를 작성해주세요.</span>
+        ) : (
+          reviews &&
+          reviews.map(review => <ReviewCard review={review} key={review.id} />)
+        )}
+        {/* {reviews &&
+          reviews.map(review => <ReviewCard review={review} key={review.id} />)} */}
       </div>
     </StyleReviewList>
   );

@@ -1,18 +1,21 @@
+/* eslint-disable react/prop-types */
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { BsStarFill, BsStarHalf } from 'react-icons/bs';
 
-const StarIcon = ({ base, star }) => {
+const StarIcon = props => {
+  const { star, index } = props;
+
   const fillColor = useMemo(() => {
-    if (star >= base) {
+    if (star >= index) {
       return '#ffdb58'; // #ffdb58 === 노란색
     }
-    if (star < base && base - star < 1) {
+    if (star < index && index - star < 1) {
       return 'half';
     }
     return '#dcdcdc'; // #dcdcdc === 회색
-  }, [base, star]);
+  }, [index, star]);
 
   return (
     <div>
@@ -25,25 +28,25 @@ const StarIcon = ({ base, star }) => {
   );
 };
 
-StarIcon.defaultProps = {
-  base: 0,
-  star: 0,
-};
+// StarIcon.defaultProps = {
+//   index: 0,
+//   star: 0,
+// };
 
-StarIcon.propTypes = {
-  base: PropTypes.number,
-  star: PropTypes.number,
-};
+// StarIcon.propTypes = {
+//   index: PropTypes.number,
+//   star: PropTypes.number,
+// };
 
 const StylesHalfStars = styled(BsStarHalf)`
-  width: 100px;
+  width: 20px;
   height: auto;
 
   @media ${props => props.theme.mobile} {
   }
 
   @media ${props => props.theme.tablet} {
-    width: 20px;
+    width: 25px;
     height: auto;
   }
 
@@ -52,14 +55,14 @@ const StylesHalfStars = styled(BsStarHalf)`
 `;
 
 const StyleStars = styled(BsStarFill)`
-  width: 100px;
+  width: 20px;
   height: auto;
 
   @media ${props => props.theme.mobile} {
   }
 
   @media ${props => props.theme.tablet} {
-    width: 20px;
+    width: 25px;
     height: auto;
   }
 

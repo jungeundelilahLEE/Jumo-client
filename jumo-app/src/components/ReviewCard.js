@@ -11,7 +11,7 @@ const ReviewCard = ({ review }) => {
         <StyleNickname>{userName}</StyleNickname>
         <StyleStarBox>
           {[1, 2, 3, 4, 5].map(el => (
-            <StarIcon base={el} star={star} key={el} />
+            <StarIcon index={el} star={star} key={el} />
           ))}
         </StyleStarBox>
         <StyleCreated>{createAt}</StyleCreated>

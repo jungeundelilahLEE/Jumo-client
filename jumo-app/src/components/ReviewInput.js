@@ -1,24 +1,80 @@
-import React from 'react';
+/* eslint-disable no-undef */
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import star from '../images/star.png';
+import { useSelector, useDispatch } from 'react-redux';
+import { addReview } from '../actions';
+import StarInput from './StarInput';
 
 const ReviewInput = () => {
+  const dispatch = useDispatch();
+  const [rating, setRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
+  const [inputText, setInputText] = useState('');
+
+  const onMouseEnter = index => setHoverRating(index);
+  const onMouseLeave = () => setHoverRating(0);
+  const onSaveRating = index => setRating(index);
+
+  const handleReview = e => {
+    setInputText(e.target.value);
+  };
+
+  const reviewText = useRef();
+
+  const handleSave = () => {
+    if (!inputText.length) {
+      alert('리뷰를 입력해주세요(최소 2글자).');
+      return;
+    }
+
+    // 나중에 서버랑 통신하는 부분임. 지금은 로컬 더미 데이터로 확인
+    // const state = useSelector(state => state.reviewReducer);
+    // const { reviews } = state;
+
+    const reviews = {
+      id: 10,
+      makgeolliId: 4,
+      star: rating,
+      comment: inputText,
+      image: '',
+      userId: 10,
+      userName: 'TEST;;;',
+    };
+
+    dispatch(addReview(reviews));
+
+    setRating(0);
+    setInputText('');
+    reviewText.current.value = '';
+  };
+
   return (
     <StyleInputBox>
       <div>
         <StyleStarBox>
-          <StyleStar />
-          <StyleStar />
-          <StyleStar />
-          <StyleStar />
-          <StyleStar />
+          {[1, 2, 3, 4, 5].map((el, idx) => (
+            <StarInput
+              index={idx}
+              rating={rating}
+              key={el}
+              hoverRating={hoverRating}
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
+              onSaveRating={onSaveRating}
+            />
+          ))}
         </StyleStarBox>
         <StyleInputWrap>
           <StyleInputItem>
-            <StyleInput placeholder="리뷰를 입력해주세요(300자 이내)" />
+            <StyleInput
+              maxLength={300}
+              onChange={handleReview}
+              placeholder="리뷰를 입력해주세요(300자 이내)"
+              ref={reviewText}
+            />
           </StyleInputItem>
           <StyleBtnItem>
-            <StyleSaveBtn>SAVE</StyleSaveBtn>
+            <StyleSaveBtn onClick={handleSave}>SAVE</StyleSaveBtn>
           </StyleBtnItem>
         </StyleInputWrap>
         <StyleBtnWrap>
@@ -64,38 +120,11 @@ const StyleStarBox = styled.div`
   }
 `;
 
-const StyleStar = styled.div`
-  width: 8vmin;
-  height: 8vmin;
-  max-width: 40px;
-  max-height: 40px;
-  background-image: url(${star});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-
-  @media ${props => props.theme.mobile} {
-  }
-
-  @media ${props => props.theme.tablet} {
-    width: 5vmin;
-    height: 5vmin;
-    max-width: 5vmin;
-    max-height: 5vmin;
-  }
-
-  @media ${props => props.theme.desktop} {
-  }
-`;
-
 const StyleInputWrap = styled.div`
   width: 100vw;
   height: 20vmin;
   display: flex;
   border-top: 2px red solid;
-
-  /* position: fixed;
-  bottom: 50px; */
 
   @media ${props => props.theme.mobile} {
   }

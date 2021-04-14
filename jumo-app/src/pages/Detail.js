@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import makgeolli from '../images/mak-sample-1.png';
-import ReviewInput from './ReviewInput';
-import ReviewList from './ReviewList';
+import ReviewInput from '../components/ReviewInput';
+import ReviewList from '../components/ReviewList';
 
 const Detail = () => {
   return (
