@@ -4,7 +4,10 @@ import initialState from './initialState';
 const reviewReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_REVIEW:
-      return { ...state, ...action.payload };
+      return {
+        ...state,
+        reviews: [...state.reviews, { ...action.payload.reviews }],
+      };
 
     default:
       return state;
