@@ -31,7 +31,8 @@ const ReviewInput = () => {
     // const state = useSelector(state => state.reviewReducer);
     // const { reviews } = state;
 
-    const reviews = {
+    // Test dummy data...
+    const review = {
       id: 10,
       makgeolliId: 4,
       star: rating,
@@ -41,7 +42,7 @@ const ReviewInput = () => {
       userName: 'TEST;;;',
     };
 
-    dispatch(addReview(reviews));
+    dispatch(addReview(review));
 
     setRating(0);
     setInputText('');
@@ -56,7 +57,7 @@ const ReviewInput = () => {
             <StarInput
               index={idx}
               rating={rating}
-              key={el}
+              key={el / 2}
               hoverRating={hoverRating}
               onMouseEnter={onMouseEnter}
               onMouseLeave={onMouseLeave}

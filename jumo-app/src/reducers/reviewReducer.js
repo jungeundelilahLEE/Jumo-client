@@ -6,7 +6,7 @@ const reviewReducer = (state = initialState, action) => {
     case ADD_REVIEW:
       return {
         ...state,
-        reviews: [...state.reviews, { ...action.payload.reviews }],
+        reviewList: [...state.reviewList, { ...action.payload.review }],
       };
 
     default:
