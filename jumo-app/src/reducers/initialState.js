@@ -43,7 +43,7 @@ export default {
       makgeolliId: 4,
       star: 3.5,
       comment: '맛이끝내줍니자아주',
-      image: '../images/review-sample-1.png',
+      image: '',
       userId: 1,
       userName: '김코딩',
       createAt: '2021/07/13',
@@ -76,7 +76,7 @@ export default {
     },
 
     {
-      id: 3,
+      id: 4,
       makgeolliId: 4,
       star: 2.5,
       comment: '맛있습니다강추합니다정말맛있습니다',

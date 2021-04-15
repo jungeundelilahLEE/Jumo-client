@@ -2,8 +2,8 @@
 /* eslint-disable react/prop-types */
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { BsStarFill, BsStarHalf } from 'react-icons/bs';
+// import PropTypes from 'prop-types';
+import { BsStarFill } from 'react-icons/bs';
 
 const StarInput = props => {
   const {
@@ -19,7 +19,7 @@ const StarInput = props => {
     if (hoverRating >= index) {
       return '#ffdb58';
     }
-    if (!hoverRating && rating >= index) {
+    if (!hoverRating && rating > index) {
       return '#ffdb58';
     }
     return '#dcdcdc';

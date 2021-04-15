@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { BsStarFill, BsStarHalf } from 'react-icons/bs';
 
 const StarIcon = props => {

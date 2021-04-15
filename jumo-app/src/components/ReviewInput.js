@@ -7,7 +7,7 @@ import StarInput from './StarInput';
 
 const ReviewInput = () => {
   const dispatch = useDispatch();
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(1);
   const [hoverRating, setHoverRating] = useState(0);
   const [inputText, setInputText] = useState('');
 
@@ -44,7 +44,7 @@ const ReviewInput = () => {
 
     dispatch(addReview(review));
 
-    setRating(0);
+    setRating(1);
     setInputText('');
     reviewText.current.value = '';
   };
