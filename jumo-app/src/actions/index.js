@@ -66,3 +66,10 @@ export const addLike = itemId => {
     payload: [itemId],
   };
 };
+
+export const removeLike = itemId => {
+  return {
+    type: REMOVE_LIKE,
+    payload: [itemId],
+  };
+};

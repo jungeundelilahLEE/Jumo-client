@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { addLike } from '../actions';
+import { addLike, removeLike } from '../actions';
 // import makgeolliImg from '../images/mak-sample-1.png';
 import ReviewInput from '../components/ReviewInput';
 import ReviewList from '../components/ReviewList';
@@ -42,16 +42,22 @@ const Detail = () => {
     dispatch(addLike(makgeolli.id));
   };
 
+  const handleRemoveLike = () => {
+    dispatch(removeLike(makgeolli.id));
+  };
+
   return (
     <StyleDetailes>
       <StyleDetailesImageBox>
-        <StyleBackgroundImg makgeolliImg={makgeolli.image} />
-        <StyleImg makgeolliImg={makgeolli.image} />
+        <StyleBackgroundImg
+          makgeolliImg={makgeolli.image}
+          alt="막걸리 흑백이미지"
+        />
+        <StyleImg makgeolliImg={makgeolli.image} alt="막걸리 이미지" />
       </StyleDetailesImageBox>
       <StyleVertical>
         <StyleDescBox>
           <StyleDescInfo>
-            <div>{likesItem}</div>
             <div>조회수 : {makgeolli.views}</div>
             <div>
               {!likesItem.includes(makgeolli.id) ? (
@@ -59,7 +65,9 @@ const Detail = () => {
                   {makgeolli.likes}
                 </StyleSmallLikeBtn>
               ) : (
-                <StyleSmallLikeBtn>Not like</StyleSmallLikeBtn>
+                <StyleSmallLikeBtn onClick={() => handleRemoveLike()}>
+                  Not LIKE
+                </StyleSmallLikeBtn>
               )}
 
               {/* <StyleSmallLikeBtn onClick={() => handleLike()}>
@@ -85,7 +93,9 @@ const Detail = () => {
         {!likesItem.includes(makgeolli.id) ? (
           <StyleLikeBtn onClick={() => handleLike()}>LIKE</StyleLikeBtn>
         ) : (
-          <StyleLikeBtn>Not like</StyleLikeBtn>
+          <StyleLikeBtn onClick={() => handleRemoveLike()}>
+            Not Like
+          </StyleLikeBtn>
         )}
       </StyleVertical>
       <ReviewInput />
