@@ -1,4 +1,4 @@
-import { ADD_REVIEW } from '../actions/index';
+import { ADD_REVIEW, REMOVE_REVIEW, UPDATE_REVIEW } from '../actions/index';
 import initialState from './initialState';
 
 const reviewReducer = (state = initialState, action) => {
@@ -7,6 +7,29 @@ const reviewReducer = (state = initialState, action) => {
       return {
         ...state,
         reviewList: [...state.reviewList, { ...action.payload.review }],
+      };
+
+    case REMOVE_REVIEW:
+      return {
+        ...state,
+        reviewList: state.reviewList.filter(
+          el => el.id !== action.payload.reviewId,
+        ),
+      };
+
+    case UPDATE_REVIEW:
+      return {
+        ...state,
+        reviewList: [
+          ...state.reviewList,
+          state.reviewList.map(el => {
+            const review = el;
+            if (review.id === action.payload.reviewId) {
+              review.comment = action.payload.comment;
+            }
+            return review;
+          }),
+        ],
       };
 
     default:

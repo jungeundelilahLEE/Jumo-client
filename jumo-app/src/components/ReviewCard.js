@@ -1,10 +1,42 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+import React, { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import { removeReview, editReview } from '../actions';
+// import PropTypes from 'prop-types';
 import StarIcon from './StarIcon';
 
 const ReviewCard = ({ review }) => {
+  const dispatch = useDispatch();
   const { id, userId, star, userName, createAt, image, comment } = review;
+  const [inputText, setInputText] = useState('');
+  const [edit, setEdit] = useState(false);
+
+  const handleReview = e => {
+    setInputText(e.target.value);
+  };
+
+  const handleDelete = reviewId => {
+    dispatch(removeReview(reviewId));
+  };
+
+  const handleEdit = () => {
+    setEdit(true);
+  };
+
+  const handleUpdateSave = reviewId => {
+    if (window.confirm('정말 수정하시겠습니까??') === false) {
+      return;
+    }
+
+    setEdit(false);
+    dispatch(editReview(reviewId, inputText));
+  };
+
+  const handleUpdateCancel = () => {
+    setEdit(false);
+  };
+
   return (
     <StyleReviewsBox>
       <StyleWriter>
@@ -17,41 +49,76 @@ const ReviewCard = ({ review }) => {
         <StyleCreated>{createAt}</StyleCreated>
       </StyleWriter>
       <StyleContents>
-        <StyleImg src={image} alt="유저 이미지" />
+        {image !== '' && <StyleImg src={image} alt="유저 이미지" />}
+        {/* <StyleImg src={image} alt="유저 이미지" /> */}
 
-        <StyleEffective>
-          <StyleText>{comment}</StyleText>
+        {/* <StyleEffective> */}
+        {edit === false ? (
+          <StyleEffective>
+            <StyleText>{comment}</StyleText>
 
-          {/* id test.. 작성자게만 버튼 보이는 기능 구현 필요 */}
-          <div>id : {id}</div>
-          <div>userId : {userId}</div>
+            <StyleModifyBox>
+              <StyleChangeBtn onClick={() => handleEdit()}>edit</StyleChangeBtn>
+              <StyleChangeBtn onClick={() => handleDelete(id)}>
+                delete
+              </StyleChangeBtn>
+            </StyleModifyBox>
+          </StyleEffective>
+        ) : (
+          <StyleEffective>
+            <StyleInput
+              maxLength={300}
+              onChange={handleReview}
+              placeholder="리뷰를 입력해주세요(300자 이내)"
+            >
+              {comment}
+            </StyleInput>
 
-          <StyleModifyBox>
-            <StyleChangeBtn>edit</StyleChangeBtn>
-            <StyleChangeBtn>delete</StyleChangeBtn>
-          </StyleModifyBox>
-        </StyleEffective>
+            <StyleModifyBox>
+              <StyleChangeBtn onClick={() => handleUpdateSave(id)}>
+                save
+              </StyleChangeBtn>
+              <StyleChangeBtn onClick={() => handleUpdateCancel()}>
+                cancel
+              </StyleChangeBtn>
+            </StyleModifyBox>
+          </StyleEffective>
+        )}
+
+        {/* <StyleText>{comment}</StyleText> */}
+
+        {/* id test.. 작성자게만 버튼 보이는 기능 구현 필요 */}
+        {/* <div>id : {id}</div>
+          <div>userId : {userId}</div> */}
+
+        {/* <StyleModifyBox>
+            <StyleChangeBtn onClick={() => handleEdit()}>edit</StyleChangeBtn>
+            <StyleChangeBtn onClick={() => handleDelete(id)}>
+              delete
+            </StyleChangeBtn>
+          </StyleModifyBox> */}
+        {/* </StyleEffective> */}
       </StyleContents>
     </StyleReviewsBox>
   );
 };
 
-ReviewCard.defaultProps = {
-  review: {},
-};
+// ReviewCard.defaultProps = {
+//   review: {},
+// };
 
-ReviewCard.propTypes = {
-  review: PropTypes.shape({
-    id: PropTypes.number,
-    userId: PropTypes.number,
-    userName: PropTypes.string,
-    star: PropTypes.number,
-    comment: PropTypes.string,
-    image: PropTypes.string,
-    createAt: PropTypes.string,
-    updateAt: PropTypes.string,
-  }),
-};
+// ReviewCard.propTypes = {
+//   review: PropTypes.shape({
+//     id: PropTypes.number,
+//     userId: PropTypes.number,
+//     userName: PropTypes.string,
+//     star: PropTypes.number,
+//     comment: PropTypes.string,
+//     image: PropTypes.string,
+//     createAt: PropTypes.string,
+//     updateAt: PropTypes.string,
+//   }),
+// };
 
 const StyleReviewsBox = styled.div`
   min-height: 10vmin;
@@ -184,6 +251,25 @@ const StyleChangeBtn = styled.button`
   }
 
   @media ${props => props.theme.desktop} {
+  }
+`;
+
+const StyleInput = styled.textarea`
+  width: 100%;
+  height: 96%;
+  border: none;
+  resize: none;
+  font-size: 1rem;
+  padding: 2vmin;
+
+  @media ${props => props.theme.mobile} {
+  }
+
+  @media ${props => props.theme.tablet} {
+  }
+
+  @media ${props => props.theme.desktop} {
+    font-size: 1rem;
   }
 `;
 
