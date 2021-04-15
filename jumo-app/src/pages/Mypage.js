@@ -1,11 +1,89 @@
 import React from 'react';
 import styled from 'styled-components';
-import Styled from 'styled-components';
+// eslint-disable-next-line import/no-cycle
+import { useSelector } from 'react-redux';
+// eslint-disable-next-line import/no-cycle
 import Nav from './Nav';
 import MakImg from '../images/intro-sec1.png';
 import TrashBinImg from '../images/trash-bin.png';
 
-//TODO ---------- MY PROFILE
+const Mypage = () => {
+  const state = useSelector(states => states.reviewReducer); // 로그인리듀서로 바꿔야
+  const { isLogin } = state;
+
+  const makImg = MakImg;
+  const trashBinImg = TrashBinImg;
+
+  // eslint-disable-next-line no-unused-vars
+  const nicknameClickHandler = e => {
+    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-alert
+    alert('edit nickname');
+  };
+
+  return (
+    <div>
+      {!isLogin ? (
+        ''
+      ) : (
+        <div>
+          <Nav />
+          <Section>
+            <MyProfile>
+              <MyProfileTitle>MY&nbsp;PROFILE</MyProfileTitle>
+              <MyProfileList>Nickname</MyProfileList>
+              <MyProfileContent>willy LEE</MyProfileContent>
+              {/* // eslint-disable-next-line react/button-has-type */}
+              {/* <button>edit</button> */}
+              <MyProfileEditBtn onclick={nicknameClickHandler}>
+                edit
+              </MyProfileEditBtn>
+              <MyProfileList>Email</MyProfileList>
+              <MyProfileContent>willy@gmail.com</MyProfileContent>
+              <MyProfileList>Registered Date</MyProfileList>
+              <MyProfileContent>2020-02-02</MyProfileContent>
+            </MyProfile>
+
+            <MyProfileHello>Hello #username! Wellcome back!</MyProfileHello>
+
+            <MyBtn>
+              <MyReviewBtn>MY REVIEWS</MyReviewBtn>
+              <MyFavBtn>MY FAVORITES</MyFavBtn>
+            </MyBtn>
+
+            <MyReviews>
+              <MyReviewsBox>
+                <MyReviewImg src={makImg} alt="makImg" />
+                <MyReviewContent>
+                  <MyReviewCreatedAt>2020-02-02</MyReviewCreatedAt>
+                  <MyReviewReview>야미!dfdddddfdfdfdffdfdfd</MyReviewReview>
+                  <MyReviewBtnBox>
+                    <MyReviewEditBtn>edit</MyReviewEditBtn>
+                    {/* edit을 click하면, review는 그대로 있고 input으로..... */}
+                    <MyReviewDeleteBtn>delete</MyReviewDeleteBtn>
+                  </MyReviewBtnBox>
+                </MyReviewContent>
+              </MyReviewsBox>
+            </MyReviews>
+
+            <MyFavs>
+              <MyFavsBox>
+                <MyFavImg src={makImg} alt="makImg" />
+                <MyFavImg src={makImg} alt="makImg" />
+                <MyFavImg src={makImg} alt="makImg" />
+                <MyFavImg src={makImg} alt="makImg" />
+                <MyFavImg src={makImg} alt="makImg" />
+                <MyFavImg src={makImg} alt="makImg" />
+              </MyFavsBox>
+              <MyFavDeleteBtn src={trashBinImg} alt="trashBin" />
+            </MyFavs>
+          </Section>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const Section = styled.section`
   display: flex;
   flex-direction: column;
@@ -103,14 +181,18 @@ const MyProfileContent = styled.li`
   font-size: 0.9em;
   margin: 0.5em;
 `;
+const MyProfileEditBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  background: #293848;
+  color: white;
+`;
 
-// TODO -------------ANIMATION HELLO
 const MyProfileHello = styled.div`
   display: flex;
   color: deeppink;
 `;
 
-// TODO -------------- MY BTN
 const MyBtn = styled.div`
   display: flex;
   flex-direction: row;
@@ -159,8 +241,6 @@ const MyFavBtn = styled.button`
   box-shadow: inset -2px 3px 5px #ccb49f;
   padding-bottom: 0px;
 `;
-
-//TODO ----------------REVIEWS CONTENTS
 
 const MyReviews = styled.div`
   display: flex;
@@ -231,7 +311,6 @@ const MyReviewDeleteBtn = styled.button`
   margin-left: 0.3em;
 `;
 
-//TODO ---------------- FAVS CONTENTS
 const MyFavs = styled.div`
   display: flex;
   background-color: #c29b86;
@@ -271,63 +350,5 @@ const MyFavDeleteBtn = styled.img`
   margin-top: 40vh;
   margin-right: 1.5em;
 `;
-
-const Mypage = () => {
-  const makImg = MakImg;
-  const trashBinImg = TrashBinImg;
-
-  return (
-    <div>
-      <Nav />
-      <Section>
-        <MyProfile>
-          <MyProfileTitle>MY&nbsp;PROFILE</MyProfileTitle>
-          <MyProfileList>Nickname</MyProfileList>
-          <MyProfileContent>willy LEE</MyProfileContent>
-          <button>edit</button>
-          <MyProfileList>Email</MyProfileList>
-          <MyProfileContent>willy@gmail.com</MyProfileContent>
-          <MyProfileList>Registered Date</MyProfileList>
-          <MyProfileContent>2020-02-02</MyProfileContent>
-        </MyProfile>
-
-        <MyProfileHello>Hello #username! Wellcome back!</MyProfileHello>
-
-        <MyBtn>
-          <MyReviewBtn>MY REVIEWS</MyReviewBtn>
-          <MyFavBtn>MY FAVORITES</MyFavBtn>
-        </MyBtn>
-
-        <MyReviews>
-          <MyReviewsBox>
-            <MyReviewImg src={makImg} alt="makImg" />
-            <MyReviewContent>
-              <MyReviewCreatedAt>2020-02-02</MyReviewCreatedAt>
-              <MyReviewReview>야미!dfdddddfdfdfdffdfdfd</MyReviewReview>
-              <MyReviewBtnBox>
-                <MyReviewEditBtn>edit</MyReviewEditBtn>
-                {/* edit을 click하면, review는 그대로 있고 input으로..... */}
-                <MyReviewDeleteBtn>delete</MyReviewDeleteBtn>
-              </MyReviewBtnBox>
-            </MyReviewContent>
-          </MyReviewsBox>
-        </MyReviews>
-
-        <MyFavs>
-          <MyFavsBox>
-            <MyFavImg src={makImg} alt="makImg" />
-            <MyFavImg src={makImg} alt="makImg" />
-            <MyFavImg src={makImg} alt="makImg" />
-            <MyFavImg src={makImg} alt="makImg" />
-            <MyFavImg src={makImg} alt="makImg" />
-            <MyFavImg src={makImg} alt="makImg" />
-          </MyFavsBox>
-          <MyFavDeleteBtn src={trashBinImg} alt="trashBin" />
-          {/* 저기요 // 쓰레기통 흔들 */}
-        </MyFavs>
-      </Section>
-    </div>
-  );
-};
 
 export default Mypage;
