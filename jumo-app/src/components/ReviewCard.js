@@ -53,7 +53,7 @@ const ReviewCard = ({ review }) => {
         {/* <StyleImg src={image} alt="유저 이미지" /> */}
 
         {/* <StyleEffective> */}
-        {edit === false ? (
+        {!edit === false ? (
           <StyleEffective>
             <StyleText>{comment}</StyleText>
 
