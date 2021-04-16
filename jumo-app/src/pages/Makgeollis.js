@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import BestMakgeollis from './BestMakgeollis';
 import MakgeolliCard from '../components/MakgeolliCard';
 
@@ -30,7 +31,11 @@ const Makgeollis = () => {
 
       <StyleListBox>
         {list.length ? (
-          list.map(item => <MakgeolliCard item={item} key={item.id} />)
+          list.map(item => (
+            <Link to={`/makgeolli/list/${item.id}`}>
+              <MakgeolliCard item={item} key={item.id} />
+            </Link>
+          ))
         ) : (
           <span>
             막걸리 리스트가 없습니다.

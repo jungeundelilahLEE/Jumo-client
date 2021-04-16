@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import BestMain from '../components/BestMain';
 import BestSide from '../components/BestSide';
 
@@ -31,9 +32,17 @@ const BestMakgeollis = () => {
           <StyleBestList>
             {topList.map((item, idx) => {
               if (idx === 2) {
-                return <BestMain item={item} index={idx} key={item.id} />;
+                return (
+                  <Link to={`/makgeolli/list/${item.id}`}>
+                    <BestMain item={item} index={idx} key={item.id} />
+                  </Link>
+                );
               }
-              return <BestSide item={item} index={idx} key={item.id} />;
+              return (
+                <Link to={`/makgeolli/list/${item.id}`}>
+                  <BestSide item={item} index={idx} key={item.id} />
+                </Link>
+              );
             })}
           </StyleBestList>
 
@@ -46,34 +55,38 @@ const BestMakgeollis = () => {
           if (idx === 1) {
             return (
               <StyleBoder>
-                <StyleMobileImg item={item} index={idx} key={item.id}>
-                  <StyleItemInfo>
-                    <StyleInfoTop>
-                      <div className="StyleInfoName">{item.name}</div>
-                      <StyleInfoVol>{item.content} % vol</StyleInfoVol>
-                    </StyleInfoTop>
-                    <StyleInfoBox>
-                      <div className="StyleViews">Views: {item.views}</div>
-                      <div className="StyleLikes">Likes: {item.likes}</div>
-                    </StyleInfoBox>
-                  </StyleItemInfo>
-                </StyleMobileImg>
+                <Link to={`/makgeolli/list/${item.id}`}>
+                  <StyleMobileImg item={item} index={idx} key={item.id}>
+                    <StyleItemInfo>
+                      <StyleInfoTop>
+                        <div className="StyleInfoName">{item.name}</div>
+                        <StyleInfoVol>{item.content} % vol</StyleInfoVol>
+                      </StyleInfoTop>
+                      <StyleInfoBox>
+                        <div className="StyleViews">Views: {item.views}</div>
+                        <div className="StyleLikes">Likes: {item.likes}</div>
+                      </StyleInfoBox>
+                    </StyleItemInfo>
+                  </StyleMobileImg>
+                </Link>
               </StyleBoder>
             );
           }
           return (
-            <StyleMobileImg item={item} index={idx} key={item.id}>
-              <StyleItemInfo>
-                <StyleInfoTop>
-                  <div className="StyleInfoName">{item.name}</div>
-                  <StyleInfoVol>{item.content} % vol</StyleInfoVol>
-                </StyleInfoTop>
-                <StyleInfoBox>
-                  <div className="StyleViews">Views: {item.views}</div>
-                  <div className="StyleLikes">Likes: {item.likes}</div>
-                </StyleInfoBox>
-              </StyleItemInfo>
-            </StyleMobileImg>
+            <Link to={`/makgeolli/list/${item.id}`}>
+              <StyleMobileImg item={item} index={idx} key={item.id}>
+                <StyleItemInfo>
+                  <StyleInfoTop>
+                    <div className="StyleInfoName">{item.name}</div>
+                    <StyleInfoVol>{item.content} % vol</StyleInfoVol>
+                  </StyleInfoTop>
+                  <StyleInfoBox>
+                    <div className="StyleViews">Views: {item.views}</div>
+                    <div className="StyleLikes">Likes: {item.likes}</div>
+                  </StyleInfoBox>
+                </StyleItemInfo>
+              </StyleMobileImg>
+            </Link>
           );
         })}
       </StyleMobileList>

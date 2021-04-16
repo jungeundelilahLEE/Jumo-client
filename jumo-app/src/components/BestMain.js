@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
+
 import logo from '../images/logo.png';
 import ribbon from '../images/ribbon.png';
 
