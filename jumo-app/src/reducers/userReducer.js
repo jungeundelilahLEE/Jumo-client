@@ -6,13 +6,13 @@ const userReducer = (state = initialState, action) => {
     case ADD_LIKE:
       return {
         ...state,
-        likesItem: [...state.likesItem, ...action.payload],
+        likeItems: [...state.likeItems, ...action.payload],
       };
 
     case REMOVE_LIKE:
       return {
         ...state,
-        likesItem: state.likesItem.filter(
+        likeItems: state.likeItems.filter(
           el => el.itemId !== action.payload.itemId,
         ),
       };

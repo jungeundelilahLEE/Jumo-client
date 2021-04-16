@@ -7,6 +7,7 @@ export const UPDATE_TOKEN = 'UPDATE_TOKEN';
 export const ADD_REVIEW = 'ADD_REVIEW';
 export const REMOVE_REVIEW = 'REMOVE_REVIEW';
 export const UPDATE_REVIEW = 'UPDATE_REVIEW';
+export const UPDATE_REVIEWLIST = 'UPDATE_REVIEWLIST';
 
 // LIKE
 export const ADD_LIKE = 'ADD_LIKE';
@@ -28,6 +29,15 @@ export const signOut = () => {
       id: null,
       userName: '',
       email: '',
+    },
+  };
+};
+
+export const updateReivewList = review => {
+  return {
+    type: UPDATE_REVIEWLIST,
+    payload: {
+      review,
     },
   };
 };
