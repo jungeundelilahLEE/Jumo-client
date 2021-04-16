@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
@@ -5,11 +6,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addReview } from '../actions';
 import StarInput from './StarInput';
 
-const ReviewInput = () => {
+import resUser from '../atoms/dummyUser'; // 유저 더미데이터
+
+const ReviewInput = ({ makgeolliId }) => {
   const dispatch = useDispatch();
   const [rating, setRating] = useState(1);
   const [hoverRating, setHoverRating] = useState(0);
   const [inputText, setInputText] = useState('');
+
+  //! dummy data => server
+  const { dataUser } = resUser;
+  const { user } = dataUser;
 
   const onMouseEnter = index => setHoverRating(index);
   const onMouseLeave = () => setHoverRating(0);
@@ -34,12 +41,12 @@ const ReviewInput = () => {
     // Test dummy data...
     const review = {
       id: 10,
-      makgeolliId: 4,
+      makgeolliId,
       star: rating,
       comment: inputText,
       image: '',
-      userId: 10,
-      userName: 'TEST;;;',
+      userId: user.id,
+      username: 'TEST;;;',
     };
 
     dispatch(addReview(review));

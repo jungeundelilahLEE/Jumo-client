@@ -6,11 +6,12 @@ import { removeReview, editReview } from '../actions';
 // import PropTypes from 'prop-types';
 import StarIcon from './StarIcon';
 
-const ReviewCard = ({ review }) => {
+const ReviewCard = ({ review, user }) => {
   const dispatch = useDispatch();
-  const { id, userId, star, userName, createAt, image, comment } = review;
+  const { id, userId, star, username, createAt, image, comment } = review;
   const [inputText, setInputText] = useState('');
   const [edit, setEdit] = useState(false);
+  const [save, setSave] = useState(false);
 
   const handleReview = e => {
     setInputText(e.target.value);
@@ -22,6 +23,7 @@ const ReviewCard = ({ review }) => {
 
   const handleEdit = () => {
     setEdit(true);
+    setSave(true);
   };
 
   const handleUpdateSave = reviewId => {
@@ -30,17 +32,19 @@ const ReviewCard = ({ review }) => {
     }
 
     setEdit(false);
+    setSave(false);
     dispatch(editReview(reviewId, inputText));
   };
 
   const handleUpdateCancel = () => {
     setEdit(false);
+    setSave(false);
   };
 
   return (
     <StyleReviewsBox>
       <StyleWriter>
-        <StyleNickname>{userName}</StyleNickname>
+        <StyleNickname>{username}</StyleNickname>
         <StyleStarBox>
           {['a', 'b', 'c', 'd', 'e'].map((el, idx) => (
             <StarIcon index={idx} star={star} key={el} />
@@ -50,22 +54,8 @@ const ReviewCard = ({ review }) => {
       </StyleWriter>
       <StyleContents>
         {image !== '' && <StyleImg src={image} alt="유저 이미지" />}
-        {/* <StyleImg src={image} alt="유저 이미지" /> */}
-
-        {/* <StyleEffective> */}
-        {edit === false ? (
-          <StyleEffective>
-            <StyleText>{comment}</StyleText>
-
-            <StyleModifyBox>
-              <StyleChangeBtn onClick={() => handleEdit()}>edit</StyleChangeBtn>
-              <StyleChangeBtn onClick={() => handleDelete(id)}>
-                delete
-              </StyleChangeBtn>
-            </StyleModifyBox>
-          </StyleEffective>
-        ) : (
-          <StyleEffective>
+        <StyleEffective>
+          {edit ? (
             <StyleInput
               maxLength={300}
               onChange={handleReview}
@@ -73,7 +63,22 @@ const ReviewCard = ({ review }) => {
             >
               {comment}
             </StyleInput>
+          ) : (
+            <StyleText>{comment}</StyleText>
+          )}
 
+          {userId === user.id && !save ? (
+            <StyleModifyBox>
+              <StyleChangeBtn onClick={() => handleEdit()}>edit</StyleChangeBtn>
+              <StyleChangeBtn onClick={() => handleDelete(id)}>
+                delete
+              </StyleChangeBtn>
+            </StyleModifyBox>
+          ) : (
+            ''
+          )}
+
+          {save && (
             <StyleModifyBox>
               <StyleChangeBtn onClick={() => handleUpdateSave(id)}>
                 save
@@ -82,22 +87,8 @@ const ReviewCard = ({ review }) => {
                 cancel
               </StyleChangeBtn>
             </StyleModifyBox>
-          </StyleEffective>
-        )}
-
-        {/* <StyleText>{comment}</StyleText> */}
-
-        {/* id test.. 작성자게만 버튼 보이는 기능 구현 필요 */}
-        {/* <div>id : {id}</div>
-          <div>userId : {userId}</div> */}
-
-        {/* <StyleModifyBox>
-            <StyleChangeBtn onClick={() => handleEdit()}>edit</StyleChangeBtn>
-            <StyleChangeBtn onClick={() => handleDelete(id)}>
-              delete
-            </StyleChangeBtn>
-          </StyleModifyBox> */}
-        {/* </StyleEffective> */}
+          )}
+        </StyleEffective>
       </StyleContents>
     </StyleReviewsBox>
   );

@@ -1,25 +1,19 @@
-import React from 'react';
+/* eslint-disable import/no-cycle */
+import React, { useState } from 'react';
 import styled from 'styled-components';
 // eslint-disable-next-line import/no-cycle
 import { useSelector } from 'react-redux';
-// eslint-disable-next-line import/no-cycle
 import Nav from './Nav';
 import MakImg from '../images/intro-sec1.png';
 import TrashBinImg from '../images/trash-bin.png';
+import UsernameEditBtn from './UsernameEditBtn';
 
 const Mypage = () => {
   const state = useSelector(states => states.reviewReducer); // 로그인리듀서로 바꿔야
-  const { isLogin } = state;
+  const { isLogin, user } = state;
 
   const makImg = MakImg;
   const trashBinImg = TrashBinImg;
-
-  // eslint-disable-next-line no-unused-vars
-  const nicknameClickHandler = e => {
-    // eslint-disable-next-line no-console
-    // eslint-disable-next-line no-alert
-    alert('edit nickname');
-  };
 
   return (
     <div>
@@ -33,11 +27,8 @@ const Mypage = () => {
               <MyProfileTitle>MY&nbsp;PROFILE</MyProfileTitle>
               <MyProfileList>Nickname</MyProfileList>
               <MyProfileContent>willy LEE</MyProfileContent>
-              {/* // eslint-disable-next-line react/button-has-type */}
-              {/* <button>edit</button> */}
-              <MyProfileEditBtn onclick={nicknameClickHandler}>
-                edit
-              </MyProfileEditBtn>
+              <MyProfileContent>{user.username}</MyProfileContent>
+              <UsernameEditBtn user={user} isLogin={isLogin} />
               <MyProfileList>Email</MyProfileList>
               <MyProfileContent>willy@gmail.com</MyProfileContent>
               <MyProfileList>Registered Date</MyProfileList>

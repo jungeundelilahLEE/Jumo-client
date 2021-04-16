@@ -1,200 +1,50 @@
 import React from 'react';
 import styled from 'styled-components';
-import makgeolli from '../images/mak-sample-2.png';
+import BestMakgeollis from './BestMakgeollis';
+import MakgeolliCard from '../components/MakgeolliCard';
+
+import res from '../atoms/dummyMaks';
 
 const Makgeollis = () => {
+  // const [list, setList] = useState([]);
+
+  //! dummy data => server
+  // test
+  // const { data } = res;
+  // setList(data);
+  // useEffect(() => {
+  //   const { data } = res;
+  //   setList(data);
+  // }, []);
+
+  const { data } = res;
+  const list = data;
+
   return (
     <StyleMakgeollis>
+      <BestMakgeollis />
       <StyleResultText>
-        총<StyleResultNumber>7</StyleResultNumber>
+        총<StyleResultNumber>{list.length}</StyleResultNumber>
         개의 막걸리가 검색되었습니다.
       </StyleResultText>
-      <StyleListBox>
-        <StyleCard>
-          <StyleItem>
-            <StyleItemInfo>
-              <StyleInfoTop>
-                <div className="StyleInfoName">
-                  느린마을 막걸리입니다아아아아
-                </div>
-                <StyleInfoVol>4.5 % vol</StyleInfoVol>
-              </StyleInfoTop>
-              <StyleInfoBox>
-                <div className="StyleViews">Views: 1002</div>
-                <div className="StyleLikes">Likes: 500</div>
-                <div className="StyleReviews">Reviews: 7809</div>
-              </StyleInfoBox>
-            </StyleItemInfo>
-          </StyleItem>
-          <StyleMobileInfoBox>
-            <div>느린마을 막걸리입니다아아아아</div>
-            <div>
-              <div className="StyleMobileViews">Views: 1002</div>
-              <div className="StyleMobileLikes">Likes: 500</div>
-              <div className="StyleMobileReviews">Reviews: 7809</div>
-            </div>
-          </StyleMobileInfoBox>
-        </StyleCard>
 
-        {/* TEST UI */}
-        <StyleCard>
-          <StyleItem>
-            <StyleItemInfo>
-              <StyleInfoTop>
-                <div className="StyleInfoName">
-                  느린마을 막걸리입니다아아아아
-                </div>
-                <StyleInfoVol>4.5 % vol</StyleInfoVol>
-              </StyleInfoTop>
-              <StyleInfoBox>
-                <div className="StyleViews">Views: 1002</div>
-                <div className="StyleLikes">Likes: 500</div>
-                <div className="StyleReviews">Reviews: 7809</div>
-              </StyleInfoBox>
-            </StyleItemInfo>
-          </StyleItem>
-          <StyleMobileInfoBox>
-            <div>느린마을 막걸리입니다아아아아</div>
-            <div>
-              <div className="StyleMobileViews">Views: 1002</div>
-              <div className="StyleMobileLikes">Likes: 500</div>
-              <div className="StyleMobileReviews">Reviews: 7809</div>
-            </div>
-          </StyleMobileInfoBox>
-        </StyleCard>
-        <StyleCard>
-          <StyleItem>
-            <StyleItemInfo>
-              <StyleInfoTop>
-                <div className="StyleInfoName">
-                  느린마을 막걸리입니다아아아아
-                </div>
-                <StyleInfoVol>4.5 % vol</StyleInfoVol>
-              </StyleInfoTop>
-              <StyleInfoBox>
-                <div className="StyleViews">Views: 1002</div>
-                <div className="StyleLikes">Likes: 500</div>
-                <div className="StyleReviews">Reviews: 7809</div>
-              </StyleInfoBox>
-            </StyleItemInfo>
-          </StyleItem>
-          <StyleMobileInfoBox>
-            <div>느린마을 막걸리입니다아아아아</div>
-            <div>
-              <div className="StyleMobileViews">Views: 1002</div>
-              <div className="StyleMobileLikes">Likes: 500</div>
-              <div className="StyleMobileReviews">Reviews: 7809</div>
-            </div>
-          </StyleMobileInfoBox>
-        </StyleCard>
-        <StyleCard>
-          <StyleItem>
-            <StyleItemInfo>
-              <StyleInfoTop>
-                <div className="StyleInfoName">
-                  느린마을 막걸리입니다아아아아
-                </div>
-                <StyleInfoVol>4.5 % vol</StyleInfoVol>
-              </StyleInfoTop>
-              <StyleInfoBox>
-                <div className="StyleViews">Views: 1002</div>
-                <div className="StyleLikes">Likes: 500</div>
-                <div className="StyleReviews">Reviews: 7809</div>
-              </StyleInfoBox>
-            </StyleItemInfo>
-          </StyleItem>
-          <StyleMobileInfoBox>
-            <div>느린마을 막걸리입니다아아아아</div>
-            <div>
-              <div className="StyleMobileViews">Views: 1002</div>
-              <div className="StyleMobileLikes">Likes: 500</div>
-              <div className="StyleMobileReviews">Reviews: 7809</div>
-            </div>
-          </StyleMobileInfoBox>
-        </StyleCard>
-        <StyleCard>
-          <StyleItem>
-            <StyleItemInfo>
-              <StyleInfoTop>
-                <div className="StyleInfoName">
-                  느린마을 막걸리입니다아아아아
-                </div>
-                <StyleInfoVol>4.5 % vol</StyleInfoVol>
-              </StyleInfoTop>
-              <StyleInfoBox>
-                <div className="StyleViews">Views: 1002</div>
-                <div className="StyleLikes">Likes: 500</div>
-                <div className="StyleReviews">Reviews: 7809</div>
-              </StyleInfoBox>
-            </StyleItemInfo>
-          </StyleItem>
-          <StyleMobileInfoBox>
-            <div>느린마을 막걸리입니다아아아아</div>
-            <div>
-              <div className="StyleMobileViews">Views: 1002</div>
-              <div className="StyleMobileLikes">Likes: 500</div>
-              <div className="StyleMobileReviews">Reviews: 7809</div>
-            </div>
-          </StyleMobileInfoBox>
-        </StyleCard>
-        <StyleCard>
-          <StyleItem>
-            <StyleItemInfo>
-              <StyleInfoTop>
-                <div className="StyleInfoName">
-                  느린마을 막걸리입니다아아아아
-                </div>
-                <StyleInfoVol>4.5 % vol</StyleInfoVol>
-              </StyleInfoTop>
-              <StyleInfoBox>
-                <div className="StyleViews">Views: 1002</div>
-                <div className="StyleLikes">Likes: 500</div>
-                <div className="StyleReviews">Reviews: 7809</div>
-              </StyleInfoBox>
-            </StyleItemInfo>
-          </StyleItem>
-          <StyleMobileInfoBox>
-            <div>느린마을 막걸리입니다아아아아</div>
-            <div>
-              <div className="StyleMobileViews">Views: 1002</div>
-              <div className="StyleMobileLikes">Likes: 500</div>
-              <div className="StyleMobileReviews">Reviews: 7809</div>
-            </div>
-          </StyleMobileInfoBox>
-        </StyleCard>
-        <StyleCard>
-          <StyleItem>
-            <StyleItemInfo>
-              <StyleInfoTop>
-                <div className="StyleInfoName">
-                  느린마을 막걸리입니다아아아아
-                </div>
-                <StyleInfoVol>4.5 % vol</StyleInfoVol>
-              </StyleInfoTop>
-              <StyleInfoBox>
-                <div className="StyleViews">Views: 1002</div>
-                <div className="StyleLikes">Likes: 500</div>
-                <div className="StyleReviews">Reviews: 7809</div>
-              </StyleInfoBox>
-            </StyleItemInfo>
-          </StyleItem>
-          <StyleMobileInfoBox>
-            <div>느린마을 막걸리입니다아아아아</div>
-            <div>
-              <div className="StyleMobileViews">Views: 1002</div>
-              <div className="StyleMobileLikes">Likes: 500</div>
-              <div className="StyleMobileReviews">Reviews: 7809</div>
-            </div>
-          </StyleMobileInfoBox>
-        </StyleCard>
-        {/* TEST UI */}
+      <StyleListBox>
+        {list.length ? (
+          list.map(item => <MakgeolliCard item={item} key={item.id} />)
+        ) : (
+          <span>
+            막걸리 리스트가 없습니다.
+            <br />
+            빠른 시일내에 업데이트 하겠습니다.
+          </span>
+        )}
       </StyleListBox>
     </StyleMakgeollis>
   );
 };
 
 const StyleMakgeollis = styled.div`
-  padding: 8vmin 0;
+  padding: 15vmin 0 !important;
   display: flex;
   flex-direction: column;
 
@@ -253,120 +103,6 @@ const StyleListBox = styled.div`
 
   @media ${props => props.theme.desktop} {
     width: 870px;
-  }
-`;
-
-const StyleCard = styled.div`
-  background-color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.5);
-  padding: 0;
-  width: 170px;
-  border-radius: 1vmin;
-  margin-bottom: 4vmin;
-
-  @media ${props => props.theme.mobile} {
-  }
-
-  @media ${props => props.theme.tablet} {
-    margin: 2vmin 2vmin;
-  }
-
-  @media screen and (min-width: 1100px) {
-    margin: 2vmin 1vmin;
-  }
-
-  @media ${props => props.theme.desktop} {
-    background-color: transparent !important;
-    margin: 3vmin 20px;
-    width: 130px;
-    height: 30vh;
-  }
-`;
-
-const StyleItemInfo = styled.div`
-  display: none;
-  width: 100%;
-  height: 100%;
-  background-color: white;
-
-  @media ${props => props.theme.mobile} {
-  }
-
-  @media ${props => props.theme.tablet} {
-  }
-
-  @media ${props => props.theme.desktop} {
-  }
-`;
-
-const StyleInfoTop = styled.div`
-  font-size: 1.4rem;
-  text-align: center;
-`;
-
-const StyleInfoVol = styled.div`
-  font-size: 1.2rem;
-  margin-top: 2vmin;
-`;
-
-const StyleInfoBox = styled.div`
-  border: 0.5vmin hotpink solid;
-  padding: 2vmin;
-
-  @media ${props => props.theme.mobile} {
-  }
-
-  @media ${props => props.theme.tablet} {
-  }
-
-  @media ${props => props.theme.desktop} {
-    padding: 1vmin;
-  }
-`;
-
-const StyleItem = styled.div`
-  background-image: url(${makgeolli});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 100%;
-  height: 35vh;
-  margin: 3vmin 0;
-
-  @media ${props => props.theme.mobile} {
-  }
-
-  @media ${props => props.theme.tablet} {
-    margin: 2vmin 0;
-  }
-
-  @media screen and (min-width: 1100px) {
-    &:hover ${StyleItemInfo} {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-evenly;
-    }
-  }
-
-  @media ${props => props.theme.desktop} {
-    margin: 3vmin 0;
-    width: 130px;
-    height: 30vh;
-  }
-`;
-
-const StyleMobileInfoBox = styled.div`
-  padding: 1.5vmin;
-
-  @media ${props => props.theme.mobile} {
-  }
-
-  @media ${props => props.theme.tablet} {
-  }
-
-  @media ${props => props.theme.desktop} {
-    display: none;
   }
 `;
 

@@ -7,10 +7,23 @@ export const UPDATE_TOKEN = 'UPDATE_TOKEN';
 export const ADD_REVIEW = 'ADD_REVIEW';
 export const REMOVE_REVIEW = 'REMOVE_REVIEW';
 export const UPDATE_REVIEW = 'UPDATE_REVIEW';
+export const UPDATE_REVIEWLIST = 'UPDATE_REVIEWLIST';
 
 // LIKE
 export const ADD_LIKE = 'ADD_LIKE';
 export const REMOVE_LIKE = 'REMOVE_LIKE';
+
+// 유저네임
+export const EDIT_NICKNAME = 'EDIT_NICKNAME';
+
+export const editNickname = username => {
+  return {
+    type: EDIT_NICKNAME,
+    payload: {
+      user: { username },
+    },
+  };
+};
 
 export const signIn = user => {
   return {
@@ -28,6 +41,15 @@ export const signOut = () => {
       id: null,
       userName: '',
       email: '',
+    },
+  };
+};
+
+export const updateReivewList = review => {
+  return {
+    type: UPDATE_REVIEWLIST,
+    payload: {
+      review,
     },
   };
 };
