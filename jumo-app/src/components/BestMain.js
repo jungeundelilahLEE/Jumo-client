@@ -18,6 +18,16 @@ const BestMain = ({ item, index }) => {
             <StyleLogo />
           </StyleRibbon>
         </StyleMark>
+        <StyleItemInfo>
+          <StyleInfoTop>
+            <div className="StyleInfoName">{item.name}</div>
+            <StyleInfoVol>{item.content} % vol</StyleInfoVol>
+          </StyleInfoTop>
+          <StyleInfoBox>
+            <div className="StyleViews">Views: {item.views}</div>
+            <div className="StyleLikes">Likes: {item.likes}</div>
+          </StyleInfoBox>
+        </StyleItemInfo>
       </StyleMainImg>
     </StyleBoder>
   );
@@ -39,28 +49,19 @@ const StyleBoder = styled.div`
   }
 `;
 
-const StyleMainImg = styled.div`
-  background-image: ${props => `url(${props.itemImg})`};
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 200px;
-  height: 40vh;
-  position: relative;
-  z-index: 1;
+const StyleItemInfo = styled.div`
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: white;
 
   @media ${props => props.theme.mobile} {
   }
 
   @media ${props => props.theme.tablet} {
-    width: 150px;
-    height: 30vh;
   }
 
   @media ${props => props.theme.desktop} {
-    width: 200px;
-    height: 40vh;
-    margin: 0 4vmin 0 0;
   }
 `;
 
@@ -108,6 +109,67 @@ const StyleRibbon = styled.div`
   height: 100px;
   position: relative;
   z-index: 3;
+`;
+
+const StyleInfoTop = styled.div`
+  font-size: 1.4rem;
+  text-align: center;
+`;
+
+const StyleInfoVol = styled.div`
+  font-size: 1.2rem;
+  margin-top: 2vmin;
+`;
+
+const StyleInfoBox = styled.div`
+  border: 0.5vmin hotpink solid;
+  padding: 2vmin;
+
+  @media ${props => props.theme.mobile} {
+  }
+
+  @media ${props => props.theme.tablet} {
+  }
+
+  @media ${props => props.theme.desktop} {
+    padding: 1vmin;
+  }
+`;
+
+const StyleMainImg = styled.div`
+  background-image: ${props => `url(${props.itemImg})`};
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 200px;
+  height: 40vh;
+  position: relative;
+  z-index: 1;
+
+  &:hover ${StyleItemInfo} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  &:hover ${StyleRibbon} {
+    display: none;
+  }
+
+  @media ${props => props.theme.mobile} {
+  }
+
+  @media ${props => props.theme.tablet} {
+    width: 150px;
+    height: 30vh;
+  }
+
+  @media ${props => props.theme.desktop} {
+    width: 200px;
+    height: 40vh;
+    margin: 0 4vmin 0 0;
+  }
 `;
 
 export default BestMain;
