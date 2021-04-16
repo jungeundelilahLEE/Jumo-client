@@ -12,12 +12,95 @@ const BestSide = ({ item, index }) => {
       <StyleMark>
         <StyleRank>{rank}</StyleRank>
       </StyleMark>
+      <StyleItemInfo>
+        <StyleInfoTop>
+          <div className="StyleInfoName">{item.name}</div>
+          <StyleInfoVol>{item.content} % vol</StyleInfoVol>
+        </StyleInfoTop>
+        <StyleInfoBox>
+          <div className="StyleViews">Views: {item.views}</div>
+          <div className="StyleLikes">Likes: {item.likes}</div>
+        </StyleInfoBox>
+      </StyleItemInfo>
     </StyleLightImg>
   );
 };
 
+const StyleMark = styled.div`
+  display: flex;
+  position: absolute;
+  top: -15px;
+  left: 0;
+`;
+
+const StyleRank = styled.div`
+  width: 35px;
+  height: 28px;
+  padding: 3px;
+  background-color: lightskyblue;
+  color: white;
+  font-size: 1rem;
+  text-align: center;
+  font-weight: bold;
+  position: absolute;
+  left: -10px;
+  top: -10px;
+  z-index: 2;
+  font-size: 1.5rem;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+`;
+const StyleInfoTop = styled.div`
+  font-size: 1rem;
+  text-align: center;
+`;
+
+const StyleInfoVol = styled.div`
+  font-size: 1rem;
+  margin-top: 2vmin;
+`;
+
+const StyleInfoBox = styled.div`
+  border: 0.5vmin hotpink solid;
+  padding: 2vmin;
+
+  @media ${props => props.theme.mobile} {
+  }
+
+  @media ${props => props.theme.tablet} {
+  }
+
+  @media ${props => props.theme.desktop} {
+    padding: 1vmin;
+  }
+`;
+
+const StyleItemInfo = styled.div`
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+
+  @media ${props => props.theme.mobile} {
+  }
+
+  @media ${props => props.theme.tablet} {
+  }
+
+  @media ${props => props.theme.desktop} {
+  }
+`;
+
 const StyleLightImg = styled.div`
   display: none;
+
+  &:hover ${StyleItemInfo} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
 
   @media ${props => props.theme.mobile} {
   }
@@ -40,28 +123,6 @@ const StyleLightImg = styled.div`
     height: 30vh;
     margin: 0 4vmin 0 0;
   }
-`;
-
-const StyleMark = styled.div`
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
-`;
-
-const StyleRank = styled.div`
-  width: 35px;
-  height: 28px;
-  padding: 3px;
-  background-color: lightskyblue;
-  color: white;
-  font-size: 1.8rem;
-  text-align: center;
-  font-weight: bold;
-  position: absolute;
-  left: -10px;
-  top: -10px;
-  z-index: 2;
 `;
 
 export default BestSide;
