@@ -9,6 +9,7 @@ const BestMakgeollis = () => {
   // const [topList, setTopList] = useState([]);
 
   //! dummy data => server
+  // test
   // const { data } = res;
   // setTopList(data.slice(4));
   // useEffect(() => {

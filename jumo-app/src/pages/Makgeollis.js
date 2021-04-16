@@ -9,6 +9,7 @@ const Makgeollis = () => {
   // const [list, setList] = useState([]);
 
   //! dummy data => server
+  // test
   // const { data } = res;
   // setList(data);
   // useEffect(() => {
