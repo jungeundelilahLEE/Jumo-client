@@ -1,12 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-import Makgeollis from './Makgeollis';
+import BestMain from '../components/BestMain';
+import BestSide from '../components/BestSide';
 
-import makgeolli from '../images/mak-sample-1.png';
-import logo from '../images/logo.png';
-import ribbon from '../images/ribbon.png';
+import res from '../atoms/dummyMaks';
 
 const BestMakgeollis = () => {
+  // const [topList, setTopList] = useState([]);
+
+  //! dummy data => server
+  // const { data } = res;
+  // setTopList(data.slice(4));
+  // useEffect(() => {
+  //   const { data } = res;
+  //   setTopList(data.slice(4));
+  // }, []);
+
+  const { data } = res;
+  const topList = data.slice(0, 5);
+  const mobileTopList = data.slice(1, 4);
+
   return (
     <StyleListTop>
       <StyleBestBox>
@@ -15,40 +28,12 @@ const BestMakgeollis = () => {
           <StyleLeftArrow>{'<'}</StyleLeftArrow>
 
           <StyleBestList>
-            <StyleLightImg>
-              <StyleMark>
-                <StyleRank>8</StyleRank>
-              </StyleMark>
-            </StyleLightImg>
-
-            <StyleLightImg>
-              <StyleMark>
-                <StyleRank>9</StyleRank>
-              </StyleMark>
-            </StyleLightImg>
-
-            <StyleBoder>
-              <StyleMainImg>
-                <StyleMark>
-                  <StyleRank>10</StyleRank>
-                  <StyleRibbon>
-                    <StyleLogo />
-                  </StyleRibbon>
-                </StyleMark>
-              </StyleMainImg>
-            </StyleBoder>
-
-            <StyleLightImg>
-              <StyleMark>
-                <StyleRank>1</StyleRank>
-              </StyleMark>
-            </StyleLightImg>
-
-            <StyleLightImg>
-              <StyleMark>
-                <StyleRank>2</StyleRank>
-              </StyleMark>
-            </StyleLightImg>
+            {topList.map((item, idx) => {
+              if (idx === 2) {
+                return <BestMain item={item} index={idx} key={item.id} />;
+              }
+              return <BestSide item={item} index={idx} key={item.id} />;
+            })}
           </StyleBestList>
 
           <StyleRightArrow>{'>'}</StyleRightArrow>
@@ -56,14 +41,17 @@ const BestMakgeollis = () => {
       </StyleBestBox>
 
       <StyleMobileList>
-        <StyleMobileImg />
-        <StyleBoder>
-          <StyleMobileImg />
-        </StyleBoder>
-        <StyleMobileImg />
+        {mobileTopList.map((item, idx) => {
+          if (idx === 1) {
+            return (
+              <StyleBoder>
+                <StyleMobileImg item={item} index={idx} key={item.id} />
+              </StyleBoder>
+            );
+          }
+          return <StyleMobileImg item={item} index={idx} key={item.id} />;
+        })}
       </StyleMobileList>
-
-      <Makgeollis />
     </StyleListTop>
   );
 };
@@ -120,52 +108,6 @@ const StyleBestMain = styled.div`
   }
 `;
 
-const StyleMark = styled.div`
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
-`;
-
-const StyleRank = styled.div`
-  width: 35px;
-  height: 28px;
-  padding: 3px;
-  background-color: lightskyblue;
-  color: white;
-  font-size: 1.8rem;
-  text-align: center;
-  font-weight: bold;
-  position: absolute;
-  left: -10px;
-  top: -10px;
-  z-index: 2;
-`;
-
-const StyleLogo = styled.div`
-  background-image: url(${logo});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  left: 25px;
-  top: 10px;
-  z-index: 4;
-`;
-
-const StyleRibbon = styled.div`
-  background-image: url(${ribbon});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 105px;
-  height: 100px;
-  position: relative;
-  z-index: 3;
-`;
-
 const StyleLeftArrow = styled.div`
   @media ${props => props.theme.mobile} {
   }
@@ -193,57 +135,6 @@ const StyleBestList = styled.div`
   }
 `;
 
-const StyleLightImg = styled.div`
-  display: none;
-
-  @media ${props => props.theme.mobile} {
-  }
-
-  @media ${props => props.theme.tablet} {
-    display: block;
-    background-image: url(${makgeolli});
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 100px;
-    height: 20vh;
-    margin: 2vmin;
-    position: relative;
-    z-index: 1;
-  }
-
-  @media ${props => props.theme.desktop} {
-    width: 150px;
-    height: 30vh;
-    margin: 0 4vmin 0 0;
-  }
-`;
-
-const StyleMainImg = styled.div`
-  background-image: url(${'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/%E1%84%91%E1%85%A9%E1%84%8E%E1%85%A5%E1%86%AB%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%83%E1%85%A9%E1%86%BC%E1%84%86%E1%85%A1%E1%86%A8%E1%84%80%E1%85%A5%E1%86%AF%E1%84%85%E1%85%B5.jpg'});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 200px;
-  height: 40vh;
-  position: relative;
-  z-index: 1;
-
-  @media ${props => props.theme.mobile} {
-  }
-
-  @media ${props => props.theme.tablet} {
-    width: 150px;
-    height: 30vh;
-  }
-
-  @media ${props => props.theme.desktop} {
-    width: 200px;
-    height: 40vh;
-    margin: 0 4vmin 0 0;
-  }
-`;
-
 const StyleBoder = styled.div`
   border: 2px white solid;
   padding: 5px;
@@ -268,7 +159,7 @@ const StyleMobileList = styled.div`
 
 const StyleMobileImg = styled.div`
   display: block;
-  background-image: url(${makgeolli});
+  background-image: ${props => `url(${props.item.image})`};
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
