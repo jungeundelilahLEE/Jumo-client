@@ -7,9 +7,11 @@ import {
   Link,
   withRouter,
 } from 'react-router-dom';
-import Mypage from '../pages/Mypage';
-import Intro from '../pages/Intro';
-import Makgeollis from '../pages/Makgeollis';
+// eslint-disable-next-line import/no-cycle
+import Mypage from './Mypage';
+// eslint-disable-next-line import/no-cycle
+import Intro from './Intro';
+import Makgeollis from './Makgeollis';
 
 import RemoteMypage from '../images/remote-mypage1.png';
 import RemoteLogout from '../images/remote-logout1.png';

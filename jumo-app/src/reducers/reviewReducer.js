@@ -2,12 +2,19 @@ import {
   ADD_REVIEW,
   REMOVE_REVIEW,
   UPDATE_REVIEW,
+  EDIT_NICKNAME,
   UPDATE_REVIEWLIST,
 } from '../actions/index';
 import initialState from './initialState';
 
 const reviewReducer = (state = initialState, action) => {
   switch (action.type) {
+    case UPDATE_REVIEWLIST:
+      return {
+        ...state,
+        reviewList: [...state.reviewList, ...action.payload.review],
+      };  
+      
     case ADD_REVIEW:
       return {
         ...state,
@@ -36,11 +43,10 @@ const reviewReducer = (state = initialState, action) => {
           }),
         ],
       };
-
-    case UPDATE_REVIEWLIST:
+    case EDIT_NICKNAME:
       return {
         ...state,
-        reviewList: [...state.reviewList, ...action.payload.review],
+        ...action.payload, // 배열아님..... 스트링 {usrname : delilah} 객체로
       };
 
     default:

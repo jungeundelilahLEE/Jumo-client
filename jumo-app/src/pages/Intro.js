@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+// eslint-disable-next-line import/no-cycle
 import Nav from './Nav';
 
 import IntroSec1 from '../images/intro-sec1.png';

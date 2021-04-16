@@ -4,7 +4,9 @@ import GlobalStyles from './styles/GlobalStyles';
 import Detail from './pages/Detail';
 import Makgeollis from './pages/Makgeollis';
 // import BestMakgeollis from './pages/BestMakgeollis';
-import Nav from './pages/header';
+import Nav from './pages/Nav';
+import Header from './pages/header';
+import Mypage from './pages/Mypage';
 
 const App = () => {
   return (
