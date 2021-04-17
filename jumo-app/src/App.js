@@ -7,6 +7,7 @@ import Makgeollis from './pages/Makgeollis';
 import Nav from './pages/Nav';
 import Header from './pages/header';
 import Mypage from './pages/Mypage';
+import MypageMyReviews from './pages/MypageMyReviews';
 
 const App = () => {
   return (
@@ -14,8 +15,9 @@ const App = () => {
       <GlobalStyles />
       {/* <Header /> */}
       {/* <Nav /> */}
+      {/* <MypageMyReviews /> */}
       <Mypage />
-      <Detail />
+      <Makgeollis />
     </Router>
   );
 };

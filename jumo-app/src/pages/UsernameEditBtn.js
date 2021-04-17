@@ -6,6 +6,7 @@ import { editNickname } from '../actions';
 
 /* eslint-disable react/prop-types */
 const UsernameEditBtn = ({ isLogin, user }) => {
+  // 얘들은 Mypage에서 넘어온 props고,
   const dispatch = useDispatch();
   // const { id, email, username } = user;
   const [inputNickname, setInputNickname] = useState('');

@@ -35,6 +35,7 @@ const ReviewList = ({ makgeolliId }) => {
         <div className="StyleReviewsCategory" />
         <div>6,047</div>
       </StyleReviewsTop>
+
       <div>
         {!reviewList.length ? (
           <span>리뷰를 작성해주세요.</span>
