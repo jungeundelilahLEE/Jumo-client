@@ -1,52 +1,118 @@
-import React from 'react';
+/* eslint-disable no-useless-return */
+/* eslint-disable prefer-const */
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import BestMain from '../components/BestMain';
 import BestSide from '../components/BestSide';
+import { updateCarousel } from '../actions';
 
 import res from '../atoms/dummyMaks';
 
 const BestMakgeollis = () => {
-  // const [topList, setTopList] = useState([]);
+  const [itemIdx, setItemIdx] = useState(0);
+  const [itemLength, seItemLength] = useState(5);
+
+  let state = useSelector(states => states.carouselReducer.bestList);
+  state = state.slice(0, 10);
+
+  const dispatch = useDispatch();
 
   //! dummy data => server
-  // test
-  // const { data } = res;
-  // setTopList(data.slice(4));
-  // useEffect(() => {
-  //   const { data } = res;
-  //   setTopList(data.slice(4));
-  // }, []);
+  const getBestList = () => {
+    const { data } = res;
 
-  const { data } = res;
-  const topList = data.slice(0, 5);
-  const mobileTopList = data.slice(1, 4);
+    dispatch(updateCarousel(data));
+  };
+
+  useEffect(() => {
+    getBestList();
+  }, [itemLength]);
+
+  window.addEventListener('resize', () => {
+    window.location.reload();
+    let width = document.body.clientWidth;
+    if (width < 768) {
+      seItemLength(1);
+    } else {
+      seItemLength(5);
+    }
+  });
+
+  let front;
+  let back;
+  let head;
+  let tail;
+  let topList;
+  let mobileTopList;
+
+  if (itemIdx === 0) {
+    front = state.slice(0, itemIdx + itemLength - 2);
+    back = state.slice(itemIdx + state.length - 2, state.length);
+    head = state.slice(itemIdx, itemIdx + itemLength - 3);
+    tail = state.slice(state.length - 1, state.length);
+    topList = back.concat(front);
+    mobileTopList = tail.concat(head);
+  } else if (itemIdx < 3) {
+    front = state.slice(0, itemIdx + itemLength - 2);
+    back = state.slice(itemIdx + state.length - 2, state.length);
+    topList = back.concat(front);
+    mobileTopList = state.slice(itemIdx - 1, itemIdx + itemLength - 3);
+  } else {
+    topList = state.slice(itemIdx - 2, itemIdx + itemLength - 2);
+    mobileTopList = state.slice(itemIdx - 1, itemIdx + itemLength - 3);
+  }
+
+  // let topList = state.slice(itemIdx, itemIdx + itemLength);
+  // let mobileTopList = state.slice(itemIdx + 1, itemIdx + itemLength - 1);
+
+  let nextBestHandler = () => {
+    if (itemIdx + itemLength < state.length + 4) {
+      setItemIdx(pre => pre + 1);
+    }
+    return;
+  };
+  let preBestHandler = () => {
+    if (itemIdx > 0) {
+      setItemIdx(pre => pre - 1);
+    }
+    return;
+  };
 
   return (
     <StyleListTop>
       <StyleBestBox>
         <StyleTitle>많이 찾는 막걸리(TOP 10)</StyleTitle>
         <StyleBestMain>
-          <StyleLeftArrow>{'<'}</StyleLeftArrow>
+          <StyleLeftArrow onClick={preBestHandler}>{'<'}</StyleLeftArrow>
 
           <StyleBestList>
             {topList.map((item, idx) => {
               if (idx === 2) {
                 return (
                   <Link to={`/makgeolli/list/${item.id}`}>
-                    <BestMain item={item} index={idx} key={item.id} />
+                    <BestMain
+                      item={item}
+                      index={state.findIndex(i => i.id === item.id)}
+                      key={item.id}
+                    />
                   </Link>
                 );
               }
               return (
                 <Link to={`/makgeolli/list/${item.id}`}>
-                  <BestSide item={item} index={idx} key={item.id} />
+                  <BestSide
+                    item={item}
+                    index={state.findIndex(i => i.id === item.id)}
+                    key={item.id}
+                  />
                 </Link>
               );
             })}
           </StyleBestList>
 
-          <StyleRightArrow>{'>'}</StyleRightArrow>
+          <StyleRightArrow onClick={nextBestHandler}>{'>'}</StyleRightArrow>
         </StyleBestMain>
       </StyleBestBox>
 
@@ -147,6 +213,7 @@ const StyleBestMain = styled.div`
 `;
 
 const StyleLeftArrow = styled.div`
+  cursor: pointer;
   @media ${props => props.theme.mobile} {
   }
 
@@ -158,7 +225,9 @@ const StyleLeftArrow = styled.div`
   }
 `;
 
-const StyleRightArrow = styled.div``;
+const StyleRightArrow = styled.div`
+  cursor: pointer;
+`;
 
 const StyleBestList = styled.div`
   @media ${props => props.theme.mobile} {
@@ -233,39 +302,6 @@ const StyleItemInfo = styled.div`
   }
 
   @media ${props => props.theme.desktop} {
-  }
-`;
-
-const StyleLightImg = styled.div`
-  display: none;
-
-  &:hover ${StyleItemInfo} {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-  }
-
-  @media ${props => props.theme.mobile} {
-  }
-
-  @media ${props => props.theme.tablet} {
-    display: block;
-    background-image: ${props => `url(${props.itemImg})`};
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 100px;
-    height: 20vh;
-    margin: 2vmin;
-    position: relative;
-    z-index: 1;
-  }
-
-  @media ${props => props.theme.desktop} {
-    width: 150px;
-    height: 30vh;
-    margin: 0 4vmin 0 0;
   }
 `;
 
