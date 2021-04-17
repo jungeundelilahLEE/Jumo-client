@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { addLike, removeLike } from '../actions';
-// import makgeolliImg from '../images/mak-sample-1.png';
 import ReviewInput from '../components/ReviewInput';
 import ReviewList from '../components/ReviewList';
 
@@ -11,38 +11,63 @@ import res from '../atoms/dummyMaks';
 const Detail = () => {
   const state = useSelector(states => states.userReducer);
   const { likeItems } = state;
+  const [viewCount, SetViewCount] = useState(0);
+  const { makId } = useParams();
+  const [item, setItem] = useState({
+    id: '',
+    brewery_id: '',
+    name: '',
+    area: '',
+    content: '',
+    explain: '',
+    material: '',
+    likes: '',
+    views: '',
+    image: '',
+    createdAt: null,
+    updatedAt: null,
+  });
+
   const dispatch = useDispatch();
 
   //! dummy data => server
-  // test
-  const { data } = res;
-  const makgeolli = data[0];
+  useEffect(() => {
+    const { data } = res;
+    // const makg = data.filter(el => el.id === makId);
+    // const makgeolli = makg[0];
+    const makgeolli = data[0];
+    const { views } = makgeolli;
+    setItem(prevState => {
+      return { ...prevState, ...makgeolli };
+    });
+    SetViewCount(views + 1);
+  }, []);
 
   const handleLike = () => {
-    dispatch(addLike(makgeolli.id));
+    dispatch(addLike(item.id));
   };
 
   const handleRemoveLike = () => {
-    dispatch(removeLike(makgeolli.id));
+    dispatch(removeLike(item.id));
   };
 
   return (
     <StyleDetailes>
       <StyleDetailesImageBox>
-        <StyleBackgroundImg
-          makgeolliImg={makgeolli.image}
-          alt="막걸리 흑백이미지"
-        />
-        <StyleImg makgeolliImg={makgeolli.image} alt="막걸리 이미지" />
+        <StyleBackgroundImg makgeolliImg={item.image} alt="막걸리 흑백이미지" />
+        <StyleImg makgeolliImg={item.image} alt="막걸리 이미지" />
       </StyleDetailesImageBox>
       <StyleVertical>
         <StyleDescBox>
           <StyleDescInfo>
-            <div>조회수 : {makgeolli.views}</div>
+            {/* test */}
+            <div>조회수 증가 테스트중 : {viewCount}</div>
+
+            <div>조회수 : {item.views}</div>
             <div>
-              {!likeItems.includes(makgeolli.id) ? (
+              {!likeItems.includes(item.id) ? (
                 <StyleSmallLikeBtn onClick={() => handleLike()}>
-                  {makgeolli.likes}
+                  {item.likes}
                 </StyleSmallLikeBtn>
               ) : (
                 <StyleSmallLikeBtn onClick={() => handleRemoveLike()}>
@@ -50,23 +75,22 @@ const Detail = () => {
                 </StyleSmallLikeBtn>
               )}
 
-              <StyleTextLike>LIKE : {makgeolli.likes}</StyleTextLike>
+              <StyleTextLike>LIKE : {item.likes}</StyleTextLike>
             </div>
-            <div>리뷰 : {makgeolli.reviews}</div>
+            <div>리뷰 : {item.reviews}</div>
           </StyleDescInfo>
           <StyleExplanation>
-            <StyleTitle>{makgeolli.name}</StyleTitle>
+            <StyleTitle>{item.name}</StyleTitle>
             <StyleKinds>
-              <p>종류 : 탁주??? </p>
-              <p>용량 : {makgeolli.content}</p>
-              <p>양조장 :{makgeolli.material} </p>
-              <p>생산지역 :{makgeolli.area} </p>
+              <p>용량 : {item.content}</p>
+              <p>양조장 :{item.material} </p>
+              <p>생산지역 :{item.area} </p>
             </StyleKinds>
           </StyleExplanation>
-          <StyleDescBottom>{makgeolli.explain}</StyleDescBottom>
+          <StyleDescBottom>{item.explain}</StyleDescBottom>
         </StyleDescBox>
 
-        {!likeItems.includes(makgeolli.id) ? (
+        {!likeItems.includes(item.id) ? (
           <StyleLikeBtn onClick={() => handleLike()}>LIKE</StyleLikeBtn>
         ) : (
           <StyleLikeBtn onClick={() => handleRemoveLike()}>
@@ -74,8 +98,8 @@ const Detail = () => {
           </StyleLikeBtn>
         )}
       </StyleVertical>
-      <ReviewInput makgeolliId={makgeolli.id} />
-      <ReviewList makgeolliId={makgeolli.id} />
+      <ReviewInput makgeolliId={item.id} />
+      <ReviewList makgeolliId={item.id} />
     </StyleDetailes>
   );
 };

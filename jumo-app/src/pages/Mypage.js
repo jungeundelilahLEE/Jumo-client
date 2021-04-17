@@ -7,6 +7,7 @@ import Nav from './Nav';
 import MakImg from '../images/intro-sec1.png';
 import TrashBinImg from '../images/trash-bin.png';
 import UsernameEditBtn from './UsernameEditBtn';
+import MypageMyReviews from './MypageMyReviews';
 
 const Mypage = () => {
   const state = useSelector(states => states.reviewReducer); // 로그인리듀서로 바꿔야
@@ -26,7 +27,6 @@ const Mypage = () => {
             <MyProfile>
               <MyProfileTitle>MY&nbsp;PROFILE</MyProfileTitle>
               <MyProfileList>Nickname</MyProfileList>
-              <MyProfileContent>willy LEE</MyProfileContent>
               <MyProfileContent>{user.username}</MyProfileContent>
               <UsernameEditBtn user={user} isLogin={isLogin} />
               <MyProfileList>Email</MyProfileList>
@@ -43,6 +43,10 @@ const Mypage = () => {
             </MyBtn>
 
             <MyReviews>
+              <MypageMyReviews />
+            </MyReviews>
+
+            {/* <MyReviews>
               <MyReviewsBox>
                 <MyReviewImg src={makImg} alt="makImg" />
                 <MyReviewContent>
@@ -50,12 +54,11 @@ const Mypage = () => {
                   <MyReviewReview>야미!dfdddddfdfdfdffdfdfd</MyReviewReview>
                   <MyReviewBtnBox>
                     <MyReviewEditBtn>edit</MyReviewEditBtn>
-                    {/* edit을 click하면, review는 그대로 있고 input으로..... */}
                     <MyReviewDeleteBtn>delete</MyReviewDeleteBtn>
                   </MyReviewBtnBox>
                 </MyReviewContent>
               </MyReviewsBox>
-            </MyReviews>
+            </MyReviews> */}
 
             <MyFavs>
               <MyFavsBox>

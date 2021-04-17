@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import GlobalStyles from './styles/GlobalStyles';
 import Detail from './pages/Detail';
@@ -12,12 +12,18 @@ import MypageMyReviews from './pages/MypageMyReviews';
 const App = () => {
   return (
     <Router>
-      <GlobalStyles />
-      {/* <Header /> */}
-      {/* <Nav /> */}
-      {/* <MypageMyReviews /> */}
-      <Mypage />
-      <Makgeollis />
+      <div>
+        <GlobalStyles />
+        <Nav />
+        <Switch>
+          <Route exact path="/makgeolli/info">
+            <Makgeollis />
+          </Route>
+          <Route exact path="/makgeolli/list/:makId">
+            <Detail />
+          </Route>
+        </Switch>
+      </div>
     </Router>
   );
 };
