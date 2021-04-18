@@ -28,7 +28,7 @@ const Brewerys = () => {
         <StyleResult>
           {list.map(el => (
             <StyleInfo key={el.id}>
-              <StyleTitle onClick={() => handleMap(el.map)}>
+              <StyleTitle onClick={() => handleMap(el.image)}>
                 {el.name}
               </StyleTitle>
               <Link to={`/makgeolli/list/${el.id}`}>

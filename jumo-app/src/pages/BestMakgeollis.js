@@ -1,52 +1,102 @@
-import React from 'react';
+/* eslint-disable no-useless-return */
+/* eslint-disable prefer-const */
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { updateCarousel } from '../actions';
 import BestMain from '../components/BestMain';
 import BestSide from '../components/BestSide';
+import BestBottom from '../components/BestBottom';
 
 import res from '../atoms/dummyMaks';
 
 const BestMakgeollis = () => {
-  // const [topList, setTopList] = useState([]);
+  const [itemIdx, setItemIdx] = useState(0);
+  const [itemLength, seItemLength] = useState(5);
+
+  let state = useSelector(states => states.carouselReducer.bestList);
+  state = state.slice(0, 10);
+  const baseHead = state.slice(state.length - 2, state.length);
+  const baseTail = state.slice(0, 2);
+  const baseList = [...baseHead, ...state, ...baseTail];
+
+  const dispatch = useDispatch();
 
   //! dummy data => server
-  // test
-  // const { data } = res;
-  // setTopList(data.slice(4));
-  // useEffect(() => {
-  //   const { data } = res;
-  //   setTopList(data.slice(4));
-  // }, []);
+  const getBestList = () => {
+    const { data } = res;
 
-  const { data } = res;
-  const topList = data.slice(0, 5);
-  const mobileTopList = data.slice(1, 4);
+    dispatch(updateCarousel(data));
+  };
+
+  useEffect(() => {
+    getBestList();
+  }, [itemLength]);
+
+  window.addEventListener('resize', () => {
+    window.location.reload();
+    let width = document.body.clientWidth;
+    if (width < 768) {
+      seItemLength(1);
+    } else {
+      seItemLength(5);
+    }
+  });
+
+  let topList = baseList.slice(itemIdx, itemIdx + itemLength);
+  let mobileTopList = baseList.slice(itemIdx + 1, itemIdx + itemLength - 1);
+
+  let nextBestHandler = () => {
+    if (itemIdx + itemLength < state.length + 4) {
+      setItemIdx(pre => pre + 1);
+    } else if (itemIdx > 8) {
+      setItemIdx(0);
+    }
+    return;
+  };
+  let preBestHandler = () => {
+    if (itemIdx > 0) {
+      setItemIdx(pre => pre - 1);
+    } else if (itemIdx === 0) {
+      setItemIdx(9);
+    }
+    return;
+  };
 
   return (
     <StyleListTop>
       <StyleBestBox>
         <StyleTitle>많이 찾는 막걸리(TOP 10)</StyleTitle>
         <StyleBestMain>
-          <StyleLeftArrow>{'<'}</StyleLeftArrow>
+          <StyleLeftArrow onClick={preBestHandler}>{'<'}</StyleLeftArrow>
 
           <StyleBestList>
             {topList.map((item, idx) => {
               if (idx === 2) {
                 return (
                   <Link to={`/makgeolli/list/${item.id}`}>
-                    <BestMain item={item} index={idx} key={item.id} />
+                    <BestMain
+                      item={item}
+                      index={state.findIndex(i => i.id === item.id)}
+                      key={item.id}
+                    />
                   </Link>
                 );
               }
               return (
                 <Link to={`/makgeolli/list/${item.id}`}>
-                  <BestSide item={item} index={idx} key={item.id} />
+                  <BestSide
+                    item={item}
+                    index={state.findIndex(i => i.id === item.id)}
+                    key={item.id}
+                  />
                 </Link>
               );
             })}
           </StyleBestList>
 
-          <StyleRightArrow>{'>'}</StyleRightArrow>
+          <StyleRightArrow onClick={nextBestHandler}>{'>'}</StyleRightArrow>
         </StyleBestMain>
       </StyleBestBox>
 
@@ -56,36 +106,14 @@ const BestMakgeollis = () => {
             return (
               <StyleBoder>
                 <Link to={`/makgeolli/list/${item.id}`}>
-                  <StyleMobileImg item={item} index={idx} key={item.id}>
-                    <StyleItemInfo>
-                      <StyleInfoTop>
-                        <div className="StyleInfoName">{item.name}</div>
-                        <StyleInfoVol>{item.content} % vol</StyleInfoVol>
-                      </StyleInfoTop>
-                      <StyleInfoBox>
-                        <div className="StyleViews">Views: {item.views}</div>
-                        <div className="StyleLikes">Likes: {item.likes}</div>
-                      </StyleInfoBox>
-                    </StyleItemInfo>
-                  </StyleMobileImg>
+                  <BestBottom item={item} index={idx} key={item.id} />
                 </Link>
               </StyleBoder>
             );
           }
           return (
             <Link to={`/makgeolli/list/${item.id}`}>
-              <StyleMobileImg item={item} index={idx} key={item.id}>
-                <StyleItemInfo>
-                  <StyleInfoTop>
-                    <div className="StyleInfoName">{item.name}</div>
-                    <StyleInfoVol>{item.content} % vol</StyleInfoVol>
-                  </StyleInfoTop>
-                  <StyleInfoBox>
-                    <div className="StyleViews">Views: {item.views}</div>
-                    <div className="StyleLikes">Likes: {item.likes}</div>
-                  </StyleInfoBox>
-                </StyleItemInfo>
-              </StyleMobileImg>
+              <BestBottom item={item} index={idx} key={item.id} />
             </Link>
           );
         })}
@@ -147,6 +175,7 @@ const StyleBestMain = styled.div`
 `;
 
 const StyleLeftArrow = styled.div`
+  cursor: pointer;
   @media ${props => props.theme.mobile} {
   }
 
@@ -158,7 +187,9 @@ const StyleLeftArrow = styled.div`
   }
 `;
 
-const StyleRightArrow = styled.div``;
+const StyleRightArrow = styled.div`
+  cursor: pointer;
+`;
 
 const StyleBestList = styled.div`
   @media ${props => props.theme.mobile} {
@@ -193,111 +224,6 @@ const StyleMobileList = styled.div`
   display: flex;
   justify-content: center;
   padding: 5vmin 0;
-`;
-
-const StyleInfoTop = styled.div`
-  font-size: 1rem;
-  text-align: center;
-`;
-
-const StyleInfoVol = styled.div`
-  font-size: 1rem;
-  margin-top: 2vmin;
-`;
-
-const StyleInfoBox = styled.div`
-  border: 0.5vmin hotpink solid;
-  padding: 2vmin;
-
-  @media ${props => props.theme.mobile} {
-  }
-
-  @media ${props => props.theme.tablet} {
-  }
-
-  @media ${props => props.theme.desktop} {
-    padding: 1vmin;
-  }
-`;
-
-const StyleItemInfo = styled.div`
-  display: none;
-  width: 100%;
-  height: 100%;
-  background-color: white;
-
-  @media ${props => props.theme.mobile} {
-  }
-
-  @media ${props => props.theme.tablet} {
-  }
-
-  @media ${props => props.theme.desktop} {
-  }
-`;
-
-const StyleLightImg = styled.div`
-  display: none;
-
-  &:hover ${StyleItemInfo} {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-  }
-
-  @media ${props => props.theme.mobile} {
-  }
-
-  @media ${props => props.theme.tablet} {
-    display: block;
-    background-image: ${props => `url(${props.itemImg})`};
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 100px;
-    height: 20vh;
-    margin: 2vmin;
-    position: relative;
-    z-index: 1;
-  }
-
-  @media ${props => props.theme.desktop} {
-    width: 150px;
-    height: 30vh;
-    margin: 0 4vmin 0 0;
-  }
-`;
-
-const StyleMobileImg = styled.div`
-  display: block;
-  background-image: ${props => `url(${props.item.image})`};
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 100px;
-  height: 20vh;
-  margin: 2vmin;
-
-  &:hover ${StyleItemInfo} {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-  }
-
-  @media ${props => props.theme.mobile} {
-  }
-
-  @media ${props => props.theme.tablet} {
-    display: none;
-  }
-
-  @media ${props => props.theme.desktop} {
-    width: 150px;
-    height: 30vh;
-    margin: 0 4vmin 0 0;
-  }
 `;
 
 export default BestMakgeollis;
