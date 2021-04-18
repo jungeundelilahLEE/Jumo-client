@@ -1,18 +1,42 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable no-else-return */
+import React, { useState, useRef, useCallback } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import useSearchItem from '../atoms/useSearchItem';
 import BestMakgeollis from './BestMakgeollis';
 import MakgeolliCard from '../components/MakgeolliCard';
+import Header from './header';
 
 import res from '../atoms/dummyMaks';
 
-const Makgeollis = () => {
-  // const [list, setList] = useState([]);
+const Makgeollis = ({ lastBookElementRef, books, isLoading, error }) => {
+  // const [query, setQuery] = useState('');
+  // const [pageNum, setPageNum] = useState(1);
+  // const { isLoading, error, books, hasMore } = useSearchItem(query, pageNum);
+
+  // const observer = useRef();
+  // const lastBookElementRef = useCallback(
+  //   node => {
+  //     if (isLoading) return;
+  //     if (observer.current) observer.current.disconnect();
+  //     observer.current = new IntersectionObserver(entries => {
+  //       if (entries[0].isIntersecting && hasMore) {
+  //         setPageNum(prev => prev + 1);
+  //       }
+  //     });
+  //     if (node) observer.current.observe(node);
+  //   },
+  //   [isLoading, hasMore],
+  // );
+
+  // const handleChange = e => {
+  //   setQuery(e.target.value);
+  //   setPageNum(1);
+  // };
 
   //! dummy data => server
-  // test
-  // const { data } = res;
-  // setList(data);
   // useEffect(() => {
   //   const { data } = res;
   //   setList(data);
@@ -23,6 +47,7 @@ const Makgeollis = () => {
 
   return (
     <StyleMakgeollis>
+      {/* <Header handleChange={handleChange} value={query} /> */}
       <BestMakgeollis />
       <StyleResultText>
         총<StyleResultNumber>{list.length}</StyleResultNumber>
@@ -43,6 +68,23 @@ const Makgeollis = () => {
             빠른 시일내에 업데이트 하겠습니다.
           </span>
         )}
+        <div className="test">
+          <h1>Search Book</h1>
+          {/* <input type="text" onChange={handleChange} value={query} /> */}
+          {books.map((book, i) => {
+            if (books.length === i + 1) {
+              return (
+                <div key={i} ref={lastBookElementRef}>
+                  {book}
+                </div>
+              );
+            } else {
+              return <div key={i}>{book}</div>;
+            }
+          })}
+          <div>{isLoading && 'Loading...'}</div>
+          <div>{error && 'Error...'}</div>
+        </div>
       </StyleListBox>
     </StyleMakgeollis>
   );
