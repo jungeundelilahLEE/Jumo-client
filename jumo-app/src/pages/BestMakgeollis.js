@@ -16,6 +16,9 @@ const BestMakgeollis = () => {
 
   let state = useSelector(states => states.carouselReducer.bestList);
   state = state.slice(0, 10);
+  const baseHead = state.slice(state.length - 2, state.length);
+  const baseTail = state.slice(0, 2);
+  const baseList = [...baseHead, ...state, ...baseTail];
 
   const dispatch = useDispatch();
 
@@ -40,42 +43,22 @@ const BestMakgeollis = () => {
     }
   });
 
-  let front;
-  let back;
-  let head;
-  let tail;
-  let topList;
-  let mobileTopList;
-
-  if (itemIdx === 0) {
-    front = state.slice(0, itemIdx + itemLength - 2);
-    back = state.slice(itemIdx + state.length - 2, state.length);
-    head = state.slice(itemIdx, itemIdx + itemLength - 3);
-    tail = state.slice(state.length - 1, state.length);
-    topList = back.concat(front);
-    mobileTopList = tail.concat(head);
-  } else if (itemIdx < 3) {
-    front = state.slice(0, itemIdx + itemLength - 2);
-    back = state.slice(itemIdx + state.length - 2, state.length);
-    topList = back.concat(front);
-    mobileTopList = state.slice(itemIdx - 1, itemIdx + itemLength - 3);
-  } else {
-    topList = state.slice(itemIdx - 2, itemIdx + itemLength - 2);
-    mobileTopList = state.slice(itemIdx - 1, itemIdx + itemLength - 3);
-  }
-
-  // let topList = state.slice(itemIdx, itemIdx + itemLength);
-  // let mobileTopList = state.slice(itemIdx + 1, itemIdx + itemLength - 1);
+  let topList = baseList.slice(itemIdx, itemIdx + itemLength);
+  let mobileTopList = baseList.slice(itemIdx + 1, itemIdx + itemLength - 1);
 
   let nextBestHandler = () => {
     if (itemIdx + itemLength < state.length + 4) {
       setItemIdx(pre => pre + 1);
+    } else if (itemIdx > 8) {
+      setItemIdx(0);
     }
     return;
   };
   let preBestHandler = () => {
     if (itemIdx > 0) {
       setItemIdx(pre => pre - 1);
+    } else if (itemIdx === 0) {
+      setItemIdx(9);
     }
     return;
   };
