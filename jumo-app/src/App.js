@@ -32,6 +32,7 @@ const App = () => {
     setQuery(e.target.value);
     setPageNum(1);
   };
+
   return (
     <Router>
       <div>

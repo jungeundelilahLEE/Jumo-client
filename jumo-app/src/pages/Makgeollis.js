@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import useSearchItem from '../atoms/useSearchItem';
 import BestMakgeollis from './BestMakgeollis';
 import MakgeolliCard from '../components/MakgeolliCard';
-import Header from './header';
+// import Header from './header';
 
 import res from '../atoms/dummyMaks';
 
