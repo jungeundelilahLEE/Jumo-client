@@ -3,6 +3,20 @@ import React from 'react';
 import styled from 'styled-components';
 import icon from '../images/JumoIcon.PNG';
 
+function Header() {
+  return (
+    <Navbar>
+      <div className="Icon">
+        <img src={icon} alt="icon" width="55px" height="55px" />
+      </div>
+      <div className="searching">
+        <Input type="text" placeholder="검색어를 입력하세요" outline="none" />
+      </div>
+      <Location>t</Location>
+    </Navbar>
+  );
+}
+
 const Navbar = styled.div`
   display: flex;
   position: absolute;
@@ -15,6 +29,7 @@ const Navbar = styled.div`
   height: 50px;
 `;
 const Input = styled.input`
+  font-family: Sunflower;
   background-color: #293848;
   color: #e7d1bf;
   border-top: none;
@@ -32,6 +47,7 @@ const Input = styled.input`
     outline: none;
   }
 `;
+
 
 function Nav({ handleChange, query }) {
   return (

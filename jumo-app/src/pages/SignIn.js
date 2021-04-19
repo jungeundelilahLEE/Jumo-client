@@ -8,6 +8,7 @@ import Inputs from '../atoms/Inputs';
 import img from '../images/JumoIcon.PNG';
 import google from '../images/google.png';
 
+
 const SignIn = () => {
   document.body.style.overflow = 'hidden';
 
@@ -98,6 +99,7 @@ const SignIn = () => {
     }
   });
 
+  
   return (
     <>
       <OutBox>
@@ -136,12 +138,13 @@ const SignIn = () => {
               아직 회원이 아니신가요?
               <A href="https://www.naver.com">회원가입하러가기</A>
             </Buttons>
-          </BoxInner>
+         </BoxInner>
         </BoxWrapper>
       </OutBox>
     </>
   );
 };
+
 
 const BoxInner = styled.div`
   box-sizing: border-box;
@@ -182,6 +185,7 @@ const InputForm = styled.input`
 const OutBox = styled.div`
   box-sizing: border-box;
   /* display: none; */
+  display: box;
   position: fixed;
   top: 0;
   left: 0;

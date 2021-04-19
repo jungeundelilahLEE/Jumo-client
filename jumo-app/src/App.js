@@ -6,7 +6,11 @@ import Detail from './pages/Detail';
 import Makgeollis from './pages/Makgeollis';
 import Brewerys from './pages/Brewerys';
 import Nav from './pages/Nav';
+
 import Header from './pages/Header';
+
+import GlobalFonts from './styles/fonts/fonts';
+
 import SignIn from './pages/SignIn';
 
 const App = () => {
@@ -40,8 +44,6 @@ const App = () => {
       <GlobalStyles />
       <Header handleChange={handleChange} value={query} />
       <Nav />
-      {/* <SignIn /> */}
-
       <Switch>
         <Route exact path="/signin">
           <SignIn />
@@ -60,7 +62,7 @@ const App = () => {
         <Route exact path="/brewery/info">
           <Brewerys />
         </Route>
-      </Switch>
+      </Switch>      
     </Router>
   );
 };
