@@ -7,6 +7,7 @@ import Makgeollis from './pages/Makgeollis';
 import Brewerys from './pages/Brewerys';
 import Nav from './pages/Nav';
 import Header from './pages/header';
+import SignIn from './pages/SignIn';
 
 const App = () => {
   const [query, setQuery] = useState('');
@@ -34,28 +35,32 @@ const App = () => {
   };
 
   return (
+    // <SignIn />
     <Router>
-      <div>
-        <GlobalStyles />
-        <Header handleChange={handleChange} value={query} />
-        <Nav />
-        <Switch>
-          <Route exact path="/makgeolli/info">
-            <Makgeollis
-              lastBookElementRef={lastBookElementRef}
-              books={books}
-              isLoading={isLoading}
-              error={error}
-            />
-          </Route>
-          <Route exact path="/makgeolli/list/:makId">
-            <Detail />
-          </Route>
-          <Route exact path="/brewery/info">
-            <Brewerys />
-          </Route>
-        </Switch>
-      </div>
+      <GlobalStyles />
+      <Header handleChange={handleChange} value={query} />
+      <Nav />
+      {/* <SignIn /> */}
+
+      <Switch>
+        <Route exact path="/signin">
+          <SignIn />
+        </Route>
+        <Route exact path="/makgeolli/info">
+          <Makgeollis
+            lastBookElementRef={lastBookElementRef}
+            books={books}
+            isLoading={isLoading}
+            error={error}
+          />
+        </Route>
+        <Route exact path="/makgeolli/list/:makId">
+          <Detail />
+        </Route>
+        <Route exact path="/brewery/info">
+          <Brewerys />
+        </Route>
+      </Switch>
     </Router>
   );
 };
