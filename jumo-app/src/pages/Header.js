@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import icon from '../images/JumoIcon.PNG';
 
+// 지워도되는건지 몰라서 일단 주석처리
 // function Header() {
 //   return (
 //     <Navbar>
