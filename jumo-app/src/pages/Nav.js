@@ -53,7 +53,7 @@ function Nav() {
             </Button>
           </Link>
 
-          {isLogin && (
+          {isLogin === 'true' ? (
             <Link to="/">
               <Button onClick={handleClickLogout}>
                 {/* <Route exact path = "/mypage" component = {  } /> 
@@ -61,6 +61,8 @@ function Nav() {
                 <Img src={remoteLogout} alt="logout" />
               </Button>
             </Link>
+          ) : (
+            ''
           )}
 
           <Link to="/intro">

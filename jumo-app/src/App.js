@@ -6,7 +6,7 @@ import Detail from './pages/Detail';
 import Makgeollis from './pages/Makgeollis';
 import Brewerys from './pages/Brewerys';
 import Nav from './pages/Nav';
-import Header from './pages/header';
+import Header from './pages/Header';
 import SignIn from './pages/SignIn';
 
 const App = () => {

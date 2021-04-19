@@ -62,6 +62,42 @@ const SignIn = () => {
     }
   };
 
+  const redirectUrl = `${clientURL}/user/login`;
+  const clientIDForGoogle =
+    '698453377731-fmpthr77bo88djpa1hpmv06d8u2ef0g5.apps.googleusercontent.com';
+  const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientIDForGoogle}&redirect_uri=${redirectUrl}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/userinfo.profile`;
+
+  const googleLoginHandler = () => {
+    window.location.assign(GOOGLE_LOGIN_URL);
+    localStorage.setItem('oauth', 'google');
+  };
+
+  const getAccessToken = async authorizationCode => {
+    try {
+      const oauth = localStorage.getItem('oauth');
+      let res;
+      if (oauth === 'google') {
+        res = await server.post(`/users/google`, { authorizationCode });
+      }
+      const { data } = res;
+      localStorage.setItem('isLogin', JSON.stringify(true));
+      localStorage.setItem('accessToken', data.accessToken);
+      history.push('/makgeolli/info');
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const authorizationCode = url.searchParams.get('code');
+
+    if (authorizationCode) {
+      getAccessToken(authorizationCode);
+    }
+  });
+
   return (
     <>
       <OutBox>
@@ -88,8 +124,8 @@ const SignIn = () => {
             <Line />
             <br />
             <Buttons>
-              <Button type="submit">
-                <Google src={google} alt="1" />
+              <Button type="submit" onClick={() => googleLoginHandler()}>
+                <Google src={google} alt="google" />
                 Google로그인
               </Button>
               <br />
