@@ -51,7 +51,7 @@ const SignIn = () => {
           .then(res => {
             const { data } = res;
             localStorage.setItem('isLogin', JSON.stringify(true));
-            localStorage.setItem('accessToken', data.accessToken);
+            localStorage.setItem('accessToken', data.data.accessToken);
             localStorage.setItem('oauth', 'local');
             history.push('/makgeolli/info');
             window.location.reload();
