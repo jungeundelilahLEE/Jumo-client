@@ -3,6 +3,60 @@ import styled from 'styled-components';
 import img from '../images/JumoIcon.PNG';
 import google from '../images/google.png';
 
+function SignIn() {
+  // document.body.style.overflow = 'hidden';
+
+  return (
+    <>
+      <OutBox>
+        <BoxWrapper>
+          <BoxInner className="login">
+            <form className="login_form">
+              <Title>
+                <div>Sign In</div>
+                <Image>
+                  <img src={img} alt="icon" width="150px" height="80px" />
+                  <X>x</X>
+                </Image>
+              </Title>
+              <br />
+              <Input>
+                <InputForm placeholder="email을입력하세요" />
+                <br />
+                <InputForm placeholder="비밀번호를입력하세요" type="password" />
+              </Input>
+              <br />
+              <Alert>이메일이나 비밀번호가 올바르지 않습니다</Alert>
+              <br />
+              <Buttons>
+                <Button type="submit" className="submit_btn">
+                  Sign in
+                </Button>
+              </Buttons>
+              <br />
+              <Line />
+              <br />
+              <Buttons>
+                <Button type="submit">
+                  <Google src={google} alt="1" />
+                  Google로그인
+                </Button>
+                <br />
+                <SkipButton type="submit">Skip</SkipButton>
+              </Buttons>
+              <br />
+              <Buttons>
+                아직 회원이 아니신가요?
+                <A href="https://www.naver.com">회원가입하러가기</A>
+              </Buttons>
+            </form>
+          </BoxInner>
+        </BoxWrapper>
+      </OutBox>
+    </>
+  );
+}
+
 const BoxInner = styled.div`
   box-sizing: border-box;
   position: relative;
@@ -41,7 +95,7 @@ const InputForm = styled.input`
 `;
 const OutBox = styled.div`
   box-sizing: border-box;
-  display: none;
+  display: box;
   position: fixed;
   top: 0;
   left: 0;
@@ -115,53 +169,4 @@ const X = styled.button`
   padding: 0px;
   margin: 0px;
 `;
-function SignIn() {
-  document.body.style.overflow = 'hidden';
-  return (
-    <>
-      <OutBox>
-        <BoxWrapper>
-          <BoxInner>
-            <Title>
-              <div>Sign In</div>
-              <Image>
-                <img src={img} alt="icon" width="150px" height="80px" />
-                <X>x</X>
-              </Image>
-            </Title>
-            <br />
-            <Input>
-              <InputForm placeholder="email을입력하세요" />
-              <br />
-              <InputForm placeholder="비밀번호를입력하세요" />
-            </Input>
-            <br />
-            <Alert>이메일이나 비밀번호가 올바르지 않습니다</Alert>
-            <br />
-            <Buttons>
-              <Button type="submit"> Sign in </Button>
-            </Buttons>
-            <br />
-            <Line />
-            <br />
-            <Buttons>
-              <Button type="submit">
-                <Google src={google} alt="1" />
-                Google로그인
-              </Button>
-              <br />
-              <SkipButton type="submit">Skip</SkipButton>
-            </Buttons>
-            <br />
-            <Buttons>
-              아직 회원이 아니신가요?
-              <A href="https://www.naver.com">회원가입하러가기</A>
-            </Buttons>
-          </BoxInner>
-        </BoxWrapper>
-      </OutBox>
-    </>
-  );
-}
-
 export default SignIn;
