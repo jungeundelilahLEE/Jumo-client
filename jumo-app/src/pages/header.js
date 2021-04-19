@@ -3,19 +3,39 @@ import React from 'react';
 import styled from 'styled-components';
 import icon from '../images/JumoIcon.PNG';
 
-function Header() {
+// function Header() {
+//   return (
+//     <Navbar>
+//       <div className="Icon">
+//         <img src={icon} alt="icon" width="55px" height="55px" />
+//       </div>
+//       <div className="searching">
+//         <Input type="text" placeholder="검색어를 입력하세요" outline="none" />
+//       </div>
+//       <Location>t</Location>
+//     </Navbar>
+//   );
+// }
+
+const Header = ({ handleChange, query }) => {
   return (
     <Navbar>
       <div className="Icon">
         <img src={icon} alt="icon" width="55px" height="55px" />
       </div>
       <div className="searching">
-        <Input type="text" placeholder="검색어를 입력하세요" outline="none" />
+        <Input
+          type="text"
+          placeholder="검색어를 입력하세요"
+          outline="none"
+          onChange={handleChange}
+          value={query}
+        />
       </div>
-      <Location>t</Location>
+      <div>Mypage</div>
     </Navbar>
   );
-}
+};
 
 const Navbar = styled.div`
   display: flex;
@@ -38,7 +58,6 @@ const Input = styled.input`
   border-bottom: 3px solid #e7d1bf;
   outline: none;
   width: 30vh;
-
   &:focus {
     background-color: #293848;
     border-top: none;
@@ -48,24 +67,4 @@ const Input = styled.input`
   }
 `;
 
-
-function Nav({ handleChange, query }) {
-  return (
-    <Navbar>
-      <div className="Icon">
-        <img src={icon} alt="icon" width="55px" height="55px" />
-      </div>
-      <div className="searching">
-        <Input
-          type="text"
-          placeholder="검색어를 입력하세요"
-          outline="none"
-          onChange={handleChange}
-          value={query}
-        />
-      </div>
-      <div>Mypage</div>
-    </Navbar>
-  );
-}
-export default Nav;
+export default Header;

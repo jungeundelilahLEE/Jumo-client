@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-// import { RootState } from '../reducers';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import server, { clientURL } from '../apis/server';
 import Inputs from '../atoms/Inputs';
 import img from '../images/JumoIcon.PNG';
 import google from '../images/google.png';
-
 
 const SignIn = () => {
   document.body.style.overflow = 'hidden';
@@ -99,7 +96,6 @@ const SignIn = () => {
     }
   });
 
-  
   return (
     <>
       <OutBox>
@@ -138,13 +134,12 @@ const SignIn = () => {
               아직 회원이 아니신가요?
               <A href="https://www.naver.com">회원가입하러가기</A>
             </Buttons>
-         </BoxInner>
+          </BoxInner>
         </BoxWrapper>
       </OutBox>
     </>
   );
 };
-
 
 const BoxInner = styled.div`
   box-sizing: border-box;
