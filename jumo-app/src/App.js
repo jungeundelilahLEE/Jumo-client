@@ -2,15 +2,13 @@ import React, { useState, useRef, useCallback } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import useSearchItem from './atoms/useSearchItem';
 import GlobalStyles from './styles/GlobalStyles';
+import GlobalFonts from './styles/fonts/fonts';
+
 import Detail from './pages/Detail';
 import Makgeollis from './pages/Makgeollis';
 import Brewerys from './pages/Brewerys';
 import Nav from './pages/Nav';
-
 import Header from './pages/Header';
-
-import GlobalFonts from './styles/fonts/fonts';
-
 import SignIn from './pages/SignIn';
 
 const App = () => {
@@ -39,7 +37,6 @@ const App = () => {
   };
 
   return (
-    // <SignIn />
     <Router>
       <GlobalStyles />
       <Header handleChange={handleChange} value={query} />
@@ -62,7 +59,7 @@ const App = () => {
         <Route exact path="/brewery/info">
           <Brewerys />
         </Route>
-      </Switch>      
+      </Switch>
     </Router>
   );
 };

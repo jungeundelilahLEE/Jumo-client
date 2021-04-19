@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
-import SansationRegular from './fonts/Sansation_Regular.ttf';
-import Sunflower from '../styles/fonts/Sunflower-Medium.ttf';
+// import SansationRegular from './fonts/Sansation_Regular.ttf';
+// import Sunflower from '../styles/fonts/Sunflower-Medium.ttf';
 import reset from 'styled-reset';
 
 const GlobalStyles = createGlobalStyle` 
@@ -34,13 +34,6 @@ const GlobalStyles = createGlobalStyle`
   input:focus {
     outline: none;
   }
-  @font-face {
-    font-family: 'Sansation';	
-    src: local(Sansation_Regular), local(Sunflower-Medium);
-    url(${SansationRegular}) format("ttf");
-    font-weight: 300; 		
-    font-style: normal;
-}
 `;
 
 export default GlobalStyles;
