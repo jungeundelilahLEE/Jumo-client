@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
 import icon from '../images/JumoIcon.PNG';
@@ -47,8 +48,24 @@ const Input = styled.input`
   }
 `;
 
-const Location = styled.div`
-  font-family: 'Sansation' !important;
-`;
 
-export default Header;
+function Nav({ handleChange, query }) {
+  return (
+    <Navbar>
+      <div className="Icon">
+        <img src={icon} alt="icon" width="55px" height="55px" />
+      </div>
+      <div className="searching">
+        <Input
+          type="text"
+          placeholder="검색어를 입력하세요"
+          outline="none"
+          onChange={handleChange}
+          value={query}
+        />
+      </div>
+      <div>Mypage</div>
+    </Navbar>
+  );
+}
+export default Nav;
