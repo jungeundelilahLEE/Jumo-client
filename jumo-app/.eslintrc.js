@@ -18,5 +18,16 @@ module.exports = {
     // 'no-shadow': ['error', { allow: ['state'] }],
     // 'no-shadow': ['error', { allow: ['done'] }],
     'no-else-return': ['error', { allowElseIf: false }],
+    'react/prop-types': 0,
+    'prefer-destructuring': [
+      'error',
+      {
+        array: false,
+        object: false,
+      },
+      {
+        enforceForRenamedProperties: false,
+      },
+    ],
   },
 };
