@@ -1,4 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
+// import SansationRegular from './fonts/Sansation_Regular.ttf';
+// import Sunflower from '../styles/fonts/Sunflower-Medium.ttf';
 import reset from 'styled-reset';
 
 const GlobalStyles = createGlobalStyle` 
@@ -13,6 +15,8 @@ const GlobalStyles = createGlobalStyle`
     font-size: 14px;
     /* background-color: rgba(20, 20, 20, 1); */
     /* color: white; */
+    overflow: scroll; 
+    overflow-y: scroll; 
   }
 
   a {

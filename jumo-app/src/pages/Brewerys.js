@@ -1,40 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import res from '../atoms/dummyBrewery';
 
 const Brewerys = () => {
+  const [mapImage, setMapImage] = useState('');
+
+  //! dummy data => server
+  const { data } = res;
+  const list = data;
+
+  const handleMap = searchMap => {
+    setMapImage(searchMap);
+  };
+
   return (
     <StyleBrewerys>
-      <StyleMap />
       <StyleSearchBox>
-        <StyleInput />
-        <div>소공동 지역에서 12개의 양조장이 검색되었습니다.</div>
+        <div>
+          <StyleInput />
+          <button type="button">search</button>
+        </div>
+        <div>소공동 지역에서 {list.length}개의 양조장이 검색되었습니다.</div>
       </StyleSearchBox>
-      <StyleResult>
-        <StyleInfo>
-          <StyleTitle>이윌리 양조장</StyleTitle>
-          <div>술밑양조장 서울특별시 종로구 이화동 동숭3길 33 1층</div>
-        </StyleInfo>
-        <StyleInfo>
-          <StyleTitle>이윌리 양조장</StyleTitle>
-          <div>술밑양조장 서울특별시 종로구 이화동 동숭3길 33 1층</div>
-        </StyleInfo>
-        <StyleInfo>
-          <StyleTitle>이윌리 양조장</StyleTitle>
-          <div>술밑양조장 서울특별시 종로구 이화동 동숭3길 33 1층</div>
-        </StyleInfo>
-        <StyleInfo>
-          <StyleTitle>이윌리 양조장</StyleTitle>
-          <div>술밑양조장 서울특별시 종로구 이화동 동숭3길 33 1층</div>
-        </StyleInfo>
-        <StyleInfo>
-          <StyleTitle>이윌리 양조장</StyleTitle>
-          <div>술밑양조장 서울특별시 종로구 이화동 동숭3길 33 1층</div>
-        </StyleInfo>
-        <StyleInfo>
-          <StyleTitle>이윌리 양조장</StyleTitle>
-          <div>술밑양조장 서울특별시 종로구 이화동 동숭3길 33 1층</div>
-        </StyleInfo>
-      </StyleResult>
+
+      <StyleSpace>
+        <StyleResult>
+          {list.map(el => (
+            <StyleInfo key={el.id}>
+              <StyleTitle onClick={() => handleMap(el.image)}>
+                {el.name}
+              </StyleTitle>
+              <Link to={`/makgeolli/list/${el.id}`}>
+                <div>대표 막걸리 : {el.kinds}</div>
+              </Link>
+              <div>{el.address}</div>
+            </StyleInfo>
+          ))}
+        </StyleResult>
+
+        {mapImage === '' ? '' : <StyleMap src={mapImage} alt="양조장 지도" />}
+      </StyleSpace>
     </StyleBrewerys>
   );
 };
@@ -49,10 +55,19 @@ const StyleBrewerys = styled.div`
   justify-content: center;
 `;
 
-const StyleMap = styled.div`
+const StyleSpace = styled.div`
+  width: 80vw;
+  display: flex;
+  justify-content: space-evenly;
+`;
+
+const StyleMap = styled.img`
   width: 80vw;
   height: 50vh;
   background-color: greenyellow;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
 
   @media ${props => props.theme.tablet} {
     max-width: 50vw;
@@ -62,6 +77,7 @@ const StyleMap = styled.div`
 
 const StyleSearchBox = styled.div`
   width: 90%;
+  margin-bottom: 10vh;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -79,7 +95,6 @@ const StyleInput = styled.input`
 `;
 
 const StyleResult = styled.div`
-  margin-top: 10vh;
   width: 90%;
   display: flex;
   flex-direction: column;
@@ -97,6 +112,7 @@ const StyleInfo = styled.div`
 const StyleTitle = styled.div`
   font-size: 1.5rem;
   margin-bottom: 1vh;
+  cursor: pointer;
 `;
 
 export default Brewerys;

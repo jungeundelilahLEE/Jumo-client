@@ -15,6 +15,10 @@ export const REMOVE_LIKE = 'REMOVE_LIKE';
 
 // 유저네임
 export const EDIT_NICKNAME = 'EDIT_NICKNAME';
+
+// 베스트 막걸리
+export const UPDATE_BEST = 'UPDATE_BEST';
+
 export const editNickname = username => {
   return {
     type: EDIT_NICKNAME,
@@ -121,5 +125,12 @@ export const removeLike = itemId => {
   return {
     type: REMOVE_LIKE,
     payload: [itemId],
+  };
+};
+
+export const updateCarousel = bestItem => {
+  return {
+    type: UPDATE_BEST,
+    payload: { bestList: [...bestItem] },
   };
 };

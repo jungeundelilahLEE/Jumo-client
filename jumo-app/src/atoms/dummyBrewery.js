@@ -6,6 +6,8 @@ const res = {
       address: '강원도 철원군 김화읍 청양리 2889',
       number: 334587676,
       kinds: '초가우리쌀막걸리',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/(%EC%A3%BC)%EC%B4%88%EA%B0%80.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -15,6 +17,8 @@ const res = {
       address: '경기 포천시 일동면 성장로 411',
       number: 315356833,
       kinds: '포천일동막걸리',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%ED%8F%AC%EC%B2%9C%EC%9D%BC%EB%8F%99%EC%A3%BC%EC%A1%B0.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -24,6 +28,8 @@ const res = {
       address: '경기 포천시 이동면 화동로 2466',
       number: 315366365,
       kinds: '이동쌀막걸리',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EC%9D%B4%EB%8F%99%EB%A7%89%EA%B1%B8%EB%A6%AC%EA%B3%B5%EC%9E%A5.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -33,6 +39,8 @@ const res = {
       address: '강원 홍천군 홍천읍 솔골길 7',
       number: 334359966,
       kinds: '설악쌀막걸리',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EC%A7%84%EB%A1%9C%EC%96%91%EC%A1%B0.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -42,6 +50,8 @@ const res = {
       address: '충북 진천군 광혜원면 죽현길 141',
       number: 435377611,
       kinds: '장수생막걸리',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EC%84%9C%EC%9A%B8%EC%9E%A5%EC%88%98%EC%A7%84%EC%B2%9C%EA%B3%B5%EC%9E%A5.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -51,6 +61,8 @@ const res = {
       address: '경기 파주시 법원읍 사임당로 763',
       number: 319581297,
       kinds: '파주쌀막걸리',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EC%B5%9C%ED%96%89%EC%88%99%EC%A0%84%ED%86%B5%EC%A3%BC.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -60,6 +72,8 @@ const res = {
       address: '경기 가평군 조종면 대보간선로 29 (주)우리술',
       number: 315858525,
       kinds: '가평잣막걸리',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/(%EC%A3%BC)%EC%9A%B0%EB%A6%AC%EC%88%A0.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -69,6 +83,8 @@ const res = {
       address: '서울 서초구 강남대로27길 7-9 배상면주가',
       number: 25797710,
       kinds: '송이동동주',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EB%8A%90%EB%A6%B0%EB%A7%88%EC%9D%84%EC%96%91%EC%A1%B0%EC%9E%A5+%EC%96%91%EC%9E%AC%EB%B3%B8%EC%A0%90.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -78,6 +94,8 @@ const res = {
       address: '경기 광주시 도척면 고녹길80번길 18-2',
       number: null,
       kinds: '산삼가득막걸리',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EB%82%A8%ED%95%9C%EC%82%B0%EC%84%B1%EC%96%91%EC%A1%B0.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -87,6 +105,8 @@ const res = {
       address: '경기 광주시 곤지암읍 광여로 555-3',
       number: 317691100,
       kinds: '참살이탁주',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EB%82%A8%ED%95%9C%EC%82%B0%EC%84%B1%EC%86%8C%EC%A3%BC.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -96,6 +116,8 @@ const res = {
       address: '경기 이천시 단월로28번길 3',
       number: 316335864,
       kinds: '이천생막걸리',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EC%98%A4%EC%84%B1%EC%A3%BC%EC%A1%B0%EC%9E%A5.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -105,6 +127,8 @@ const res = {
       address: '충북 진천군 덕산읍 초금로 712',
       number: 435353567,
       kinds: '덕산생쌀막걸리',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EC%A7%84%EC%B2%9C%EB%8D%95%EC%82%B0%EC%96%91%EC%A1%B0.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -114,6 +138,8 @@ const res = {
       address: '충남 공주시 의당면 율정길 158-21',
       number: 418545486,
       kinds: '공주알밤주',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EC%B2%9C%EC%A7%80%EC%9D%B8%EC%A3%BC%EC%A1%B0.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -123,6 +149,8 @@ const res = {
       address: '충북 청주시 청원구 사천로18번길 5-2',
       number: 432187688,
       kinds: '세종생막걸리',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EC%A1%B0%EC%9D%80%EC%88%A0%EC%84%B8%EC%A2%85.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -132,6 +160,8 @@ const res = {
       address: '경상북도 울릉군 울릉읍 약수터길 18',
       number: 547913738,
       kinds: '울릉도호박막걸리',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EC%9A%B8%EB%A6%89%EB%8F%84%ED%98%B8%EB%B0%95%EB%A7%89%EA%B1%B8%EB%A6%AC.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -141,6 +171,8 @@ const res = {
       address: '전북 남원시 운봉읍 황산로 1018',
       number: 636340009,
       kinds: '운봉생막걸리',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EC%9A%B4%EB%B4%89%EC%A3%BC%EC%A1%B0.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -150,6 +182,8 @@ const res = {
       address: '제주 제주시 애월읍 애원로 283',
       number: 647994225,
       kinds: '제주오매기술',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EC%A0%9C%EC%A3%BC%EC%83%98%EC%A3%BC.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -159,6 +193,8 @@ const res = {
       address: '경남 양산시 상북면 충렬로 941',
       number: 553755677,
       kinds: '이화백주',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EC%9D%B4%ED%99%94%EB%B0%B1%EC%A3%BC.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -168,6 +204,8 @@ const res = {
       address: '경기 화성시 정남면 서봉로 835',
       number: 313549376,
       kinds: '고구마막걸리',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EB%B0%B0%ED%98%9C%EC%A0%95%EB%8F%84%EA%B0%80.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -177,6 +215,8 @@ const res = {
       address: '전남 여수시 좌수영로 361',
       number: 616525744,
       kinds: '여수생막걸리',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EC%97%AC%EC%88%98%EC%A3%BC%EC%A1%B0%EA%B3%B5%EC%82%AC.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -186,6 +226,8 @@ const res = {
       address: '전남 곡성군 곡성읍 학교로 118',
       number: null,
       kinds: '곡성생막걸리',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EA%B3%A1%EC%84%B1%ED%95%A9%EB%8F%99%EC%A3%BC%EC%A1%B0%EC%9E%A5.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -195,6 +237,8 @@ const res = {
       address: '전남 해남군 화산면 해창길 1 해창주조장',
       number: 615325152,
       kinds: '해창막걸리',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%ED%95%B4%EC%B0%BD%EC%A3%BC%EC%A1%B0%EC%9E%A5.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -204,6 +248,8 @@ const res = {
       address: '경북 안동시 풍산읍 산업단지5길 39',
       number: 548537777,
       kinds: '안동회곡막걸리',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EB%86%8D%EC%97%85%ED%9A%8C%EC%82%AC%EB%B2%95%EC%9D%B8%ED%9A%8C%EA%B3%A1%EC%96%91%EC%A1%B0%EC%9E%A5.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -213,6 +259,8 @@ const res = {
       address: '대전 유성구 원촌동 49-2',
       number: 428619310,
       kinds: '대전부르스막걸리',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/%EC%83%9D%EB%A7%89%EA%B1%B8%EB%A6%AC%EB%8C%80%EC%A0%84%EB%B6%80%EB%A5%B4%EC%8A%A4.png',
       createdAt: null,
       updatedAt: null,
     },
@@ -222,6 +270,8 @@ const res = {
       address: '경기 화성시 봉담읍 매송고색로 452',
       number: 312923190,
       kinds: '국순당',
+      image:
+        'https://s3.ap-northeast-2.amazonaws.com/jumo.ml/NewPhoto/(%EC%A3%BC)%EA%B5%AD%EC%88%9C%EB%8B%B9.png',
       createdAt: null,
       updatedAt: null,
     },

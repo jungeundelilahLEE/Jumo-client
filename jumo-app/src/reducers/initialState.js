@@ -44,4 +44,5 @@ export default {
   reviewList: [],
   makgeolliList: [],
   breweryList: [],
+  bestList: [],
 };
