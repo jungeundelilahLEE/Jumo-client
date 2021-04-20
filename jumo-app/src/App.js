@@ -17,10 +17,13 @@ import Intro from './pages/Intro';
 const App = () => {
   const [query, setQuery] = useState('');
   const [pageNum, setPageNum] = useState(1);
-  const { isLoading, error, books, hasMore } = useSearchItem(query, pageNum);
+  const { isLoading, error, makgeolls, hasMore } = useSearchItem(
+    query,
+    pageNum,
+  );
 
   const observer = useRef();
-  const lastBookElementRef = useCallback(
+  const lastItemElementRef = useCallback(
     node => {
       if (isLoading) return;
       if (observer.current) observer.current.disconnect();
@@ -56,8 +59,8 @@ const App = () => {
         </Route>
         <Route path="/makgeolli/info">
           <Makgeollis
-            lastBookElementRef={lastBookElementRef}
-            books={books}
+            lastItemElementRef={lastItemElementRef}
+            makgeolls={makgeolls}
             isLoading={isLoading}
             error={error}
           />
