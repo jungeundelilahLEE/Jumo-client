@@ -1,15 +1,17 @@
 /* eslint-disable no-useless-return */
 /* eslint-disable prefer-const */
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { updateCarousel } from '../actions';
+
 import BestMain from '../components/BestMain';
 import BestSide from '../components/BestSide';
 import BestBottom from '../components/BestBottom';
 
-import res from '../atoms/dummyMaks';
+// import res from '../atoms/dummyMaks';
 
 const BestMakgeollis = () => {
   const [itemIdx, setItemIdx] = useState(0);
@@ -24,15 +26,26 @@ const BestMakgeollis = () => {
   const dispatch = useDispatch();
 
   //! dummy data => server
-  const getBestList = () => {
-    const { data } = res;
+  // const getBestList = () => {
+  //   const { data } = res;
 
-    dispatch(updateCarousel(data));
-  };
+  //   dispatch(updateCarousel(data));
+  // };
 
   useEffect(() => {
-    getBestList();
+    axios
+      // .get(`https://openlibrary.org/search.json?q=${query}&page=${pageNum}`, {
+      .get(`https://jumoserver.ml/makgeolli/rank`)
+      .then(res => {
+        const { data } = res;
+
+        dispatch(updateCarousel(data.data));
+      });
   }, [itemLength]);
+
+  // useEffect(() => {
+  //   getBestList();
+  // }, [itemLength]);
 
   window.addEventListener('resize', () => {
     window.location.reload();

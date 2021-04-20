@@ -33,7 +33,7 @@ const useSearchItem = (query, pageNum) => {
   //     sendQuery(query);
   //   }, [query, sendQuery, pageNum]);
 
-  //   강의코드
+  // code
   useEffect(() => {
     setMakgeolls([]);
   }, [query]);
