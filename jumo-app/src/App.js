@@ -2,7 +2,6 @@ import React, { useState, useRef, useCallback } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import useSearchItem from './atoms/useSearchItem';
 import GlobalStyles from './styles/GlobalStyles';
-import GlobalFonts from './styles/fonts/fonts';
 
 import Detail from './pages/Detail';
 import Makgeollis from './pages/Makgeollis';
@@ -12,6 +11,7 @@ import MypageMyReviews from './pages/MypageMyReviews';
 import Header from './pages/Header';
 import SignIn from './pages/SignIn';
 import Mypage from './pages/Mypage';
+import Rending from './pages/Rendings';
 import Intro from './pages/Intro';
 
 const App = () => {
