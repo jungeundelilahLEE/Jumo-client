@@ -7,8 +7,9 @@ import Makgeollis from './pages/Makgeollis';
 import Brewerys from './pages/Brewerys';
 import Nav from './pages/Nav';
 import Header from './pages/header';
-import GlobalFonts from './styles/fonts/fonts';
+import Rending from './pages/Rendings';
 import SignIn from './pages/SignIn';
+import Intro from './pages/Intro';
 
 const App = () => {
   const [query, setQuery] = useState('');
@@ -39,9 +40,10 @@ const App = () => {
     <Router>
       <div>
         <GlobalStyles />
-        <Header handleChange={handleChange} value={query} />
-        <Nav />
-        <SignIn />
+        {/* <Header handleChange={handleChange} value={query} /> */}
+        <Rending />
+        {/* <Nav /> */}
+        {/* <SignIn /> */}
         <Switch>
           <Route exact path="/makgeolli/info">
             <Makgeollis

@@ -4,7 +4,7 @@ import img from '../images/JumoIcon.PNG';
 import google from '../images/google.png';
 
 function SignIn() {
-  // document.body.style.overflow = 'hidden';
+  document.body.style.overflow = 'hidden';
 
   return (
     <>
@@ -95,7 +95,7 @@ const InputForm = styled.input`
 `;
 const OutBox = styled.div`
   box-sizing: border-box;
-  display: box;
+  display: none;
   position: fixed;
   top: 0;
   left: 0;

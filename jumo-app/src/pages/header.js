@@ -12,7 +12,7 @@ function Header() {
       <div className="searching">
         <Input type="text" placeholder="검색어를 입력하세요" outline="none" />
       </div>
-      <Location>t</Location>
+      <div>t</div>
     </Navbar>
   );
 }
@@ -47,7 +47,6 @@ const Input = styled.input`
     outline: none;
   }
 `;
-
 
 function Nav({ handleChange, query }) {
   return (
