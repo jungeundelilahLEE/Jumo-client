@@ -19,6 +19,18 @@ export const EDIT_NICKNAME = 'EDIT_NICKNAME';
 // 베스트 막걸리
 export const UPDATE_BEST = 'UPDATE_BEST';
 
+export const Auth = {
+  type: '',
+  payload: {
+    user: {
+      id: null,
+      username: '',
+      email: '',
+      createdAt: '',
+    },
+  },
+};
+
 export const editNickname = username => {
   return {
     type: EDIT_NICKNAME,

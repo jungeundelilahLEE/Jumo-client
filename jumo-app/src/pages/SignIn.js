@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+import { signIn } from '../actions';
 import server, { clientURL } from '../apis/server';
 import Inputs from '../atoms/Inputs';
 import img from '../images/JumoIcon.PNG';
 import google from '../images/google.png';
 
 const SignIn = () => {
-  // document.body.style.overflow = 'hidden';
+  const dispatch = useDispatch();
 
   const history = useHistory();
 
@@ -48,8 +50,12 @@ const SignIn = () => {
           )
           .then(res => {
             const { data } = res;
+
+            dispatch(signIn(data.data.accessToken));
+
             localStorage.setItem('isLogin', JSON.stringify(true));
             localStorage.setItem('accessToken', data.data.accessToken);
+
             localStorage.setItem('oauth', 'local');
             history.push('/makgeolli/info');
             window.location.reload();
@@ -78,6 +84,7 @@ const SignIn = () => {
         res = await server.post(`/users/google`, { authorizationCode });
       }
       const { data } = res;
+
       localStorage.setItem('isLogin', JSON.stringify(true));
       localStorage.setItem('accessToken', data.accessToken);
       history.push('/makgeolli/info');

@@ -5,53 +5,56 @@ import styled from 'styled-components';
 import { editNickname } from '../actions';
 
 /* eslint-disable react/prop-types */
-const UsernameEditBtn = ({ isLogin, user }) => {
-  // 얘들은 Mypage에서 넘어온 props고,
+const UsernameEditBtn = ({
+  username,
+  submitUserName,
+  handleEditBtn,
+  handleCancelBtn,
+  save,
+  edit,
+}) => {
   const dispatch = useDispatch();
-  // const { id, email, username } = user;
+
   const [inputNickname, setInputNickname] = useState('');
-  const [edit, setEdit] = useState(false);
 
   const handleInputNickname = e => {
     setInputNickname(e.target.value);
   };
-  const handleEditBtn = () => {
-    setEdit(true);
-  };
-  const handleSaveBtn = () => {
-    if (window.confirm('닉네임을 수정하시겠습니까?') === false) {
-      return;
-    }
-    setEdit(false);
-    dispatch(editNickname(inputNickname));
-  };
-  const handleCancelBtn = () => {
-    setEdit(false);
-  };
+  // const handleEditBtn = () => {
+  //   setEdit(true);
+  // };
+
+  // const handleCancelBtn = () => {
+  //   setEdit(false);
+  // };
 
   return (
     <div>
       {edit === false ? (
         <>
-          <MyProfileEditBtn onClick={() => handleEditBtn()}>
-            edit
-          </MyProfileEditBtn>
+          <MyProfileContent>{username}</MyProfileContent>
+          <MyProfileEditBtn onClick={handleEditBtn}>edit</MyProfileEditBtn>
         </>
       ) : (
         <>
           <MyProfileContentInputNickname
             maxLength={10}
             onChange={handleInputNickname}
-            placeholder="Write your new nickname"
+            placeholder={username}
           />
-          <MyProfileEditBtn onClick={() => handleSaveBtn(user.username)}>
+        </>
+      )}
+
+      {edit && save === false ? (
+        <>
+          <MyProfileEditBtn onClick={() => submitUserName(inputNickname)}>
             save
           </MyProfileEditBtn>
-          <MyProfileCancleBtn onClick={() => handleCancelBtn()}>
+          <MyProfileCancleBtn onClick={handleCancelBtn}>
             cancel
           </MyProfileCancleBtn>
         </>
-      )}
+      ) : null}
     </div>
   );
 };
