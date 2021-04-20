@@ -44,13 +44,15 @@ const App = () => {
       <GlobalStyles />
       <Header handleChange={handleChange} value={query} />
       <Nav />
-      <Intro />
       <Switch>
         <Route path="/user/info">
           <Mypage />
         </Route>
         <Route path="/signin">
           <SignIn />
+        </Route>
+        <Route exact path="/">
+          <Intro />
         </Route>
         <Route path="/makgeolli/info">
           <Makgeollis

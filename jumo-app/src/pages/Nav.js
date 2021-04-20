@@ -76,7 +76,7 @@ function Nav() {
           ''
         )}
 
-        <Link to="/intro">
+        <Link to="/">
           <Button>
             <Img src={remoteIntro} alt="intro" />
             <Div>INTRO</Div>
