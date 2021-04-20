@@ -55,7 +55,6 @@ function Nav() {
             <Button>
               <Img src={remoteMypage} alt="mypage" />
               <Div>MYPAGE</Div>
-
             </Button>
           </Link>
         ) : (
@@ -71,7 +70,6 @@ function Nav() {
             <Button onClick={handleClickLogout}>
               <Img src={remoteLogout} alt="logout" />
               <Div>SIGNOUT</Div>
-
             </Button>
           </Link>
         ) : (
@@ -82,7 +80,6 @@ function Nav() {
           <Button>
             <Img src={remoteIntro} alt="intro" />
             <Div>INTRO</Div>
-
           </Button>
         </Link>
 
@@ -90,7 +87,6 @@ function Nav() {
           <Button>
             <Img src={remoteMak} alt="mak" />
             <Div>MAKGEOLLI</Div>
-
           </Button>
         </Link>
 
@@ -98,7 +94,6 @@ function Nav() {
           <Button>
             <Img src={remoteBrew} alt="brew" dd />
             <Div>BREWERY</Div>
-
           </Button>
         </Link>
       </StyledNav>
