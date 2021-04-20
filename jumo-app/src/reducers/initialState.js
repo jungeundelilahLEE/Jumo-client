@@ -1,7 +1,7 @@
 export default {
   accessToken: '',
   isLogin: false,
-  user: { id: null, email: '', username: '' },
+  user: { id: null, email: '', username: '', userDate: '' },
   likeItems: [],
 
   makgeolli: {

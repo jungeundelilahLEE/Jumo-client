@@ -14,16 +14,23 @@ import MypageMyReviews from './MypageMyReviews';
 const Mypage = () => {
   const state = useSelector(states => states.signinReducer);
   const { isLogin, user } = state;
+  const { username, email, createdAt } = user;
+  const [formDate, setFormDate] = useState('');
   const dispatch = useDispatch();
   const accessToken = localStorage.getItem('accessToken');
-  const [userInfo, setUserInfo] = useState({
-    id: 0,
-    username: '',
-    email: '',
-    createdAt: '',
-  });
+  // const [userInfo, setUserInfo] = useState({
+  //   id: 0,
+  //   username: '',
+  //   email: '',
+  //   createdAt: '',
+  // });
 
-  const [changedUsername, setChangedUsername] = useState('');
+  // const [changedUsername, setChangedUsername] = useState('');
+  const dateFormat = origin => {
+    const format = origin.slice(0, 10).split('-');
+    const result = `${format[0]}년 ${format[1]}월 ${format[2]}일`;
+    setFormDate(result);
+  };
 
   const getUserInfo = async () => {
     try {
@@ -34,6 +41,7 @@ const Mypage = () => {
       });
 
       const { data } = res.data;
+
       dispatch(signIn(data));
     } catch (err) {
       console.log(err);
@@ -42,13 +50,52 @@ const Mypage = () => {
 
   useEffect(() => {
     getUserInfo();
+    dateFormat(createdAt);
   }, []);
 
-  // const { isLogin, user } = state;
+  const updateUserInfo = async newToken => {
+    try {
+      const res = await server.get('/user/info', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const { data } = res.data;
+      dispatch(signIn(data));
+      // localStorage.setItem('accessToken', newToken);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const submitUserName = async inputNickname => {
+    if (inputNickname === '') {
+      return;
+    }
+
+    try {
+      const changeUsername = await server
+        .put(
+          '/user/update',
+          { username: inputNickname },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        )
+        .then(res => res.data.data)
+        .then(data => updateUserInfo());
+
+      alert('닉네임이 변경되었습니다.');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const makImg = MakImg;
   const trashBinImg = TrashBinImg;
-
-  const { username, email, createdAt } = user;
 
   return (
     <div>
@@ -61,11 +108,14 @@ const Mypage = () => {
               <MyProfileTitle>MY&nbsp;PROFILE</MyProfileTitle>
               <MyProfileList>Nickname</MyProfileList>
               <MyProfileContent>{username}</MyProfileContent>
-              <UsernameEditBtn />
+              <UsernameEditBtn
+                username={username}
+                submitUserName={submitUserName}
+              />
               <MyProfileList>Email</MyProfileList>
               <MyProfileContent>{email}</MyProfileContent>
               <MyProfileList>Registered Date</MyProfileList>
-              <MyProfileContent>{createdAt}</MyProfileContent>
+              <MyProfileContent>{formDate}</MyProfileContent>
             </MyProfile>
 
             <MyProfileHello>Hello #username! Wellcome back!</MyProfileHello>
