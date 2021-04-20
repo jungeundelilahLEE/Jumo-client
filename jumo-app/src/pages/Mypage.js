@@ -1,20 +1,54 @@
 /* eslint-disable import/no-cycle */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-// eslint-disable-next-line import/no-cycle
-import { useSelector } from 'react-redux';
-// import Nav from './Nav';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import { signIn } from '../actions';
+import server, { clientURL } from '../apis/server';
+
 import MakImg from '../images/intro-sec1.png';
 import TrashBinImg from '../images/trash-bin.png';
 import UsernameEditBtn from './UsernameEditBtn';
 import MypageMyReviews from './MypageMyReviews';
 
 const Mypage = () => {
-  const state = useSelector(states => states.reviewReducer); // 로그인리듀서로 바꿔야
+  const state = useSelector(states => states.signinReducer);
   const { isLogin, user } = state;
+  const dispatch = useDispatch();
+  const accessToken = localStorage.getItem('accessToken');
+  const [userInfo, setUserInfo] = useState({
+    id: 0,
+    username: '',
+    email: '',
+    createdAt: '',
+  });
 
+  const [changedUsername, setChangedUsername] = useState('');
+
+  const getUserInfo = async () => {
+    try {
+      const res = await server.get('/user/info', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const { data } = res.data;
+      dispatch(signIn(data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
+  // const { isLogin, user } = state;
   const makImg = MakImg;
   const trashBinImg = TrashBinImg;
+
+  const { username, email, createdAt } = user;
 
   return (
     <div>
@@ -22,17 +56,16 @@ const Mypage = () => {
         ''
       ) : (
         <div>
-          {/* <Nav /> */}
           <Section>
             <MyProfile>
               <MyProfileTitle>MY&nbsp;PROFILE</MyProfileTitle>
               <MyProfileList>Nickname</MyProfileList>
-              <MyProfileContent>{user.username}</MyProfileContent>
-              <UsernameEditBtn user={user} isLogin={isLogin} />
+              <MyProfileContent>{username}</MyProfileContent>
+              <UsernameEditBtn />
               <MyProfileList>Email</MyProfileList>
-              <MyProfileContent>willy@gmail.com</MyProfileContent>
+              <MyProfileContent>{email}</MyProfileContent>
               <MyProfileList>Registered Date</MyProfileList>
-              <MyProfileContent>2020-02-02</MyProfileContent>
+              <MyProfileContent>{createdAt}</MyProfileContent>
             </MyProfile>
 
             <MyProfileHello>Hello #username! Wellcome back!</MyProfileHello>
