@@ -10,6 +10,7 @@ import Brewerys from './pages/Brewerys';
 import Nav from './pages/Nav';
 import Header from './pages/Header';
 import SignIn from './pages/SignIn';
+import Mypage from './pages/Mypage';
 
 const App = () => {
   const [query, setQuery] = useState('');
@@ -42,10 +43,13 @@ const App = () => {
       <Header handleChange={handleChange} value={query} />
       <Nav />
       <Switch>
-        <Route exact path="/signin">
+        <Route path="/user/info">
+          <Mypage />
+        </Route>
+        <Route path="/signin">
           <SignIn />
         </Route>
-        <Route exact path="/makgeolli/info">
+        <Route path="/makgeolli/info">
           <Makgeollis
             lastBookElementRef={lastBookElementRef}
             books={books}
@@ -53,10 +57,10 @@ const App = () => {
             error={error}
           />
         </Route>
-        <Route exact path="/makgeolli/list/:makId">
+        <Route path="/makgeolli/list/:makId">
           <Detail />
         </Route>
-        <Route exact path="/brewery/info">
+        <Route path="/brewery/info">
           <Brewerys />
         </Route>
       </Switch>

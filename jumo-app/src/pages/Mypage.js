@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 // eslint-disable-next-line import/no-cycle
 import { useSelector } from 'react-redux';
-import Nav from './Nav';
+// import Nav from './Nav';
 import MakImg from '../images/intro-sec1.png';
 import TrashBinImg from '../images/trash-bin.png';
 import UsernameEditBtn from './UsernameEditBtn';
@@ -18,11 +18,11 @@ const Mypage = () => {
 
   return (
     <div>
-      {!isLogin ? (
+      {isLogin === 'true' ? (
         ''
       ) : (
         <div>
-          <Nav />
+          {/* <Nav /> */}
           <Section>
             <MyProfile>
               <MyProfileTitle>MY&nbsp;PROFILE</MyProfileTitle>
