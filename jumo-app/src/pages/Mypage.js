@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 /* eslint-disable import/no-cycle */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -16,6 +17,8 @@ const Mypage = () => {
   const { isLogin, user } = state;
   const { username, email, createdAt } = user;
   const [formDate, setFormDate] = useState('');
+  const [save, setSave] = useState(false);
+  const [edit, setEdit] = useState(false);
   const dispatch = useDispatch();
   const accessToken = localStorage.getItem('accessToken');
 
@@ -77,6 +80,10 @@ const Mypage = () => {
 
   const submitUserName = async inputNickname => {
     if (inputNickname === '') {
+      alert('변경할 닉네임을 입력해주세요.');
+      return;
+    } else if (inputNickname === username) {
+      alert('새로운 닉네임을 입력해주세요.');
       return;
     }
 
@@ -94,10 +101,22 @@ const Mypage = () => {
         .then(res => res.data.data)
         .then(data => updateUserInfo());
 
+      setSave(true);
+      setEdit(false);
       alert('닉네임이 변경되었습니다.');
+      return;
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleEditBtn = () => {
+    setEdit(true);
+    setSave(false);
+  };
+
+  const handleCancelBtn = () => {
+    setEdit(false);
   };
 
   const makImg = MakImg;
@@ -113,10 +132,15 @@ const Mypage = () => {
             <MyProfile>
               <MyProfileTitle>MY&nbsp;PROFILE</MyProfileTitle>
               <MyProfileList>Nickname</MyProfileList>
-              <MyProfileContent>{username}</MyProfileContent>
+
+              {/* <MyProfileContent>{username}</MyProfileContent> */}
               <UsernameEditBtn
                 username={username}
                 submitUserName={submitUserName}
+                handleEditBtn={handleEditBtn}
+                handleCancelBtn={handleCancelBtn}
+                save={save}
+                edit={edit}
               />
               <MyProfileList>Email</MyProfileList>
               <MyProfileContent>{email}</MyProfileContent>
