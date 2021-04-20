@@ -18,17 +18,13 @@ const Mypage = () => {
   const [formDate, setFormDate] = useState('');
   const dispatch = useDispatch();
   const accessToken = localStorage.getItem('accessToken');
-  // const [userInfo, setUserInfo] = useState({
-  //   id: 0,
-  //   username: '',
-  //   email: '',
-  //   createdAt: '',
-  // });
 
-  // const [changedUsername, setChangedUsername] = useState('');
   const dateFormat = origin => {
     const format = origin.slice(0, 10).split('-');
-    const result = `${format[0]}년 ${format[1]}월 ${format[2]}일`;
+    const numFormat = [...format];
+    const result = `${numFormat[0]}년 ${Number(numFormat[1])}월 ${
+      numFormat[2]
+    }일`;
     setFormDate(result);
   };
 
@@ -50,10 +46,13 @@ const Mypage = () => {
 
   useEffect(() => {
     getUserInfo();
-    dateFormat(createdAt);
   }, []);
 
-  const updateUserInfo = async newToken => {
+  useEffect(() => {
+    dateFormat(createdAt);
+  }, [createdAt]);
+
+  const updateUserInfo = async () => {
     try {
       const res = await server.get('/user/info', {
         headers: {
