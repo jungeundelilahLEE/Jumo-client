@@ -7,7 +7,6 @@ import {
   Link,
   withRouter,
 } from 'react-router-dom';
-import { Spring } from 'react-spring';
 import SecondImage from '../images/korean-food-2489206_1920.jpg';
 
 function SecondRending() {
