@@ -19,13 +19,20 @@ const Mypage = () => {
   const dispatch = useDispatch();
   const accessToken = localStorage.getItem('accessToken');
 
-  const dateFormat = origin => {
-    const format = origin.slice(0, 10).split('-');
-    const numFormat = [...format];
-    const result = `${numFormat[0]}년 ${Number(numFormat[1])}월 ${
-      numFormat[2]
-    }일`;
-    setFormDate(result);
+  const dateFormat = (origin = '') => {
+    if (
+      origin.length &&
+      origin !== undefined &&
+      origin !== null &&
+      typeof origin === 'string'
+    ) {
+      const format = origin.slice(0, 10).split('-');
+      const numFormat = [...format];
+      const result = `${numFormat[0]}년 ${Number(numFormat[1])}월 ${
+        numFormat[2]
+      }일`;
+      setFormDate(result);
+    }
   };
 
   const getUserInfo = async () => {
