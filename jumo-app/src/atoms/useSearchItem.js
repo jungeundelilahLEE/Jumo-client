@@ -8,7 +8,7 @@ import axios from 'axios';
 const useSearchItem = (query, pageNum) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [books, setBooks] = useState([]);
+  const [makgeolls, setMakgeolls] = useState([]);
   const [hasMore, setHasMore] = useState(false);
 
   //   const sendQuery = useCallback(async () => {
@@ -35,7 +35,7 @@ const useSearchItem = (query, pageNum) => {
 
   //   강의코드
   useEffect(() => {
-    setBooks([]);
+    setMakgeolls([]);
   }, [query]);
 
   useEffect(() => {
@@ -47,15 +47,13 @@ const useSearchItem = (query, pageNum) => {
 
     axios
       // .get(`https://openlibrary.org/search.json?q=${query}&page=${pageNum}`, {
-      .get(
-        `https://jumoserver.ml/makgeolli/info?name=${query}&page=${pageNum}`,
-        {
-          cancelToken: new CancelToken(c => (cancel = c)),
-        },
-      )
+      .get(`https://jumoserver.ml/makgeolli/info`, {
+        cancelToken: new CancelToken(c => (cancel = c)),
+        pageNum,
+      })
       .then(res => {
-        setBooks(prev => {
-          return [...new Set([...prev, ...res.data.data.map(d => d.name)])];
+        setMakgeolls(prev => {
+          return [...new Set([...prev, ...res.data.data])];
         });
         setHasMore(res.data.data.length > 0);
         setIsLoading(false);
@@ -68,7 +66,7 @@ const useSearchItem = (query, pageNum) => {
     return () => cancel();
   }, [query, pageNum]);
 
-  return { isLoading, error, books, hasMore };
+  return { isLoading, error, makgeolls, hasMore };
 };
 
 export default useSearchItem;
