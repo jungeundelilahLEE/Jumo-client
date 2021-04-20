@@ -54,6 +54,8 @@ function Nav() {
           <Link to="/user/info">
             <Button>
               <Img src={remoteMypage} alt="mypage" />
+              <Div>MYPAGE</Div>
+
             </Button>
           </Link>
         ) : (
@@ -68,6 +70,8 @@ function Nav() {
           <Link to="/">
             <Button onClick={handleClickLogout}>
               <Img src={remoteLogout} alt="logout" />
+              <Div>SIGNOUT</Div>
+
             </Button>
           </Link>
         ) : (
@@ -77,18 +81,24 @@ function Nav() {
         <Link to="/intro">
           <Button>
             <Img src={remoteIntro} alt="intro" />
+            <Div>INTRO</Div>
+
           </Button>
         </Link>
 
         <Link to="/makgeolli/info">
           <Button>
             <Img src={remoteMak} alt="mak" />
+            <Div>MAKGEOLLI</Div>
+
           </Button>
         </Link>
 
         <Link to="/brewery/info">
           <Button>
             <Img src={remoteBrew} alt="brew" dd />
+            <Div>BREWERY</Div>
+
           </Button>
         </Link>
       </StyledNav>
@@ -97,66 +107,101 @@ function Nav() {
 }
 
 const StyledNav = styled.div`
-  // 데스크탑 외
-  width: 50px;
-  height: 100vh;
-  background-color: #faf0e1;
   display: flex;
-  flex-direction: column;
-  padding-top: 80px;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex-grow: 1;
+  margin: 0 0 0 0px;
   position: fixed;
-  margin: 0 0 0 0;
+  top: 88%;
+  padding: 1px 10px;
+  width: 100vw;
+  height: 10vh;
+  background: #e7d1bf;
   z-index: 100;
-  @media screen and (max-width: 480px) {
-    // 모바일
+  @media ${props => props.theme.tablet} {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     flex-grow: 1;
     margin: 0 0 0 0px;
     position: fixed;
     top: 90%;
-    padding: 1px 25px;
+    padding: 1px 15px;
     width: 100vw;
     height: 10vh;
-    background-color: #e3daf5;
   }
-  @media screen and (min-width: 480px) and (max-width: 768px) {
-    // 테블릿
+  @media ${props => props.theme.desktop} {
+    width: 73px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     flex-grow: 1;
+    padding: 5px 5px;
+    z-index: 100;
+    top: 15%;
+    height: 100vh;
     margin: 0 0 0 0px;
     position: fixed;
-    top: 90%;
-    padding: 1px 30px;
-    width: 100vw;
-    height: 10vh;
-    background-color: #cbecf7;
+    background: none;
+    /* border: 1px solid black; */
+    /* background: white; */
   }
 `;
+
 const Button = styled.button`
   display: flex;
   flex-direction: column;
-  width: 50px;
-  height: 50px;
-  justify-content: center;
+  width: 60px;
+  height: 60px;
+  justify-content: space-around;
   align-items: center;
-  border: none;
-  /* border : 1px solid red; */
-  background-color: white;
-  @media screen and (max-width: 480px) {
+  background: none;
+  border-style: none;
+  @media ${props => props.theme.tablet} {
     display: flex;
     flex-direction: column;
-    width: 40px;
-    height: 40px;
-    justify-content: center;
+    width: 70px;
+    height: 70px;
+    justify-content: space-around;
     align-items: center;
+  }
+  @media ${props => props.theme.desktop} {
+    :before {
+      content: 'MAKGEOLLI';
+      color: white;
+      font-size: 1.4em;
+      font-weight: bolder;
+      display: block;
+      /* align-items: center; */
+      /* text-align: center; */
+      justify-content: flex-end;
+      padding-top: 1.2em;
+      padding-left: 3em;
+      padding-right: 0;
+      /* align-items: center; */
+      width: 220%;
+      height: 55%;
+      background: #c29b86;
+      position: absolute;
+      top: 0%;
+      left: -600%;
+      transition: all 0.3s;
+      box-shadow: 3px 3px 3px #8c8b88;
+      text-shadow: 2px 2px 2px #8c8b88;
+      border-radius: 1.8em 0 0 0;
+    }
+    display: inline;
+    position: relative;
+    /* overflow: hidden; */
+    &:hover:before {
+      left: 0;
+    }
   }
 `;
 
@@ -165,7 +210,7 @@ const Img = styled.img`
   justify-content: center;
   width: 2rem;
   height: 2rem;
-  flex-shrink: 1;
+  z-index: 5;
   &:hover {
     ${props =>
       css`
@@ -174,11 +219,61 @@ const Img = styled.img`
         filter: brightness(0) invert(1);
       `}
   }
-  @media screen and (max-width: 480px) {
+  @media ${props => props.theme.tablet} {
     display: flex;
     justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 3rem;
+    height: 3rem;
+    flex-shrink: 1;
+    &:hover {
+      ${props =>
+        css`
+          width: 2.2rem;
+          height: 2.2rem;
+          filter: brightness(0) invert(1);
+        `}
+    }
+  }
+  @media ${props => props.theme.desktop} {
+    display: flex;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    flex-shrink: 1;
+    top: 15%;
+    &:hover {
+      ${props =>
+        css`
+          width: 3.2rem;
+          height: 3.2rem;
+          top: 15%;
+          justify-content: flex-start;
+          filter: brightness(0) invert(1);
+        `}
+    }
+  }
+`;
+
+const Div = styled.div`
+  color: #293848;
+  font-size: 1em;
+  letter-spacing: -0.6px;
+  @media ${props => props.theme.tablet} {
+    font-size: 1.4em;
+    font-weight: bolder;
+    letter-spacing: -0.9px;
+  }
+  @media ${props => props.theme.desktop} {
+    font-size: 0;
+    // 없어도 될듯
+    /* &:hover {
+      ${props =>
+      css`
+        width: 3.2rem;
+        height: 3.2rem;
+        filter: brightness(0) invert(1);
+      `}
+    } */
   }
 `;
 
