@@ -40,6 +40,35 @@ export const editNickname = username => {
   };
 };
 
+// LIKE DELETE
+export const LIKE_DELETES = 'LIKE_DELETES';
+export const likeDeletes = userId => {
+  return {
+    type: LIKE_DELETES,
+    payload: {
+      userId,
+    },
+  };
+};
+
+// delete review (in Mypage)
+export const DELETE_MY_REVIEW = 'DELETE_MY_REVIEW';
+export const deleteMyReview = () => {
+  return {
+    type: DELETE_MY_REVIEW,
+    // payload //! 보낼 게 없는 거 같은데ㅣ?
+  };
+};
+export const EDIT_MY_REVIEW = 'EDIT_MY_REVIEW';
+export const editMyReview = comment => {
+  return {
+    type: EDIT_MY_REVIEW,
+    payload: comment,
+  };
+};
+
+/// ///////////////////////////////////////////////
+
 export const signIn = user => {
   return {
     type: SIGN_IN,

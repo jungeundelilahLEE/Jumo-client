@@ -11,6 +11,11 @@ import MakImg from '../images/intro-sec1.png';
 import TrashBinImg from '../images/trash-bin.png';
 import UsernameEditBtn from './UsernameEditBtn';
 import MypageMyReviews from './MypageMyReviews';
+import MypageMyFavs from './MypageMyFavs';
+import MyFavsBoard1 from './MyFavsBoard1';
+import MyFavsCard from './MyFavsCard1';
+import LikeDeleteBtn from './LikeDeleteBtn';
+import MyFavs from './MyFavs';
 
 const Mypage = () => {
   const state = useSelector(states => states.signinReducer);
@@ -156,7 +161,7 @@ const Mypage = () => {
             </MyBtn>
 
             <MyReviews>
-              <MypageMyReviews />
+              <MypageMyReviews isLogin={isLogin} user={user} />
             </MyReviews>
 
             {/* <MyReviews>
@@ -173,7 +178,28 @@ const Mypage = () => {
               </MyReviewsBox>
             </MyReviews> */}
 
-            <MyFavs>
+            {/* <MyFavs>
+              <MyFavsBoard1>
+                <MyFavsCard draggable="true">
+                  <MyFavsContentArea>
+                    <MypageMyFavs />
+                  </MyFavsContentArea>
+                </MyFavsCard>
+              </MyFavsBoard1>
+
+              <MyFavsBoard2>
+                <MyFavsCard draggable="true">
+                  <MyFavsDeleteBtnArea>
+                  <MyFavDeleteBtn src={trashBinImg} alt="trashBin" />
+                  </MyFavsDeleteBtnArea>
+                </MyFavsCard>
+              </MyFavsBoard2>
+            </MyFavs> */}
+            <MyFavs />
+
+            <LikeDeleteBtn user={user} isLogin={isLogin} />
+
+            {/* <MyFavs>
               <MyFavsBox>
                 <MyFavImg src={makImg} alt="makImg" />
                 <MyFavImg src={makImg} alt="makImg" />
@@ -183,13 +209,23 @@ const Mypage = () => {
                 <MyFavImg src={makImg} alt="makImg" />
               </MyFavsBox>
               <MyFavDeleteBtn src={trashBinImg} alt="trashBin" />
-            </MyFavs>
+            </MyFavs> */}
           </Section>
         </div>
       )}
     </div>
   );
 };
+
+// const MyFavsBoard = styled.div`
+//   display: flex;
+//   border: 5px solid yellow;
+// `;
+// const MyFavsCard = styled.div`
+//   display: flex;
+//   cursor: pointer;
+//   border: 3px solid orange;
+// `;
 
 const Section = styled.section`
   display: flex;
@@ -418,13 +454,29 @@ const MyReviewDeleteBtn = styled.button`
   margin-left: 0.3em;
 `;
 
-const MyFavs = styled.div`
+// const MyFavs = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   background-color: #c29b86;
+//   width: 90vw;
+//   height: 100vh; // 신경 안써도 됨
+//   z-index: 2;
+//   padding-bottom: 5em;
+// `;
+const MyFavsContentArea = styled.div`
   display: flex;
-  background-color: #c29b86;
-  width: 100vw;
-  height: 100vh; // 신경 안써도 됨
-  z-index: 2;
-  padding-bottom: 5em;
+  flex-direction: row;
+  border: 4px dashed green;
+  width: 90vw;
+  padding: 3em;
+  justify-content: center;
+`;
+const MyFavsDeleteBtnArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 4px dashed deepskyblue;
+  width: 10vw;
+  justify-content: right;
 `;
 const MyFavsBox = styled.div`
   border: 3px dashed deeppink;
