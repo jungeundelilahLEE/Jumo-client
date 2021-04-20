@@ -8,6 +8,9 @@ import Detail from './pages/Detail';
 import Makgeollis from './pages/Makgeollis';
 import Brewerys from './pages/Brewerys';
 import Nav from './pages/Nav';
+import Header from './pages/header';
+import Mypage from './pages/Mypage';
+import MypageMyReviews from './pages/MypageMyReviews';
 import Header from './pages/Header';
 import SignIn from './pages/SignIn';
 
