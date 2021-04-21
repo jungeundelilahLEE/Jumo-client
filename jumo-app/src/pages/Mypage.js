@@ -1,9 +1,12 @@
+/* eslint-disable no-else-return */
 /* eslint-disable import/no-cycle */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-// eslint-disable-next-line import/no-cycle
-import { useSelector } from 'react-redux';
-// import Nav from './Nav';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import { signIn } from '../actions';
+import server, { clientURL } from '../apis/server';
+
 import MakImg from '../images/intro-sec1.png';
 import TrashBinImg from '../images/trash-bin.png';
 import UsernameEditBtn from './UsernameEditBtn';
@@ -15,8 +18,111 @@ import LikeDeleteBtn from './LikeDeleteBtn';
 import MyFavs from './MyFavs';
 
 const Mypage = () => {
-  const state = useSelector(states => states.reviewReducer); // 로그인리듀서로 바꿔야
+  const state = useSelector(states => states.signinReducer);
   const { isLogin, user } = state;
+  const { username, email, createdAt } = user;
+  const [formDate, setFormDate] = useState('');
+  const [save, setSave] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const dispatch = useDispatch();
+  const accessToken = localStorage.getItem('accessToken');
+
+  const dateFormat = (origin = '') => {
+    if (
+      origin.length &&
+      origin !== undefined &&
+      origin !== null &&
+      typeof origin === 'string'
+    ) {
+      const format = origin.slice(0, 10).split('-');
+      const numFormat = [...format];
+      const result = `${numFormat[0]}년 ${Number(numFormat[1])}월 ${
+        numFormat[2]
+      }일`;
+      setFormDate(result);
+    }
+  };
+
+  const getUserInfo = async () => {
+    try {
+      const res = await server.get('/user/info', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const { data } = res.data;
+
+      dispatch(signIn(data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
+  useEffect(() => {
+    dateFormat(createdAt);
+  }, [createdAt]);
+
+  const updateUserInfo = async () => {
+    try {
+      const res = await server.get('/user/info', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const { data } = res.data;
+      dispatch(signIn(data));
+      // localStorage.setItem('accessToken', newToken);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const submitUserName = async inputNickname => {
+    if (inputNickname === '') {
+      alert('변경할 닉네임을 입력해주세요.');
+      return;
+    } else if (inputNickname === username) {
+      alert('새로운 닉네임을 입력해주세요.');
+      return;
+    }
+
+    try {
+      const changeUsername = await server
+        .put(
+          '/user/update',
+          { username: inputNickname },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        )
+        .then(res => res.data.data)
+        .then(data => updateUserInfo());
+
+      setSave(true);
+      setEdit(false);
+      alert('닉네임이 변경되었습니다.');
+      return;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleEditBtn = () => {
+    setEdit(true);
+    setSave(false);
+  };
+
+  const handleCancelBtn = () => {
+    setEdit(false);
+  };
 
   const makImg = MakImg;
   const trashBinImg = TrashBinImg;
@@ -27,17 +133,24 @@ const Mypage = () => {
         ''
       ) : (
         <div>
-          {/* <Nav /> */}
           <Section>
             <MyProfile>
               <MyProfileTitle>MY&nbsp;PROFILE</MyProfileTitle>
               <MyProfileList>Nickname</MyProfileList>
-              <MyProfileContent>{user.username}</MyProfileContent>
-              <UsernameEditBtn user={user} isLogin={isLogin} />
+
+              {/* <MyProfileContent>{username}</MyProfileContent> */}
+              <UsernameEditBtn
+                username={username}
+                submitUserName={submitUserName}
+                handleEditBtn={handleEditBtn}
+                handleCancelBtn={handleCancelBtn}
+                save={save}
+                edit={edit}
+              />
               <MyProfileList>Email</MyProfileList>
-              <MyProfileContent>willy@gmail.com</MyProfileContent>
+              <MyProfileContent>{email}</MyProfileContent>
               <MyProfileList>Registered Date</MyProfileList>
-              <MyProfileContent>2020-02-02</MyProfileContent>
+              <MyProfileContent>{formDate}</MyProfileContent>
             </MyProfile>
 
             <MyProfileHello>Hello #username! Wellcome back!</MyProfileHello>

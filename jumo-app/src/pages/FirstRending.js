@@ -7,7 +7,7 @@ import {
   Link,
   withRouter,
 } from 'react-router-dom';
-import { Spring } from 'react-spring';
+
 import firstImage from '../images/RenderFirst.jpg';
 
 function FirstRending() {

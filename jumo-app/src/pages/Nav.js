@@ -34,7 +34,7 @@ function Nav() {
       await server({
         method: 'post',
         url: '/user/logout',
-        headers: { Authorization: `Jumo ${accessToken}` },
+        headers: { Authorization: `Bearer ${accessToken}` },
       });
       localStorage.clear();
 
@@ -76,7 +76,7 @@ function Nav() {
           ''
         )}
 
-        <Link to="/intro">
+        <Link to="/">
           <Button>
             <Img src={remoteIntro} alt="intro" />
             <Div>INTRO</Div>

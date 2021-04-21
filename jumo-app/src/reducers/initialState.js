@@ -1,11 +1,7 @@
 export default {
   accessToken: '',
-  isLogin: true,
-  user: {
-    id: null,
-    email: '',
-    username: '이윌리',
-  },
+  isLogin: false,
+  user: { id: null, email: '', username: '', userDate: '' },
   likeItems: [],
 
   makgeolli: {

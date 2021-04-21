@@ -11,7 +11,7 @@ import MakgeolliCard from '../components/MakgeolliCard';
 
 import res from '../atoms/dummyMaks';
 
-const Makgeollis = ({ lastBookElementRef, books, isLoading, error }) => {
+const Makgeollis = ({ lastItemElementRef, makgeolls, isLoading, error }) => {
   // const [query, setQuery] = useState('');
   // const [pageNum, setPageNum] = useState(1);
   // const { isLoading, error, books, hasMore } = useSearchItem(query, pageNum);
@@ -36,31 +36,39 @@ const Makgeollis = ({ lastBookElementRef, books, isLoading, error }) => {
   //   setPageNum(1);
   // };
 
-  //! dummy data => server
-  // useEffect(() => {
-  //   const { data } = res;
-  //   setList(data);
-  // }, []);
-
-  const { data } = res;
-  const list = data;
-
   return (
     <StyleMakgeollis>
       {/* <Header handleChange={handleChange} value={query} /> */}
       <BestMakgeollis />
       <StyleResultText>
-        총<StyleResultNumber>{list.length}</StyleResultNumber>
+        총<StyleResultNumber>{makgeolls.length}</StyleResultNumber>
         개의 막걸리가 검색되었습니다.
       </StyleResultText>
 
       <StyleListBox>
-        {list.length ? (
-          list.map(item => (
-            <Link to={`/makgeolli/list/${item.id}`}>
-              <MakgeolliCard item={item} key={item.id} />
-            </Link>
-          ))
+        {makgeolls.length ? (
+          <>
+            {makgeolls.map((item, index) => {
+              if (makgeolls.length === index + 1) {
+                return (
+                  <Link to={`/makgeolli/list/${item.id}`}>
+                    <div key={item.id} ref={lastItemElementRef}>
+                      <MakgeolliCard item={item} key={item.id} />
+                    </div>
+                  </Link>
+                );
+              } else {
+                return (
+                  <Link to={`/makgeolli/list/${item.id}`}>
+                    <MakgeolliCard item={item} key={item.id} />
+                  </Link>
+                );
+              }
+            })}
+
+            <div>{isLoading && 'Loading...'}</div>
+            <div>{error && 'Error...'}</div>
+          </>
         ) : (
           <span>
             막걸리 리스트가 없습니다.
@@ -68,9 +76,10 @@ const Makgeollis = ({ lastBookElementRef, books, isLoading, error }) => {
             빠른 시일내에 업데이트 하겠습니다.
           </span>
         )}
-        <div className="test">
+
+        {/* <div className="test">
           <h1>Search Book</h1>
-          {/* <input type="text" onChange={handleChange} value={query} /> */}
+          <input type="text" onChange={handleChange} value={query} />
           {books.map((book, i) => {
             if (books.length === i + 1) {
               return (
@@ -84,7 +93,7 @@ const Makgeollis = ({ lastBookElementRef, books, isLoading, error }) => {
           })}
           <div>{isLoading && 'Loading...'}</div>
           <div>{error && 'Error...'}</div>
-        </div>
+        </div> */}
       </StyleListBox>
     </StyleMakgeollis>
   );
