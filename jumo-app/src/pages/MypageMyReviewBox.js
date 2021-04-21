@@ -3,23 +3,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { editReview, updateReivewList } from '../actions';
+import { editReview, removeReview } from '../actions';
 import server from '../apis/server';
 import StarBox from '../components/StarBox';
 import dateFormat from '../atoms/dateFormat';
 
 // eslint-disable-next-line camelcase
-const MypageMyReviewBox = ({ image, createdAt, comment, star, reviewId }) => {
-  // const state = useSelector(states => states.signinReducer);
-  // const { reviewList } = state;
+const MypageMyReviewBox = ({
+  image,
+  createdAt,
+  comment,
+  star,
+  reviewId,
+  setModify,
+}) => {
   const accessToken = localStorage.getItem('accessToken');
 
   const [date, setDate] = useState('');
   const [edit, setEdit] = useState(false);
   const [modifyText, setModifyText] = useState('');
-  // const [reviewInfo, setReviewInfo] = useState(null);
-
-  // const reviewText = useRef();
 
   const dispatch = useDispatch();
 
@@ -37,9 +39,26 @@ const MypageMyReviewBox = ({ image, createdAt, comment, star, reviewId }) => {
           headers: { Authorization: `Bearer ${accessToken}` },
         },
       );
-      // dispatch(editReview(reviewId, modifyText));
-      dispatch(updateReivewList(reviewId, modifyText));
-      alert('리뷰를 정삭적으로 수정했습니다.');
+      dispatch(editReview(reviewId, modifyText));
+      setModify(true);
+      alert('리뷰를 수정했습니다.');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const deleteReview = async () => {
+    try {
+      const res = await server.delete(
+        '/review/remove',
+        { review_id: reviewId },
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        },
+      );
+      dispatch(removeReview(reviewId));
+      setModify(true);
+      alert('리뷰를 삭제했습니다.');
     } catch (err) {
       console.log(err);
     }
@@ -56,6 +75,7 @@ const MypageMyReviewBox = ({ image, createdAt, comment, star, reviewId }) => {
   const handleModifyReviews = e => {
     setModifyText(e.target.value);
   };
+
   const handleSvae = () => {
     if (!modifyText.length) {
       alert('리뷰를 입력해주세요(최소 2글자).');
@@ -64,6 +84,8 @@ const MypageMyReviewBox = ({ image, createdAt, comment, star, reviewId }) => {
     updateReview();
     setEdit(false);
   };
+
+  const handleDelete = () => {};
 
   return (
     <>
@@ -92,8 +114,10 @@ const MypageMyReviewBox = ({ image, createdAt, comment, star, reviewId }) => {
           ) : (
             <MyReviewEditBtn onClick={editOn}>edit</MyReviewEditBtn>
           )}
-          {/* <MyReviewEditBtn onClick={modifyHandle}>edit</MyReviewEditBtn> */}
-          <MyReviewDeleteBtn>delete</MyReviewDeleteBtn>
+
+          <MyReviewDeleteBtn onClick={() => deleteReview()}>
+            delete
+          </MyReviewDeleteBtn>
         </MyReviewBtnBox>
       </MyReviewContent>
     </>

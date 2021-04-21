@@ -12,7 +12,7 @@ const MypageMyReviews = () => {
   const state = useSelector(states => states.signinReducer);
   const { user } = state;
   const [userReviews, setUserReviews] = useState([]);
-  // const { comment, image, createAt } = user.reviewList;
+  const [modify, setModify] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -37,8 +37,11 @@ const MypageMyReviews = () => {
     getUserReviews();
   }, []);
   useEffect(() => {
-    getUserReviews();
-  }, [userReviews]);
+    if (modify) {
+      getUserReviews();
+      setModify(false);
+    }
+  }, [modify]);
 
   return (
     <div>
@@ -53,6 +56,7 @@ const MypageMyReviews = () => {
               comment={el.comment}
               star={el.star}
               reviewId={el.id}
+              setModify={setModify}
             />
           </MyReviewsBox>
         ))
