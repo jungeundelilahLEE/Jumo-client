@@ -127,8 +127,6 @@ const Password = styled.div`
 `;
 
 const SignUp = ({ close, closeHandler, openHendler }) => {
-  document.body.style.overflow = 'hidden';
-
   const history = useHistory();
   const dispatch = useDispatch();
 
