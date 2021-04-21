@@ -23,7 +23,7 @@ import remoteIntro from '../images/remote-intro1.png';
 import remoteMak from '../images/remote-mak1.png';
 import remoteBrew from '../images/remote-brew1.png';
 
-function Nav() {
+function Nav({ openHendler }) {
   const dispatch = useDispatch();
   const accessToken = localStorage.getItem('accessToken');
   const isLogin = localStorage.getItem('isLogin');
@@ -58,11 +58,15 @@ function Nav() {
             </Button>
           </Link>
         ) : (
-          <Link to="/signin">
-            <Button>
-              <Img src={remoteMypage} alt="SignIn" />
-            </Button>
-          </Link>
+          <Button onClick={openHendler}>
+            <Img src={remoteMypage} alt="SignIn" />
+          </Button>
+
+          //   <Link to="/signin">
+          //   <Button onClick={openHendler}>
+          //     <Img src={remoteMypage} alt="SignIn" />
+          //   </Button>
+          // </Link>
         )}
 
         {isLogin === 'true' ? (
