@@ -58,6 +58,7 @@ const SignIn = ({ open, closeHandler, signupModalHandler }) => {
             localStorage.setItem('accessToken', data.data.accessToken);
 
             localStorage.setItem('oauth', 'local');
+            closeHandler();
             history.push('/makgeolli/info');
             window.location.reload();
           });

@@ -22,8 +22,8 @@ const App = () => {
     query,
     pageNum,
   );
-  const [openSign, setOpenSignIn] = useState(false);
-  const [openSignUp, setOpenSignUp] = useState(true);
+  const [openSignIn, setOpenSignIn] = useState(false);
+  const [openSignUp, setOpenSignUp] = useState(false);
 
   const observer = useRef();
   const lastItemElementRef = useCallback(
@@ -62,7 +62,7 @@ const App = () => {
       <Header handleChange={handleChange} value={query} />
       <Nav openHendler={openHendler} />
       <SignIn
-        open={openSign}
+        open={openSignIn}
         closeHandler={closeHandler}
         signupModalHandler={signupModalHandler}
       />
