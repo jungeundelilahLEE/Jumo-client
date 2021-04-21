@@ -43,8 +43,8 @@ const App = () => {
     <Router>
       <GlobalStyles />
       <Header handleChange={handleChange} value={query} />
-      <Nav />
-      <Intro />
+      {/* <Nav /> */}
+      {/* <Intro /> */}
       <Switch>
         <Route path="/user/info">
           <Mypage />
