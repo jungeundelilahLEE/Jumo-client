@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { FcGoogle } from 'react-icons/fc';
 import { useSelector, useDispatch } from 'react-redux';
 import { signIn } from '../actions';
 import server, { clientURL } from '../apis/server';
 import Inputs from '../atoms/Inputs';
-import img from '../images/JumoIcon.PNG';
-import google from '../images/google.png';
+import img from '../images/JustJ.PNG';
 
 const SignIn = ({ open, closeHandler, signupModalHandler }) => {
   document.body.style.overflow = 'hidden';
@@ -155,6 +155,10 @@ const SignIn = ({ open, closeHandler, signupModalHandler }) => {
   );
 };
 
+const Text = styled.div`
+  font-size: 35px;
+`;
+
 const BoxInner = styled.div`
   box-sizing: border-box;
   position: relative;
@@ -166,7 +170,7 @@ const BoxInner = styled.div`
   top: 50%;
   transform: translateY(-50%);
   margin: 0 auto;
-  padding: 0px 0px 40px 0px;
+  padding: 0px 0px 10px 0px;
 `;
 
 const BoxWrapper = styled.div`
@@ -183,14 +187,10 @@ const BoxWrapper = styled.div`
 `;
 const Input = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: space-around;
   align-items: center;
 `;
-const InputForm = styled.input`
-  width: 200px;
-  height: 20px;
-`;
+
 const OutBox = styled.div`
   box-sizing: border-box;
   /* display: none; */
@@ -212,7 +212,7 @@ const Title = styled.div`
 `;
 const Image = styled.div`
   background-color: #293848;
-  padding: 0px 0px 5px 10px;
+  padding: 0px 0px 5px 25px;
 `;
 const Alert = styled.div`
   color: red;
@@ -225,19 +225,30 @@ const Button = styled.button`
   border-radius: 4px;
   border: 0px;
   cursor: pointer;
+  padding: 15px;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+  &:active {
+    transform: translateY(2px);
+  }
 `;
 const SkipButton = styled.button`
   width: 200px;
   height: 20px;
   background-color: #293848;
   border: 0px;
+  padding: 15px;
   border-radius: 4px;
   cursor: pointer;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:active {
+    transform: translateY(2px);
+  }
 `;
 const Buttons = styled.div`
   display: flex;
@@ -251,16 +262,13 @@ const A = styled.a`
 `;
 
 const Line = styled.div`
+  margin: 0px 20px;
   border-top: none;
   border-left: none;
   border-right: none;
   border-bottom: 1px solid #c29b86;
 `;
-const Google = styled.img`
-  padding-right: 10px;
-  width: 25px;
-  height: 25px;
-`;
+
 const X = styled.button`
   float: right;
   width: 20px;

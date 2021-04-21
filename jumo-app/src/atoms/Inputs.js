@@ -40,14 +40,19 @@ const Inputs = ({ inputInfo, inputHandler }) => {
 
 const Input = styled.div`
   display: flex;
+  padding-top: 15px;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 `;
 
 const InputForm = styled.input`
+  margin: 5px;
+  padding: 15px;
   width: 200px;
   height: 20px;
+  border: 1px solid #c29b86;
+  border-radius: 5px;
 `;
 const StyleInputRow = styled.div`
   display: flex;
