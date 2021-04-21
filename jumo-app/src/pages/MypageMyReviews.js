@@ -2,21 +2,39 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 // eslint-disable-next-line import/no-cycle
+
 import { useSelector } from 'react-redux';
+
+import axios from 'axios';
+import server from '../apis/server';
+
 import MakImg from '../images/intro-sec1.png';
 import res from '../atoms/dummyReview'; // 리뷰리스트 더미데이터
 import MypageMyReviewBox from './MypageMyReviewBox';
 
 const MypageMyReviews = () => {
-  const makImg = MakImg;
-  //   res = { data : [ {}, {}, {}, {}, {}, {}, {} ] }
-  //   const { data } = res
-  //   data = [ {}, {}, {}, {}, {}, {}, {} ]
-  const { data } = res;
+  const accessToken = localStorage.getItem('accessToken');
+  const state = useSelector(states => states.signinReducer);
+  const { user } = state;
+
+  const getUserReviews = async () => {
+    try {
+      const userReviews = await server.get('/users/mypage', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const { data } = userReviews;
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div>
-      {data === null ? (
+      {user.id}
+      {/* {data === null ? (
         <div>작성한 글이 없습니다.</div>
       ) : (
         data.map(el => (
@@ -28,7 +46,7 @@ const MypageMyReviews = () => {
             />
           </MyReviewsBox>
         ))
-      )}
+      )} */}
     </div>
   );
 };
