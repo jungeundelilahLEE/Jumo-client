@@ -120,7 +120,7 @@ export const editReview = (reviewId, comment) => {
   return {
     type: UPDATE_REVIEW,
     payload: {
-      reviewId,
+      review_id: reviewId,
       comment,
     },
   };
