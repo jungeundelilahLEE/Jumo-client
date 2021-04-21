@@ -133,8 +133,7 @@ const SignIn = ({ open, closeHandler, signupModalHandler }) => {
               <br />
               <Buttons>
                 <Button type="submit" onClick={() => googleLoginHandler()}>
-                  <Google src={google} alt="google" />
-                  Google로그인
+                  <FcGoogle size="18" /> Google로그인 Google로그인
                 </Button>
                 <br />
                 <Link to="/">
