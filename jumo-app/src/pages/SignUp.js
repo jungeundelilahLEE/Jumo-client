@@ -126,12 +126,11 @@ const Password = styled.div`
   align-items: center;
 `;
 
-const SignUp = ({ close, closeHandler }) => {
+const SignUp = ({ close, closeHandler, openHendler }) => {
   document.body.style.overflow = 'hidden';
 
   const history = useHistory();
   const dispatch = useDispatch();
-  // const [close, setClose] = useState(false);
 
   const [userInfo, setUserInfo] = useState({
     username: '',
@@ -175,10 +174,6 @@ const SignUp = ({ close, closeHandler }) => {
     setUserInfo({ ...userInfo, [type]: target });
   };
 
-  // const closeHandler = () => {
-  //   setClose(true);
-  // };
-
   const submitHandler = async () => {
     const { username, email, password, checkPassword } = userInfo;
     if (
@@ -204,7 +199,8 @@ const SignUp = ({ close, closeHandler }) => {
           password,
         });
         localStorage.setItem('oauth', 'local');
-        dispatch(signIn(sendUserInfo));
+        closeHandler();
+        openHendler();
         alert('정상적으로 회원가입 되었습니다.');
         history.push('/user/signin');
       } catch (err) {
@@ -212,12 +208,6 @@ const SignUp = ({ close, closeHandler }) => {
       }
     }
   };
-
-  // useEffect(() => {
-  //   if (close) {
-  //     history.push('/');
-  //   }
-  // }, [close]);
 
   return (
     <>
@@ -260,39 +250,6 @@ const SignUp = ({ close, closeHandler }) => {
           </BoxWrapper>
         </OutBox>
       ) : null}
-      {/* <OutBox>
-        <BoxWrapper>
-          <BoxInner>
-            <Title>
-              <div>Sign Up</div>
-              <Image>
-                <img src={img} alt="icon" width="150px" height="80px" />
-                <X onClick={closeHandler}>x</X>
-              </Image>
-            </Title>
-            <br />
-
-            <Input>
-              <Inputs inputInfo={inputInfo} inputHandler={inputHandler} />
-            </Input>
-
-            <br />
-            <Alert>{errorMessage}</Alert>
-            <br />
-            <br />
-            <Line />
-            <br />
-            <Buttons>
-              <Button type="submit" onClick={submitHandler}>
-                SignUp
-              </Button>
-              <br />
-              <SkipButton type="submit">Skip</SkipButton>
-            </Buttons>
-            <br />
-          </BoxInner>
-        </BoxWrapper>
-      </OutBox> */}
     </>
   );
 };

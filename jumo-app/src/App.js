@@ -66,7 +66,11 @@ const App = () => {
         closeHandler={closeHandler}
         signupModalHandler={signupModalHandler}
       />
-      <SignUp close={openSignUp} closeHandler={closeHandler} />
+      <SignUp
+        close={openSignUp}
+        openHendler={openHendler}
+        closeHandler={closeHandler}
+      />
       <Switch>
         <Route path="/user/info">
           <Mypage />
