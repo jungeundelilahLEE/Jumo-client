@@ -10,6 +10,7 @@ import Nav from './pages/Nav';
 import MypageMyReviews from './pages/MypageMyReviews';
 import Header from './pages/Header';
 import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
 import Mypage from './pages/Mypage';
 import Rending from './pages/Rendings';
 import Intro from './pages/Intro';
@@ -21,6 +22,8 @@ const App = () => {
     query,
     pageNum,
   );
+  const [openSignIn, setOpenSignIn] = useState(false);
+  const [openSignUp, setOpenSignUp] = useState(false);
 
   const observer = useRef();
   const lastItemElementRef = useCallback(
@@ -41,19 +44,38 @@ const App = () => {
     setQuery(e.target.value);
     setPageNum(1);
   };
+  const openHendler = () => {
+    setOpenSignIn(true);
+  };
+  const closeHandler = () => {
+    setOpenSignIn(false);
+    setOpenSignUp(false);
+  };
+  const signupModalHandler = () => {
+    setOpenSignIn(false);
+    setOpenSignUp(true);
+  };
 
   return (
     <Router>
       <GlobalStyles />
       <Header handleChange={handleChange} value={query} />
-      <Nav />
+      <Nav openHendler={openHendler} />
+      <SignIn
+        open={openSignIn}
+        closeHandler={closeHandler}
+        signupModalHandler={signupModalHandler}
+      />
+      <SignUp
+        close={openSignUp}
+        openHendler={openHendler}
+        closeHandler={closeHandler}
+      />
       <Switch>
         <Route path="/user/info">
           <Mypage />
         </Route>
-        <Route path="/signin">
-          <SignIn />
-        </Route>
+
         <Route exact path="/">
           <Intro />
         </Route>

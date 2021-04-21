@@ -6,29 +6,35 @@ const Inputs = ({ inputInfo, inputHandler }) => {
     <Input>
       {inputInfo.map(info =>
         info.type === 'password' ||
-        info.type === 'confirmPassword' ||
+        info.type === 'checkPassword' ||
         info.type === 'newPassword' ? (
-          <InputForm
-            placeholder={info.placeholder}
-            onChange={inputHandler}
-            data-type={info.type}
-            type="password"
-          />
+          <StyleInputRow>
+            <div>{info.subtitle}</div>
+            <InputForm
+              placeholder={info.placeholder}
+              onChange={inputHandler}
+              data-type={info.type}
+              type="password"
+            />
+          </StyleInputRow>
         ) : (
-          <InputForm
-            placeholder={info.placeholder}
-            onChange={inputHandler}
-            data-type={info.type}
-          />
+          <StyleInputRow>
+            <div>{info.subtitle}</div>
+            <InputForm
+              placeholder={info.placeholder}
+              onChange={inputHandler}
+              data-type={info.type}
+            />
+
+            {info.subtitle === 'Email' || info.subtitle === 'Nickname' ? (
+              <div>
+                <button type="button">check</button>
+              </div>
+            ) : null}
+          </StyleInputRow>
         ),
       )}
     </Input>
-
-    // <Input>
-    //   <InputForm placeholder="email을입력하세요" />
-    //   <br />
-    //   <InputForm placeholder="비밀번호를입력하세요" />
-    // </Input>
   );
 };
 
@@ -47,6 +53,11 @@ const InputForm = styled.input`
   height: 20px;
   border: 1px solid #c29b86;
   border-radius: 5px;
+`;
+const StyleInputRow = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 `;
 
 export default Inputs;

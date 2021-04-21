@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FcGoogle } from 'react-icons/fc';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,14 +8,15 @@ import server, { clientURL } from '../apis/server';
 import Inputs from '../atoms/Inputs';
 import img from '../images/JustJ.PNG';
 
-const SignIn = () => {
-  const dispatch = useDispatch();
+const SignIn = ({ open, closeHandler, signupModalHandler }) => {
+  document.body.style.overflow = 'hidden';
 
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const inputInfo = [
-    { placeholder: 'E-mail을 입력해주세요', type: 'email' },
-    { placeholder: '비밀번호를 입력해주세요', type: 'password' },
+    { subtitle: 'Email', placeholder: '이메일', type: 'email' },
+    { subtitle: 'password', placeholder: '비밀번호', type: 'password' },
   ];
 
   const [info, setInfo] = useState({
@@ -57,6 +58,7 @@ const SignIn = () => {
             localStorage.setItem('accessToken', data.data.accessToken);
 
             localStorage.setItem('oauth', 'local');
+            closeHandler();
             history.push('/makgeolli/info');
             window.location.reload();
           });
@@ -105,46 +107,50 @@ const SignIn = () => {
 
   return (
     <>
-      <OutBox>
-        <BoxWrapper>
-          <BoxInner>
-            <Title>
-              <Text>Sign In</Text>
-              <Image>
-                <img src={img} alt="icon" width="130px" height="80px" />
-                <X>x</X>
-              </Image>
-            </Title>
-            <br />
-            <Input>
-              <Inputs inputInfo={inputInfo} inputHandler={inputHandler} />
-            </Input>
-            <br />
-            <Alert>{errorMessage}</Alert>
-            <br />
-            <Buttons>
-              <Button type="submit" onClick={() => submitHandler()}>
-                Sign in
-              </Button>
-            </Buttons>
-            <br />
-            <Line />
-            <br />
-            <Buttons>
-              <Button type="submit" onClick={() => googleLoginHandler()}>
-                <FcGoogle size="18" /> Google로그인
-              </Button>
+      {open ? (
+        <OutBox>
+          <BoxWrapper>
+            <BoxInner>
+              <Title>
+                <div>Sign In</div>
+                <Image>
+                  <img src={img} alt="icon" width="150px" height="80px" />
+                  <X onClick={closeHandler}>x</X>
+                </Image>
+              </Title>
               <br />
-              <SkipButton type="submit">Skip</SkipButton>
-            </Buttons>
-            <br />
-            <Buttons>
-              아직 회원이 아니신가요?
-              <A href="https://www.naver.com">회원가입하러가기</A>
-            </Buttons>
-          </BoxInner>
-        </BoxWrapper>
-      </OutBox>
+              <Inputs inputInfo={inputInfo} inputHandler={inputHandler} />
+              <br />
+              <Alert>{errorMessage}</Alert>
+              <br />
+              <Buttons>
+                <Button type="submit" onClick={() => submitHandler()}>
+                  Sign in
+                </Button>
+              </Buttons>
+              <br />
+              <Line />
+              <br />
+              <Buttons>
+                <Button type="submit" onClick={() => googleLoginHandler()}>
+                  <Google src={google} alt="google" />
+                  Google로그인
+                </Button>
+                <br />
+                <Link to="/">
+                  <SkipButton type="submit" onClick={closeHandler}>
+                    Skip
+                  </SkipButton>
+                </Link>
+              </Buttons>
+              <br />
+              <Buttons onClick={signupModalHandler}>
+                아직 회원이 아니신가요? 회원가입하러가기
+              </Buttons>
+            </BoxInner>
+          </BoxWrapper>
+        </OutBox>
+      ) : null}
     </>
   );
 };

@@ -2,20 +2,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  withRouter,
-  useHistory,
-} from 'react-router-dom';
+import { Link, withRouter, useHistory } from 'react-router-dom';
 import { signOut } from '../actions';
 import server from '../apis/server';
-
-import Mypage from './Mypage';
-import SignIn from './SignIn';
-import Makgeollis from './Makgeollis';
 
 import remoteMypage from '../images/remote-mypage1.png';
 import remoteLogout from '../images/remote-logout1.png';
@@ -23,7 +12,7 @@ import remoteIntro from '../images/remote-intro1.png';
 import remoteMak from '../images/remote-mak1.png';
 import remoteBrew from '../images/remote-brew1.png';
 
-function Nav() {
+function Nav({ openHendler }) {
   const dispatch = useDispatch();
   const accessToken = localStorage.getItem('accessToken');
   const isLogin = localStorage.getItem('isLogin');
@@ -58,11 +47,9 @@ function Nav() {
             </Button>
           </Link>
         ) : (
-          <Link to="/signin">
-            <Button>
-              <Img src={remoteMypage} alt="SignIn" />
-            </Button>
-          </Link>
+          <Button onClick={openHendler}>
+            <Img src={remoteMypage} alt="SignIn" />
+          </Button>
         )}
 
         {isLogin === 'true' ? (

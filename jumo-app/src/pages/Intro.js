@@ -12,8 +12,6 @@ function Intro() {
 
   return (
     <div>
-      {/* <Header /> */}
-      <Nav />
       <Section>
         <StyledIntro>
           <StyledUl>
