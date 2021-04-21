@@ -9,8 +9,6 @@ import MypageMyReviewBox from './MypageMyReviewBox';
 
 const MypageMyReviews = () => {
   const accessToken = localStorage.getItem('accessToken');
-  const state = useSelector(states => states.signinReducer);
-  const { user } = state;
   const [userReviews, setUserReviews] = useState([]);
   const [modify, setModify] = useState(false);
 
@@ -18,7 +16,7 @@ const MypageMyReviews = () => {
 
   const getUserReviews = async () => {
     try {
-      const res = await server.get('/review/info?id={user.id}', {
+      const res = await server.get(`/review/info`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
