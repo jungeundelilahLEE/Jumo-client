@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { FcGoogle } from 'react-icons/fc';
 import { useSelector, useDispatch } from 'react-redux';
 import { signIn } from '../actions';
 import server, { clientURL } from '../apis/server';
 import Inputs from '../atoms/Inputs';
-import img from '../images/JumoIcon.PNG';
-import google from '../images/google.png';
+import img from '../images/JustJ.PNG';
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -14,8 +14,8 @@ const SignIn = () => {
   const history = useHistory();
 
   const inputInfo = [
-    { placeholder: '이메일', type: 'email' },
-    { placeholder: '비밀번호', type: 'password' },
+    { placeholder: 'E-mail을 입력해주세요', type: 'email' },
+    { placeholder: '비밀번호를 입력해주세요', type: 'password' },
   ];
 
   const [info, setInfo] = useState({
@@ -109,14 +109,16 @@ const SignIn = () => {
         <BoxWrapper>
           <BoxInner>
             <Title>
-              <div>Sign In</div>
+              <Text>Sign In</Text>
               <Image>
-                <img src={img} alt="icon" width="150px" height="80px" />
+                <img src={img} alt="icon" width="130px" height="80px" />
                 <X>x</X>
               </Image>
             </Title>
             <br />
-            <Inputs inputInfo={inputInfo} inputHandler={inputHandler} />
+            <Input>
+              <Inputs inputInfo={inputInfo} inputHandler={inputHandler} />
+            </Input>
             <br />
             <Alert>{errorMessage}</Alert>
             <br />
@@ -130,8 +132,7 @@ const SignIn = () => {
             <br />
             <Buttons>
               <Button type="submit" onClick={() => googleLoginHandler()}>
-                <Google src={google} alt="google" />
-                Google로그인
+                <FcGoogle size="18" /> Google로그인
               </Button>
               <br />
               <SkipButton type="submit">Skip</SkipButton>
@@ -148,6 +149,10 @@ const SignIn = () => {
   );
 };
 
+const Text = styled.div`
+  font-size: 35px;
+`;
+
 const BoxInner = styled.div`
   box-sizing: border-box;
   position: relative;
@@ -159,7 +164,7 @@ const BoxInner = styled.div`
   top: 50%;
   transform: translateY(-50%);
   margin: 0 auto;
-  padding: 0px 0px 40px 0px;
+  padding: 0px 0px 10px 0px;
 `;
 
 const BoxWrapper = styled.div`
@@ -176,14 +181,10 @@ const BoxWrapper = styled.div`
 `;
 const Input = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: space-around;
   align-items: center;
 `;
-const InputForm = styled.input`
-  width: 200px;
-  height: 20px;
-`;
+
 const OutBox = styled.div`
   box-sizing: border-box;
   /* display: none; */
@@ -205,7 +206,7 @@ const Title = styled.div`
 `;
 const Image = styled.div`
   background-color: #293848;
-  padding: 0px 0px 5px 10px;
+  padding: 0px 0px 5px 25px;
 `;
 const Alert = styled.div`
   color: red;
@@ -218,19 +219,30 @@ const Button = styled.button`
   border-radius: 4px;
   border: 0px;
   cursor: pointer;
+  padding: 15px;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+  &:active {
+    transform: translateY(2px);
+  }
 `;
 const SkipButton = styled.button`
   width: 200px;
   height: 20px;
   background-color: #293848;
   border: 0px;
+  padding: 15px;
   border-radius: 4px;
   cursor: pointer;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:active {
+    transform: translateY(2px);
+  }
 `;
 const Buttons = styled.div`
   display: flex;
@@ -244,16 +256,13 @@ const A = styled.a`
 `;
 
 const Line = styled.div`
+  margin: 0px 20px;
   border-top: none;
   border-left: none;
   border-right: none;
   border-bottom: 1px solid #c29b86;
 `;
-const Google = styled.img`
-  padding-right: 10px;
-  width: 25px;
-  height: 25px;
-`;
+
 const X = styled.button`
   float: right;
   width: 20px;
