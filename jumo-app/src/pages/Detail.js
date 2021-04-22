@@ -8,7 +8,7 @@ import ReviewList from '../components/ReviewList';
 
 import res from '../atoms/dummyMaks';
 
-const Detail = () => {
+const Detail = ({ channelHandler }) => {
   const state = useSelector(states => states.userReducer);
   const { likeItems } = state;
   const [viewCount, SetViewCount] = useState(0);
@@ -32,6 +32,7 @@ const Detail = () => {
 
   //! dummy data => server
   useEffect(() => {
+    channelHandler('Detail');
     const { data } = res;
     // const makg = data.filter(el => el.id === makId);
     // const makgeolli = makg[0];

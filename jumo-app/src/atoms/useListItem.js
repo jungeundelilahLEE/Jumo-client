@@ -3,15 +3,11 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const useSearchItem = (query, pageNum) => {
+const useListItem = pageNum => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const [pick, setPick] = useState([]);
   const [hasMore, setHasMore] = useState(false);
-
-  useEffect(() => {
-    setPick([]);
-  }, [query]);
 
   useEffect(() => {
     const CancelToken = axios.CancelToken;
@@ -21,12 +17,9 @@ const useSearchItem = (query, pageNum) => {
     setError(false);
 
     axios
-      .get(
-        `https://jumoserver.ml/makgeolli/search?query=${query}&pageNum=${pageNum}`,
-        {
-          cancelToken: new CancelToken(c => (cancel = c)),
-        },
-      )
+      .get(`https://jumoserver.ml/makgeolli/info?pageNum=${pageNum}`, {
+        cancelToken: new CancelToken(c => (cancel = c)),
+      })
       .then(res => {
         setPick(prev => {
           return [...new Set([...prev, ...res.data.data])];
@@ -40,9 +33,9 @@ const useSearchItem = (query, pageNum) => {
       });
 
     return () => cancel();
-  }, [query, pageNum]);
+  }, [pageNum]);
 
   return { isLoading, error, pick, hasMore };
 };
 
-export default useSearchItem;
+export default useListItem;

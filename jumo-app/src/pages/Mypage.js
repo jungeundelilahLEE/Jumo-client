@@ -17,7 +17,7 @@ import MyFavsCard from './MyFavsCard1';
 import LikeDeleteBtn from './LikeDeleteBtn';
 import MyFavs from './MyFavs';
 
-const Mypage = () => {
+const Mypage = ({ channelHandler }) => {
   const state = useSelector(states => states.signinReducer);
   const { isLogin, user } = state;
   const { id, username, email, createdAt } = user;
@@ -60,6 +60,7 @@ const Mypage = () => {
   };
 
   useEffect(() => {
+    channelHandler('Mypage');
     getUserInfo();
   }, []);
 

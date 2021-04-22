@@ -7,7 +7,6 @@ import Detail from './pages/Detail';
 import Makgeollis from './pages/Makgeollis';
 import Brewerys from './pages/Brewerys';
 import Nav from './pages/Nav';
-import MypageMyReviews from './pages/MypageMyReviews';
 import Header from './pages/Header';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
@@ -17,11 +16,10 @@ import Intro from './pages/Intro';
 
 const App = () => {
   const [query, setQuery] = useState('');
-  const [pageNum, setPageNum] = useState(1);
-  const { isLoading, error, makgeolls, hasMore } = useSearchItem(
-    query,
-    pageNum,
-  );
+  const [pageNum, setPageNum] = useState(0);
+  const { isLoading, error, pick, hasMore } = useSearchItem(query, pageNum);
+  // const { isLoading, error, pick, hasMore } = useListItem(pageNum);
+  const [channel, setChannel] = useState('');
   const [openSignIn, setOpenSignIn] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
 
@@ -40,10 +38,15 @@ const App = () => {
     [isLoading, hasMore],
   );
 
-  const handleChange = e => {
+  const changeHandler = e => {
     setQuery(e.target.value);
     setPageNum(1);
   };
+
+  const channelHandler = name => {
+    setChannel(name);
+  };
+
   const openHendler = () => {
     setOpenSignIn(true);
   };
@@ -59,7 +62,7 @@ const App = () => {
   return (
     <Router>
       <GlobalStyles />
-      <Header handleChange={handleChange} value={query} />
+      <Header changeHandler={changeHandler} channel={channel} />
       <Nav openHendler={openHendler} />
       <SignIn
         open={openSignIn}
@@ -73,25 +76,26 @@ const App = () => {
       />
       <Switch>
         <Route path="/user/info">
-          <Mypage />
+          <Mypage channelHandler={channelHandler} />
         </Route>
 
         <Route exact path="/">
-          <Intro />
+          <Intro channelHandler={channelHandler} />
         </Route>
         <Route path="/makgeolli/info">
           <Makgeollis
             lastItemElementRef={lastItemElementRef}
-            makgeolls={makgeolls}
+            pick={pick}
             isLoading={isLoading}
             error={error}
+            channelHandler={channelHandler}
           />
         </Route>
         <Route path="/makgeolli/list/:makId">
-          <Detail />
+          <Detail channelHandler={channelHandler} />
         </Route>
         <Route path="/brewery/info">
-          <Brewerys />
+          <Brewerys channelHandler={channelHandler} />
         </Route>
       </Switch>
     </Router>
