@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import axios from 'axios';
 import { editReview, removeReview } from '../actions';
 import server from '../apis/server';
 import StarBox from '../components/StarBox';
@@ -47,15 +48,41 @@ const MypageMyReviewBox = ({
     }
   };
 
+  // const deleteReview = async () => {
+  //   try {
+  //     const res = await server.delete(
+  //       `/review/remove?review_id=${reviewId}`,
+
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`,
+  //           withCredentials: true,
+  //         },
+  //       },
+  //     );
+
+  //     dispatch(removeReview(reviewId));
+  //     setModify(true);
+  //     alert('리뷰를 삭제했습니다.');
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
   const deleteReview = async () => {
     try {
       const res = await server.delete(
-        '/review/remove',
+        `/review/remove`,
         { review_id: reviewId },
         {
-          headers: { Authorization: `Bearer ${accessToken}` },
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+          // withCredentials: true,
         },
       );
+
       dispatch(removeReview(reviewId));
       setModify(true);
       alert('리뷰를 삭제했습니다.');
@@ -85,7 +112,9 @@ const MypageMyReviewBox = ({
     setEdit(false);
   };
 
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    deleteReview();
+  };
 
   return (
     <>
@@ -115,9 +144,7 @@ const MypageMyReviewBox = ({
             <MyReviewEditBtn onClick={editOn}>edit</MyReviewEditBtn>
           )}
 
-          <MyReviewDeleteBtn onClick={() => deleteReview()}>
-            delete
-          </MyReviewDeleteBtn>
+          <MyReviewDeleteBtn onClick={handleDelete}>delete</MyReviewDeleteBtn>
         </MyReviewBtnBox>
       </MyReviewContent>
     </>

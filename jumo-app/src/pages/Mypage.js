@@ -138,7 +138,6 @@ const Mypage = () => {
               <MyProfileTitle>MY&nbsp;PROFILE</MyProfileTitle>
               <MyProfileList>Nickname</MyProfileList>
 
-              {/* <MyProfileContent>{username}</MyProfileContent> */}
               <UsernameEditBtn
                 username={username}
                 submitUserName={submitUserName}
