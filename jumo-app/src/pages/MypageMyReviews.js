@@ -1,30 +1,60 @@
-/* eslint-disable import/no-cycle */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-// eslint-disable-next-line import/no-cycle
-import { useSelector } from 'react-redux';
-import MakImg from '../images/intro-sec1.png';
-import res from '../atoms/dummyReview'; // 리뷰리스트 더미데이터
+
+import { useSelector, useDispatch } from 'react-redux';
+import { updateReivewList } from '../actions';
+import server from '../apis/server';
+
 import MypageMyReviewBox from './MypageMyReviewBox';
 
 const MypageMyReviews = () => {
-  const makImg = MakImg;
-  //   res = { data : [ {}, {}, {}, {}, {}, {}, {} ] }
-  //   const { data } = res
-  //   data = [ {}, {}, {}, {}, {}, {}, {} ]
-  const { data } = res;
+  const accessToken = localStorage.getItem('accessToken');
+  const [userReviews, setUserReviews] = useState([]);
+  const [modify, setModify] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const getUserReviews = async () => {
+    try {
+      const res = await server.get(`/review/info`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const { data } = res;
+      const reviewsList = data.data;
+      dispatch(updateReivewList(reviewsList));
+      setUserReviews([...reviewsList]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUserReviews();
+  }, []);
+  useEffect(() => {
+    if (modify) {
+      getUserReviews();
+      setModify(false);
+    }
+  }, [modify]);
 
   return (
     <div>
-      {data === null ? (
+      {!userReviews.length ? (
         <div>작성한 글이 없습니다.</div>
       ) : (
-        data.map(el => (
+        userReviews.map(el => (
           <MyReviewsBox>
             <MypageMyReviewBox
               image={el.image}
-              createAt={el.createAt}
+              createdAt={el.createdAt}
               comment={el.comment}
+              star={el.star}
+              reviewId={el.id}
+              setModify={setModify}
             />
           </MyReviewsBox>
         ))
@@ -33,20 +63,12 @@ const MypageMyReviews = () => {
   );
 };
 
-const MyReviews = styled.div`
-  display: flex;
-  flex-direction: row;
-  background-color: #e7d1bf;
-  width: 100vw;
-  height: 100vh;
-  padding-bottom: 5em;
-  justify-content: center;
-`;
 const MyReviewsBox = styled.div`
   display: flex;
   flex-direction: row;
   width: 80vw;
-  height: 23vh;
+  padding: 20px; //추가함: hgsignal
+  /* height: 23vh; //수정함: hgsignal */
   background-color: #ffffff;
   justify-content: center;
   align-items: center;
