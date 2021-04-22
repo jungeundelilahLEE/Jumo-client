@@ -3,16 +3,18 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { addLike, removeLike } from '../actions';
+import server from '../apis/server';
 import ReviewInput from '../components/ReviewInput';
 import ReviewList from '../components/ReviewList';
 
-import res from '../atoms/dummyMaks';
+// import res from '../atoms/dummyMaks';
 
 const Detail = ({ channelHandler }) => {
   const state = useSelector(states => states.userReducer);
   const { likeItems } = state;
-  const [viewCount, SetViewCount] = useState(0);
-  const { makId } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
+  // const [viewCount, SetViewCount] = useState(0);
+  const { name } = useParams();
   const [item, setItem] = useState({
     id: '',
     brewery_id: '',
@@ -33,15 +35,27 @@ const Detail = ({ channelHandler }) => {
   //! dummy data => server
   useEffect(() => {
     channelHandler('Detail');
-    const { data } = res;
-    // const makg = data.filter(el => el.id === makId);
-    // const makgeolli = makg[0];
-    const makgeolli = data[0];
-    const { views } = makgeolli;
-    setItem(prevState => {
-      return { ...prevState, ...makgeolli };
-    });
-    SetViewCount(views + 1);
+    // const { data } = res;
+    // // const makg = data.filter(el => el.id === makId);
+    // // const makgeolli = makg[0];
+    // const makgeolli = data[0];
+    // const { views } = makgeolli;
+    // setItem(prevState => {
+    //   return { ...prevState, ...makgeolli };
+    // });
+    // SetViewCount(views + 1);
+
+    setIsLoading(true);
+    server
+      .get(`/makgeolli/list?name=${name}`)
+      .then(res =>
+        setItem(prev => {
+          return { ...prev, ...res.data.data };
+        }),
+      )
+      .then(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   const handleLike = () => {
@@ -61,9 +75,6 @@ const Detail = ({ channelHandler }) => {
       <StyleVertical>
         <StyleDescBox>
           <StyleDescInfo>
-            {/* test */}
-            <div>조회수 증가 테스트중 : {viewCount}</div>
-
             <div>조회수 : {item.views}</div>
             <div>
               {!likeItems.includes(item.id) ? (
