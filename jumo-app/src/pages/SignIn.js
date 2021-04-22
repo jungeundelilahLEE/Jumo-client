@@ -9,6 +9,8 @@ import Inputs from '../atoms/Inputs';
 import img from '../images/JustJ.PNG';
 
 const SignIn = ({ open, closeHandler, signupModalHandler }) => {
+  // document.body.style.overflow = 'hidden';
+
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -131,7 +133,7 @@ const SignIn = ({ open, closeHandler, signupModalHandler }) => {
               <br />
               <Buttons>
                 <Button type="submit" onClick={() => googleLoginHandler()}>
-                  <FcGoogle size="18" /> Google로그인 Google로그인
+                  <FcGoogle size="18" /> Google로그인
                 </Button>
                 <br />
                 <Link to="/">
