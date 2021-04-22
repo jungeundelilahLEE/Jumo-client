@@ -11,63 +11,20 @@ import ReviewCard from './ReviewCard';
 
 const ReviewList = ({ makgeolliId, user }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const state = useSelector(states => states.reviewReducer);
-  const { reviewList } = state;
   // const { id, username, email, createdAt } = user;
-  // const [allReivews, setAllReviews] = useState([]);
-  const accessToken = localStorage.getItem('accessToken');
-
-  const dispatch = useDispatch();
-
-  //! dummy data => server
-  // const { data } = res;
-  // const { dataUser } = resUser;
-
-  // 해당 막걸리에 맞는 댓글 조회를 위한 로직입니다.
-  // 모든 댓글 볼땐 filterData (X) -> data (O)
-  // const filterData = data.filter(el => el.makgeolliId === makgeolliId);
-
-  // useEffect(() => {
-  //   if (reviewList.length === 0) {
-  //     dispatch(updateReivewList(filterData));
-  //   }
-  // }, []);
-
-  const getUserInfo = async () => {
-    try {
-      const res = await server.get('/user/info', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-
-      const { data } = res.data;
-
-      // dispatch(signIn(data));
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const [allReivews, setAllReviews] = useState([]);
 
   const getReviewList = async () => {
     const reviews = await server.get(
       `/makgeolli/review?makgeolli_id=${makgeolliId}`,
     );
     const { data } = reviews;
-    dispatch(updateReivewList(data.data));
+    setAllReviews(data.data);
   };
 
   useEffect(() => {
-    if (accessToken) {
-      getUserInfo();
-    }
-  }, []);
-
-  useEffect(() => {
     getReviewList();
-  }, [makgeolliId]);
-
-  // dispatch(addReview(data));
+  }, [allReivews]);
 
   return (
     <StyleReviewList>
@@ -77,11 +34,11 @@ const ReviewList = ({ makgeolliId, user }) => {
       </StyleReviewsTop>
 
       <div>
-        {!reviewList.length ? (
+        {!allReivews.length ? (
           <span>리뷰를 작성해주세요.</span>
         ) : (
-          reviewList &&
-          reviewList.map(review => (
+          allReivews &&
+          allReivews.map(review => (
             <ReviewCard review={review} user={user} key={review.id} />
             // <ReviewCard review={review} user={dataUser.user} key={review.id} />
           ))

@@ -49,12 +49,6 @@ const ReviewInput = ({ makgeolliId, user }) => {
         { headers: { Authorization: `Bearer ${accessToken}` } },
       );
       reviewText.current.value = '';
-      const reviewList = await server.get(
-        `makgeolli/review?makgeolli_id=${makgeolliId}`,
-      );
-      const { data } = reviewList.data;
-      dispatch(updateReivewList(data));
-
       setRating(1);
     }
   };
