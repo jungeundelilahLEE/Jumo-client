@@ -1,52 +1,45 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
-import { updateReivewList } from '../actions';
+import server from '../apis/server';
 import ReviewCard from './ReviewCard';
 
-import resUser from '../atoms/dummyUser'; // 유저 더미데이터
-import res from '../atoms/dummyReview'; // 리뷰리스트 더미데이터
+const ReviewList = ({ makgeolliId, allReivews, setAllReviews }) => {
+  // const [isLoading, setIsLoading] = useState(false);
 
-const ReviewList = ({ makgeolliId }) => {
-  const state = useSelector(states => states.reviewReducer);
-  const { reviewList } = state;
-  const dispatch = useDispatch();
-
-  //! dummy data => server
-  const { data } = res;
-  const { dataUser } = resUser;
-
-  // 해당 막걸리에 맞는 댓글 조회를 위한 로직입니다.
-  // 모든 댓글 볼땐 filterData (X) -> data (O)
-  const filterData = data.filter(el => el.makgeolliId === makgeolliId);
+  const getReviewList = async () => {
+    const reviews = await server.get(
+      `/makgeolli/review?makgeolli_id=${makgeolliId}`,
+    );
+    const { data } = reviews;
+    setAllReviews(data.data);
+  };
 
   useEffect(() => {
-    if (reviewList.length === 0) {
-      dispatch(updateReivewList(filterData));
-    }
-  }, []);
-
-  // dispatch(addReview(data));
+    getReviewList();
+  }, [makgeolliId]);
 
   return (
     <StyleReviewList>
       <StyleReviewsTop>
         <div className="StyleReviewsCategory" />
-        <div>6,047</div>
+        <div>{allReivews.length}</div>
       </StyleReviewsTop>
 
       <div>
-        {!reviewList.length ? (
+        {!allReivews.length ? (
           <span>리뷰를 작성해주세요.</span>
         ) : (
-          reviewList &&
-          reviewList.map(review => (
-            <ReviewCard review={review} user={dataUser.user} key={review.id} />
+          allReivews &&
+          allReivews.map(review => (
+            <ReviewCard
+              review={review}
+              key={review.id}
+              setAllReviews={setAllReviews}
+              makgeolliId={makgeolliId}
+            />
           ))
         )}
-        {/* {reviews &&
-          reviews.map(review => <ReviewCard review={review} key={review.id} />)} */}
       </div>
     </StyleReviewList>
   );

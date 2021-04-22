@@ -59,7 +59,7 @@ const Makgeollis = ({
             {pick.map((item, index) => {
               if (pick.length === index + 1) {
                 return (
-                  <Link to={`/makgeolli/list/${item.id}`}>
+                  <Link to={`/makgeolli/list/${item.name}`}>
                     <div key={item.id} ref={lastItemElementRef}>
                       <MakgeolliCard item={item} key={item.id} />
                     </div>
@@ -67,7 +67,7 @@ const Makgeollis = ({
                 );
               } else {
                 return (
-                  <Link to={`/makgeolli/list/${item.id}`}>
+                  <Link to={`/makgeolli/list/${item.name}`}>
                     <MakgeolliCard item={item} key={item.id} />
                   </Link>
                 );

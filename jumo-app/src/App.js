@@ -92,7 +92,7 @@ const App = () => {
             channelHandler={channelHandler}
           />
         </Route>
-        <Route path="/makgeolli/list/:makId">
+        <Route path="/makgeolli/list/:name">
           <Detail channelHandler={channelHandler} />
         </Route>
         <Route path="/brewery/info">

@@ -2,17 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { addLike, removeLike } from '../actions';
+import { signIn, addLike, removeLike } from '../actions';
+import server from '../apis/server';
 import ReviewInput from '../components/ReviewInput';
 import ReviewList from '../components/ReviewList';
 
-import res from '../atoms/dummyMaks';
+// import res from '../atoms/dummyMaks';
 
 const Detail = ({ channelHandler }) => {
   const state = useSelector(states => states.userReducer);
   const { likeItems } = state;
-  const [viewCount, SetViewCount] = useState(0);
-  const { makId } = useParams();
+  const accessToken = localStorage.getItem('accessToken');
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [viewCount, SetViewCount] = useState(0);
+  const [allReivews, setAllReviews] = useState([]);
+  const { name } = useParams();
+
+  const [userInfo, setUserInfo] = useState({
+    id: null,
+    email: '',
+    username: '',
+  });
   const [item, setItem] = useState({
     id: '',
     brewery_id: '',
@@ -30,18 +40,41 @@ const Detail = ({ channelHandler }) => {
 
   const dispatch = useDispatch();
 
-  //! dummy data => server
+  const getMakgeolliInfo = () => {
+    // setIsLoading(true);
+    server
+      .get(`/makgeolli/list?name=${name}`)
+      .then(res =>
+        setItem(prev => {
+          return { ...prev, ...res.data.data };
+        }),
+      )
+      .then(() => {
+        // setIsLoading(false);
+      });
+  };
+
+  const getUserInfo = async () => {
+    try {
+      const res = await server.get('/user/info', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const { data } = res.data;
+      setUserInfo(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     channelHandler('Detail');
-    const { data } = res;
-    // const makg = data.filter(el => el.id === makId);
-    // const makgeolli = makg[0];
-    const makgeolli = data[0];
-    const { views } = makgeolli;
-    setItem(prevState => {
-      return { ...prevState, ...makgeolli };
-    });
-    SetViewCount(views + 1);
+    getMakgeolliInfo();
+    if (accessToken) {
+      getUserInfo();
+    }
   }, []);
 
   const handleLike = () => {
@@ -61,9 +94,6 @@ const Detail = ({ channelHandler }) => {
       <StyleVertical>
         <StyleDescBox>
           <StyleDescInfo>
-            {/* test */}
-            <div>조회수 증가 테스트중 : {viewCount}</div>
-
             <div>조회수 : {item.views}</div>
             <div>
               {!likeItems.includes(item.id) ? (
@@ -78,7 +108,6 @@ const Detail = ({ channelHandler }) => {
 
               <StyleTextLike>LIKE : {item.likes}</StyleTextLike>
             </div>
-            <div>리뷰 : {item.reviews}</div>
           </StyleDescInfo>
           <StyleExplanation>
             <StyleTitle>{item.name}</StyleTitle>
@@ -99,8 +128,12 @@ const Detail = ({ channelHandler }) => {
           </StyleLikeBtn>
         )}
       </StyleVertical>
-      <ReviewInput makgeolliId={item.id} />
-      <ReviewList makgeolliId={item.id} />
+      <ReviewInput makgeolliId={item.id} setAllReviews={setAllReviews} />
+      <ReviewList
+        makgeolliId={item.id}
+        allReivews={allReivews}
+        setAllReviews={setAllReviews}
+      />
     </StyleDetailes>
   );
 };
