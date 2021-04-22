@@ -2,7 +2,7 @@
 /* eslint-disable no-lonely-if */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -10,19 +10,38 @@ import { updateReivewList } from '../actions';
 import server from '../apis/server';
 import StarInput from './StarInput';
 
-const ReviewInput = ({ makgeolliId, user }) => {
-  const dispatch = useDispatch();
+const ReviewInput = ({ makgeolliId, setAllReviews }) => {
+  const [userName, setUserName] = useState('');
   const [rating, setRating] = useState(1);
   const [hoverRating, setHoverRating] = useState(0);
   const [inputText, setInputText] = useState('');
   const accessToken = localStorage.getItem('accessToken');
 
-  const userName = user.name;
+  // const userName = userInfo.name;
   const { name } = useParams();
   const reviewText = useRef();
   const onMouseEnter = index => setHoverRating(index);
   const onMouseLeave = () => setHoverRating(0);
   const onSaveRating = index => setRating(index);
+
+  const getUserInfo = async () => {
+    try {
+      const res = await server.get('/user/info', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const { data } = res.data;
+      setUserName(data.username);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
   const handleReview = e => {
     setInputText(e.target.value);
@@ -49,6 +68,12 @@ const ReviewInput = ({ makgeolliId, user }) => {
         { headers: { Authorization: `Bearer ${accessToken}` } },
       );
       reviewText.current.value = '';
+      const reviewList = await server.get(
+        `makgeolli/review?makgeolli_id=${makgeolliId}`,
+      );
+      const { data } = reviewList.data;
+
+      setAllReviews(data);
       setRating(1);
     }
   };

@@ -4,9 +4,10 @@ import React, { useState, useSelector, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { removeReview, editReview } from '../actions';
+import server from '../apis/server';
 import StarIcon from './StarIcon';
 
-const ReviewCard = ({ review, user }) => {
+const ReviewCard = ({ review }) => {
   const {
     id,
     user_id,
@@ -17,10 +18,31 @@ const ReviewCard = ({ review, user }) => {
     image,
     comment,
   } = review;
+  const accessToken = localStorage.getItem('accessToken');
+  const [userInfo, setUserInfo] = useState('');
   const [inputText, setInputText] = useState('');
   const [edit, setEdit] = useState(false);
   const [save, setSave] = useState(false);
   const dispatch = useDispatch();
+
+  const getUserInfo = async () => {
+    try {
+      const res = await server.get('/user/info', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const { data } = res.data;
+      setUserInfo(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
   const handleReview = e => {
     setInputText(e.target.value);
@@ -76,7 +98,7 @@ const ReviewCard = ({ review, user }) => {
             <StyleText>{comment}</StyleText>
           )}
 
-          {user_id === user.id && !save ? (
+          {user_id === userInfo.id && !save ? (
             <StyleModifyBox>
               <StyleChangeBtn onClick={() => handleEdit()}>edit</StyleChangeBtn>
               <StyleChangeBtn onClick={() => handleDelete(id)}>

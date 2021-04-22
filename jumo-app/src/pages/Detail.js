@@ -15,13 +15,13 @@ const Detail = ({ channelHandler }) => {
   const accessToken = localStorage.getItem('accessToken');
   // const [isLoading, setIsLoading] = useState(false);
   // const [viewCount, SetViewCount] = useState(0);
+  const [allReivews, setAllReviews] = useState([]);
   const { name } = useParams();
 
-  const [user, setUser] = useState({
+  const [userInfo, setUserInfo] = useState({
     id: null,
     email: '',
     username: '',
-    image: '',
   });
   const [item, setItem] = useState({
     id: '',
@@ -63,9 +63,7 @@ const Detail = ({ channelHandler }) => {
       });
 
       const { data } = res.data;
-
-      // dispatch(signIn(data));
-      setUser(data);
+      setUserInfo(data);
     } catch (err) {
       console.log(err);
     }
@@ -130,8 +128,12 @@ const Detail = ({ channelHandler }) => {
           </StyleLikeBtn>
         )}
       </StyleVertical>
-      <ReviewInput makgeolliId={item.id} user={user} />
-      <ReviewList makgeolliId={item.id} user={user} />
+      <ReviewInput makgeolliId={item.id} setAllReviews={setAllReviews} />
+      <ReviewList
+        makgeolliId={item.id}
+        allReivews={allReivews}
+        setAllReviews={setAllReviews}
+      />
     </StyleDetailes>
   );
 };
