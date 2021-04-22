@@ -9,9 +9,7 @@ import BestMakgeollis from './BestMakgeollis';
 import MakgeolliCard from '../components/MakgeolliCard';
 // import Header from './header';
 
-import res from '../atoms/dummyMaks';
-
-const Makgeollis = ({ lastItemElementRef, makgeolls, isLoading, error }) => {
+const Makgeollis = ({ lastItemElementRef, pick, isLoading, error }) => {
   // const [query, setQuery] = useState('');
   // const [pageNum, setPageNum] = useState(1);
   // const { isLoading, error, books, hasMore } = useSearchItem(query, pageNum);
@@ -41,15 +39,15 @@ const Makgeollis = ({ lastItemElementRef, makgeolls, isLoading, error }) => {
       {/* <Header handleChange={handleChange} value={query} /> */}
       <BestMakgeollis />
       <StyleResultText>
-        총<StyleResultNumber>{makgeolls.length}</StyleResultNumber>
+        총<StyleResultNumber>{pick.length}</StyleResultNumber>
         개의 막걸리가 검색되었습니다.
       </StyleResultText>
 
       <StyleListBox>
-        {makgeolls.length ? (
+        {pick.length ? (
           <>
-            {makgeolls.map((item, index) => {
-              if (makgeolls.length === index + 1) {
+            {pick.map((item, index) => {
+              if (pick.length === index + 1) {
                 return (
                   <Link to={`/makgeolli/list/${item.id}`}>
                     <div key={item.id} ref={lastItemElementRef}>

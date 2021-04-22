@@ -8,34 +8,11 @@ import axios from 'axios';
 const useSearchItem = (query, pageNum) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [makgeolls, setMakgeolls] = useState([]);
+  const [pick, setPick] = useState([]);
   const [hasMore, setHasMore] = useState(false);
 
-  //   const sendQuery = useCallback(async () => {
-  //     try {
-  //       await setIsLoading(true);
-  //       await setError(false);
-  //       const res = await axios.get(
-  //         `https://jumoserver.ml/makgeolli/info?name=${query}&page=${pageNum}`,
-  //       );
-  //       //   await setBooks(prev => [...new Set([...prev, ...res.data.data])]);
-  //       await setBooks(prev => [
-  //         ...new Set([...prev, ...res.data.data.map(d => d.name)]),
-  //       ]);
-  //       await setHasMore(res.data.data.length > 0);
-  //       setIsLoading(false);
-  //     } catch (err) {
-  //       setError(err);
-  //     }
-  //   }, [query, pageNum]);
-
-  //   useEffect(() => {
-  //     sendQuery(query);
-  //   }, [query, sendQuery, pageNum]);
-
-  // code
   useEffect(() => {
-    setMakgeolls([]);
+    setPick([]);
   }, [query]);
 
   useEffect(() => {
@@ -46,13 +23,14 @@ const useSearchItem = (query, pageNum) => {
     setError(false);
 
     axios
-      // .get(`https://openlibrary.org/search.json?q=${query}&page=${pageNum}`, {
-      .get(`https://jumoserver.ml/makgeolli/info`, {
-        cancelToken: new CancelToken(c => (cancel = c)),
-        pageNum,
-      })
+      .get(
+        `https://jumoserver.ml/makgeolli/info?query=${query}&pageNum=${pageNum}`,
+        {
+          cancelToken: new CancelToken(c => (cancel = c)),
+        },
+      )
       .then(res => {
-        setMakgeolls(prev => {
+        setPick(prev => {
           return [...new Set([...prev, ...res.data.data])];
         });
         setHasMore(res.data.data.length > 0);
@@ -66,7 +44,7 @@ const useSearchItem = (query, pageNum) => {
     return () => cancel();
   }, [query, pageNum]);
 
-  return { isLoading, error, makgeolls, hasMore };
+  return { isLoading, error, pick, hasMore };
 };
 
 export default useSearchItem;

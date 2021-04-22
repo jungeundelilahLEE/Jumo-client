@@ -17,11 +17,8 @@ import Intro from './pages/Intro';
 
 const App = () => {
   const [query, setQuery] = useState('');
-  const [pageNum, setPageNum] = useState(1);
-  const { isLoading, error, makgeolls, hasMore } = useSearchItem(
-    query,
-    pageNum,
-  );
+  const [pageNum, setPageNum] = useState(0);
+  const { isLoading, error, pick, hasMore } = useSearchItem(query, pageNum);
   const [openSignIn, setOpenSignIn] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
 
@@ -82,7 +79,7 @@ const App = () => {
         <Route path="/makgeolli/info">
           <Makgeollis
             lastItemElementRef={lastItemElementRef}
-            makgeolls={makgeolls}
+            pick={pick}
             isLoading={isLoading}
             error={error}
           />
