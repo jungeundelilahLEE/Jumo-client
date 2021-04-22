@@ -47,6 +47,7 @@ const App = () => {
       <GlobalStyles />
       <Header handleChange={handleChange} value={query} />
       <Nav />
+      <Rending />
       <Switch>
         <Route path="/user/info">
           <Mypage />
