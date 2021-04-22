@@ -1,10 +1,28 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
+// import axios from 'axios';
 import { FiSearch } from 'react-icons/fi';
 import icon from '../images/JumoIcon.PNG';
 
-const Header = ({ handleChange, query }) => {
+const Header = ({ handleChange }) => {
+  // const [searchText, setSearchText] = useState('');
+  // const [searchItem, setSearchItem] = useState([]);
+
+  // const handleSearchText = e => {
+  //   setSearchText(e.target.value);
+  // };
+
+  // const handleSearchSubmit = () => {
+  //   axios
+  //     .get(`https://jumoserver.ml/makgeolli/search?query=${searchText}`)
+  //     .then(res => {
+  //       setSearchItem(prev => {
+  //         return [...new Set([...prev, ...res.data.data])];
+  //       });
+  //     });
+  // };
+
   return (
     <Navbar>
       <div className="Icon">
@@ -16,7 +34,6 @@ const Header = ({ handleChange, query }) => {
           placeholder="검색어를 입력하세요"
           outline="none"
           onChange={handleChange}
-          value={query}
         />
         <Fi>
           <FiSearch size="24" color="#e7d1bf" />
@@ -43,7 +60,7 @@ const Navbar = styled.div`
   height: 50px;
 `;
 const Input = styled.input`
-  display: none;
+  /* display: none; */
   font-family: Sunflower;
   background-color: #293848;
   color: #e7d1bf;

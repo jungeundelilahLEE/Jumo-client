@@ -7,7 +7,6 @@ import Detail from './pages/Detail';
 import Makgeollis from './pages/Makgeollis';
 import Brewerys from './pages/Brewerys';
 import Nav from './pages/Nav';
-import MypageMyReviews from './pages/MypageMyReviews';
 import Header from './pages/Header';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
@@ -19,6 +18,7 @@ const App = () => {
   const [query, setQuery] = useState('');
   const [pageNum, setPageNum] = useState(0);
   const { isLoading, error, pick, hasMore } = useSearchItem(query, pageNum);
+  // const { isLoading, error, pick, hasMore } = useListItem(pageNum);
   const [openSignIn, setOpenSignIn] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
 
@@ -41,6 +41,7 @@ const App = () => {
     setQuery(e.target.value);
     setPageNum(1);
   };
+
   const openHendler = () => {
     setOpenSignIn(true);
   };
@@ -56,7 +57,7 @@ const App = () => {
   return (
     <Router>
       <GlobalStyles />
-      <Header handleChange={handleChange} value={query} />
+      <Header handleChange={handleChange} />
       <Nav openHendler={openHendler} />
       <SignIn
         open={openSignIn}
