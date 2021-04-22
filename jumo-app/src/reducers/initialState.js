@@ -30,11 +30,12 @@ export default {
 
   review: {
     id: null,
-    makgeolliId: null,
-    userId: null,
+    makgeolli_id: null,
+    user_id: null,
     star: '',
     comment: '',
     image: '',
+    createdAt: '',
   },
 
   reviewList: [],

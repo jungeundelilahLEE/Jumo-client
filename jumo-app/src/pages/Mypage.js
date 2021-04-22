@@ -17,10 +17,10 @@ import MyFavsCard from './MyFavsCard1';
 import LikeDeleteBtn from './LikeDeleteBtn';
 import MyFavs from './MyFavs';
 
-const Mypage = () => {
+const Mypage = ({ channelHandler }) => {
   const state = useSelector(states => states.signinReducer);
   const { isLogin, user } = state;
-  const { username, email, createdAt } = user;
+  const { id, username, email, createdAt } = user;
   const [formDate, setFormDate] = useState('');
   const [save, setSave] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -60,6 +60,7 @@ const Mypage = () => {
   };
 
   useEffect(() => {
+    channelHandler('Mypage');
     getUserInfo();
   }, []);
 
@@ -138,7 +139,6 @@ const Mypage = () => {
               <MyProfileTitle>MY&nbsp;PROFILE</MyProfileTitle>
               <MyProfileList>Nickname</MyProfileList>
 
-              {/* <MyProfileContent>{username}</MyProfileContent> */}
               <UsernameEditBtn
                 username={username}
                 submitUserName={submitUserName}
@@ -153,7 +153,7 @@ const Mypage = () => {
               <MyProfileContent>{formDate}</MyProfileContent>
             </MyProfile>
 
-            <MyProfileHello>Hello #username! Wellcome back!</MyProfileHello>
+            <MyProfileHello>Hello {username}! Wellcome back!</MyProfileHello>
 
             <MyBtn>
               <MyReviewBtn>MY REVIEWS</MyReviewBtn>
@@ -161,55 +161,12 @@ const Mypage = () => {
             </MyBtn>
 
             <MyReviews>
-              <MypageMyReviews isLogin={isLogin} user={user} />
+              <MypageMyReviews />
             </MyReviews>
 
-            {/* <MyReviews>
-              <MyReviewsBox>
-                <MyReviewImg src={makImg} alt="makImg" />
-                <MyReviewContent>
-                  <MyReviewCreatedAt>2020-02-02</MyReviewCreatedAt>
-                  <MyReviewReview>야미!dfdddddfdfdfdffdfdfd</MyReviewReview>
-                  <MyReviewBtnBox>
-                    <MyReviewEditBtn>edit</MyReviewEditBtn>
-                    <MyReviewDeleteBtn>delete</MyReviewDeleteBtn>
-                  </MyReviewBtnBox>
-                </MyReviewContent>
-              </MyReviewsBox>
-            </MyReviews> */}
-
-            {/* <MyFavs>
-              <MyFavsBoard1>
-                <MyFavsCard draggable="true">
-                  <MyFavsContentArea>
-                    <MypageMyFavs />
-                  </MyFavsContentArea>
-                </MyFavsCard>
-              </MyFavsBoard1>
-
-              <MyFavsBoard2>
-                <MyFavsCard draggable="true">
-                  <MyFavsDeleteBtnArea>
-                  <MyFavDeleteBtn src={trashBinImg} alt="trashBin" />
-                  </MyFavsDeleteBtnArea>
-                </MyFavsCard>
-              </MyFavsBoard2>
-            </MyFavs> */}
             <MyFavs />
 
             <LikeDeleteBtn user={user} isLogin={isLogin} />
-
-            {/* <MyFavs>
-              <MyFavsBox>
-                <MyFavImg src={makImg} alt="makImg" />
-                <MyFavImg src={makImg} alt="makImg" />
-                <MyFavImg src={makImg} alt="makImg" />
-                <MyFavImg src={makImg} alt="makImg" />
-                <MyFavImg src={makImg} alt="makImg" />
-                <MyFavImg src={makImg} alt="makImg" />
-              </MyFavsBox>
-              <MyFavDeleteBtn src={trashBinImg} alt="trashBin" />
-            </MyFavs> */}
           </Section>
         </div>
       )}

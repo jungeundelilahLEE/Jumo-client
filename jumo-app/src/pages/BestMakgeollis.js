@@ -18,7 +18,6 @@ const BestMakgeollis = () => {
   const [itemLength, seItemLength] = useState(5);
 
   let state = useSelector(states => states.carouselReducer.bestList);
-  state = state.slice(0, 10);
   const baseHead = state.slice(state.length - 2, state.length);
   const baseTail = state.slice(0, 2);
   const baseList = [...baseHead, ...state, ...baseTail];
