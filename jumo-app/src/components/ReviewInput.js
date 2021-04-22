@@ -1,23 +1,25 @@
+/* eslint-disable object-shorthand */
+/* eslint-disable no-lonely-if */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
-import { addReview } from '../actions';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { updateReivewList } from '../actions';
+import server from '../apis/server';
 import StarInput from './StarInput';
 
-import resUser from '../atoms/dummyUser'; // 유저 더미데이터
-
-const ReviewInput = ({ makgeolliId }) => {
+const ReviewInput = ({ makgeolliId, user }) => {
   const dispatch = useDispatch();
   const [rating, setRating] = useState(1);
   const [hoverRating, setHoverRating] = useState(0);
   const [inputText, setInputText] = useState('');
+  const accessToken = localStorage.getItem('accessToken');
 
-  //! dummy data => server
-  const { dataUser } = resUser;
-  const { user } = dataUser;
-
+  const userName = user.name;
+  const { name } = useParams();
+  const reviewText = useRef();
   const onMouseEnter = index => setHoverRating(index);
   const onMouseLeave = () => setHoverRating(0);
   const onSaveRating = index => setRating(index);
@@ -26,34 +28,35 @@ const ReviewInput = ({ makgeolliId }) => {
     setInputText(e.target.value);
   };
 
-  const reviewText = useRef();
+  const handleSave = async () => {
+    if (!accessToken) {
+      alert('로그인 해 주세요.');
+    } else {
+      if (!inputText.length) {
+        alert('리뷰를 입력해주세요(최소 2글자).');
+        return;
+      }
 
-  const handleSave = () => {
-    if (!inputText.length) {
-      alert('리뷰를 입력해주세요(최소 2글자).');
-      return;
+      const reviewEnter = await server.post(
+        '/review/create',
+        {
+          star: rating,
+          comment: inputText,
+          image: '',
+          name: name,
+          username: userName,
+        },
+        { headers: { Authorization: `Bearer ${accessToken}` } },
+      );
+      reviewText.current.value = '';
+      const reviewList = await server.get(
+        `makgeolli/review?makgeolli_id=${makgeolliId}`,
+      );
+      const { data } = reviewList.data;
+      dispatch(updateReivewList(data));
+
+      setRating(1);
     }
-
-    // 나중에 서버랑 통신하는 부분임. 지금은 로컬 더미 데이터로 확인
-    // const state = useSelector(state => state.reviewReducer);
-    // const { reviews } = state;
-
-    // Test dummy data...
-    const review = {
-      id: 10,
-      makgeolliId,
-      star: rating,
-      comment: inputText,
-      image: '',
-      userId: user.id,
-      username: 'TEST;;;',
-    };
-
-    dispatch(addReview(review));
-
-    setRating(1);
-    setInputText('');
-    reviewText.current.value = '';
   };
 
   return (

@@ -16,6 +16,13 @@ const Detail = ({ channelHandler }) => {
   // const [isLoading, setIsLoading] = useState(false);
   // const [viewCount, SetViewCount] = useState(0);
   const { name } = useParams();
+
+  const [user, setUser] = useState({
+    id: null,
+    email: '',
+    username: '',
+    image: '',
+  });
   const [item, setItem] = useState({
     id: '',
     brewery_id: '',
@@ -57,7 +64,8 @@ const Detail = ({ channelHandler }) => {
 
       const { data } = res.data;
 
-      dispatch(signIn(data));
+      // dispatch(signIn(data));
+      setUser(data);
     } catch (err) {
       console.log(err);
     }
@@ -122,8 +130,8 @@ const Detail = ({ channelHandler }) => {
           </StyleLikeBtn>
         )}
       </StyleVertical>
-      <ReviewInput makgeolliId={item.id} />
-      <ReviewList makgeolliId={item.id} />
+      <ReviewInput makgeolliId={item.id} user={user} />
+      <ReviewList makgeolliId={item.id} user={user} />
     </StyleDetailes>
   );
 };

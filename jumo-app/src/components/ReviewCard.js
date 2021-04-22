@@ -7,10 +7,6 @@ import { removeReview, editReview } from '../actions';
 import StarIcon from './StarIcon';
 
 const ReviewCard = ({ review, user }) => {
-  // const state = useSelector(states => states.signinReducer);
-  // const state = { user: { id: 3 } };
-  // const { user } = state;
-
   const {
     id,
     user_id,
