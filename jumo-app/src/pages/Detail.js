@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { addLike, removeLike } from '../actions';
+import { signIn, addLike, removeLike } from '../actions';
 import server from '../apis/server';
 import ReviewInput from '../components/ReviewInput';
 import ReviewList from '../components/ReviewList';
@@ -12,7 +12,8 @@ import ReviewList from '../components/ReviewList';
 const Detail = ({ channelHandler }) => {
   const state = useSelector(states => states.userReducer);
   const { likeItems } = state;
-  const [isLoading, setIsLoading] = useState(false);
+  const accessToken = localStorage.getItem('accessToken');
+  // const [isLoading, setIsLoading] = useState(false);
   // const [viewCount, SetViewCount] = useState(0);
   const { name } = useParams();
   const [item, setItem] = useState({
@@ -32,10 +33,8 @@ const Detail = ({ channelHandler }) => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    channelHandler('Detail');
-
-    setIsLoading(true);
+  const getMakgeolliInfo = () => {
+    // setIsLoading(true);
     server
       .get(`/makgeolli/list?name=${name}`)
       .then(res =>
@@ -44,8 +43,32 @@ const Detail = ({ channelHandler }) => {
         }),
       )
       .then(() => {
-        setIsLoading(false);
+        // setIsLoading(false);
       });
+  };
+
+  const getUserInfo = async () => {
+    try {
+      const res = await server.get('/user/info', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const { data } = res.data;
+
+      dispatch(signIn(data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    channelHandler('Detail');
+    getMakgeolliInfo();
+    if (accessToken) {
+      getUserInfo();
+    }
   }, []);
 
   const handleLike = () => {

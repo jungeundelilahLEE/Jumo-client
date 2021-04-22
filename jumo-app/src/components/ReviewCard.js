@@ -1,17 +1,30 @@
+/* eslint-disable camelcase */
 /* eslint-disable react/prop-types */
-import React, { useState, useRef } from 'react';
+import React, { useState, useSelector, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { removeReview, editReview } from '../actions';
-// import PropTypes from 'prop-types';
 import StarIcon from './StarIcon';
 
 const ReviewCard = ({ review, user }) => {
-  const dispatch = useDispatch();
-  const { id, userId, star, username, createAt, image, comment } = review;
+  // const state = useSelector(states => states.signinReducer);
+  // const state = { user: { id: 3 } };
+  // const { user } = state;
+
+  const {
+    id,
+    user_id,
+    star,
+    username,
+    createdAt,
+    updatedAt,
+    image,
+    comment,
+  } = review;
   const [inputText, setInputText] = useState('');
   const [edit, setEdit] = useState(false);
   const [save, setSave] = useState(false);
+  const dispatch = useDispatch();
 
   const handleReview = e => {
     setInputText(e.target.value);
@@ -50,7 +63,7 @@ const ReviewCard = ({ review, user }) => {
             <StarIcon index={idx} star={star} key={el} />
           ))}
         </StyleStarBox>
-        <StyleCreated>{createAt}</StyleCreated>
+        <StyleCreated>{createdAt}</StyleCreated>
       </StyleWriter>
       <StyleContents>
         {image !== '' && <StyleImg src={image} alt="유저 이미지" />}
@@ -67,7 +80,7 @@ const ReviewCard = ({ review, user }) => {
             <StyleText>{comment}</StyleText>
           )}
 
-          {userId === user.id && !save ? (
+          {user_id === user.id && !save ? (
             <StyleModifyBox>
               <StyleChangeBtn onClick={() => handleEdit()}>edit</StyleChangeBtn>
               <StyleChangeBtn onClick={() => handleDelete(id)}>
