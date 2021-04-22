@@ -11,8 +11,6 @@ import BestMain from '../components/BestMain';
 import BestSide from '../components/BestSide';
 import BestBottom from '../components/BestBottom';
 
-// import res from '../atoms/dummyMaks';
-
 const BestMakgeollis = () => {
   const [itemIdx, setItemIdx] = useState(0);
   const [itemLength, seItemLength] = useState(5);
@@ -24,22 +22,12 @@ const BestMakgeollis = () => {
 
   const dispatch = useDispatch();
 
-  //! dummy data => server
-  // const getBestList = () => {
-  //   const { data } = res;
-
-  //   dispatch(updateCarousel(data));
-  // };
-
   useEffect(() => {
-    axios
-      // .get(`https://openlibrary.org/search.json?q=${query}&page=${pageNum}`, {
-      .get(`https://jumoserver.ml/makgeolli/rank`)
-      .then(res => {
-        const { data } = res;
+    axios.get(`https://jumoserver.ml/makgeolli/rank`).then(res => {
+      const { data } = res;
 
-        dispatch(updateCarousel(data.data));
-      });
+      dispatch(updateCarousel(data.data));
+    });
   }, [itemLength]);
 
   window.addEventListener('resize', () => {
@@ -85,7 +73,7 @@ const BestMakgeollis = () => {
             {topList.map((item, idx) => {
               if (idx === 2) {
                 return (
-                  <Link to={`/makgeolli/list/${item.id}`}>
+                  <Link to={`/makgeolli/list/${item.name}`}>
                     <BestMain
                       item={item}
                       index={state.findIndex(i => i.id === item.id)}
@@ -95,7 +83,7 @@ const BestMakgeollis = () => {
                 );
               }
               return (
-                <Link to={`/makgeolli/list/${item.id}`}>
+                <Link to={`/makgeolli/list/${item.name}`}>
                   <BestSide
                     item={item}
                     index={state.findIndex(i => i.id === item.id)}
