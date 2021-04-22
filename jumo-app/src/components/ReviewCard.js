@@ -7,7 +7,7 @@ import { removeReview, editReview } from '../actions';
 import server from '../apis/server';
 import StarIcon from './StarIcon';
 
-const ReviewCard = ({ review }) => {
+const ReviewCard = ({ review, setAllReviews, makgeolliId }) => {
   const {
     id,
     user_id,
@@ -19,7 +19,11 @@ const ReviewCard = ({ review }) => {
     comment,
   } = review;
   const accessToken = localStorage.getItem('accessToken');
-  const [userInfo, setUserInfo] = useState('');
+  const [userInfo, setUserInfo] = useState({
+    id: null,
+    email: '',
+    username: '',
+  });
   const [inputText, setInputText] = useState('');
   const [edit, setEdit] = useState(false);
   const [save, setSave] = useState(false);
@@ -38,6 +42,35 @@ const ReviewCard = ({ review }) => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const modifyReview = async reviewId => {
+    if (!inputText.length) {
+      alert('리뷰를 입력해주세요(최소 2글자).');
+      return;
+    }
+
+    const reviewUpdate = await server.put(
+      '/review/update',
+      {
+        // star: rating,
+        comment: inputText,
+        // image:"",
+        review_id: reviewId,
+      },
+      {
+        headers: {
+          'content-type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+    const reviewList = await server.get(
+      `makgeolli/review?makgeolli_id=${makgeolliId}`,
+    );
+    const { data } = reviewList.data;
+
+    setAllReviews(data);
   };
 
   useEffect(() => {
@@ -64,7 +97,7 @@ const ReviewCard = ({ review }) => {
 
     setEdit(false);
     setSave(false);
-    dispatch(editReview(reviewId, inputText));
+    modifyReview(reviewId);
   };
 
   const handleUpdateCancel = () => {
@@ -124,23 +157,6 @@ const ReviewCard = ({ review }) => {
     </StyleReviewsBox>
   );
 };
-
-// ReviewCard.defaultProps = {
-//   review: {},
-// };
-
-// ReviewCard.propTypes = {
-//   review: PropTypes.shape({
-//     id: PropTypes.number,
-//     userId: PropTypes.number,
-//     userName: PropTypes.string,
-//     star: PropTypes.number,
-//     comment: PropTypes.string,
-//     image: PropTypes.string,
-//     createAt: PropTypes.string,
-//     updateAt: PropTypes.string,
-//   }),
-// };
 
 const StyleReviewsBox = styled.div`
   min-height: 10vmin;

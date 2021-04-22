@@ -32,7 +32,12 @@ const ReviewList = ({ makgeolliId, allReivews, setAllReviews }) => {
         ) : (
           allReivews &&
           allReivews.map(review => (
-            <ReviewCard review={review} key={review.id} />
+            <ReviewCard
+              review={review}
+              key={review.id}
+              setAllReviews={setAllReviews}
+              makgeolliId={makgeolliId}
+            />
           ))
         )}
       </div>
