@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-else-return */
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import useSearchItem from '../atoms/useSearchItem';
@@ -9,7 +9,13 @@ import BestMakgeollis from './BestMakgeollis';
 import MakgeolliCard from '../components/MakgeolliCard';
 // import Header from './header';
 
-const Makgeollis = ({ lastItemElementRef, pick, isLoading, error }) => {
+const Makgeollis = ({
+  lastItemElementRef,
+  pick,
+  isLoading,
+  error,
+  channelHandler,
+}) => {
   // const [query, setQuery] = useState('');
   // const [pageNum, setPageNum] = useState(1);
   // const { isLoading, error, books, hasMore } = useSearchItem(query, pageNum);
@@ -33,6 +39,10 @@ const Makgeollis = ({ lastItemElementRef, pick, isLoading, error }) => {
   //   setQuery(e.target.value);
   //   setPageNum(1);
   // };
+
+  useEffect(() => {
+    channelHandler('Makgeolli');
+  }, []);
 
   return (
     <StyleMakgeollis>

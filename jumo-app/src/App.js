@@ -19,6 +19,7 @@ const App = () => {
   const [pageNum, setPageNum] = useState(0);
   const { isLoading, error, pick, hasMore } = useSearchItem(query, pageNum);
   // const { isLoading, error, pick, hasMore } = useListItem(pageNum);
+  const [channel, setChannel] = useState('');
   const [openSignIn, setOpenSignIn] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
 
@@ -37,9 +38,13 @@ const App = () => {
     [isLoading, hasMore],
   );
 
-  const handleChange = e => {
+  const changeHandler = e => {
     setQuery(e.target.value);
     setPageNum(1);
+  };
+
+  const channelHandler = name => {
+    setChannel(name);
   };
 
   const openHendler = () => {
@@ -57,7 +62,7 @@ const App = () => {
   return (
     <Router>
       <GlobalStyles />
-      <Header handleChange={handleChange} />
+      <Header changeHandler={changeHandler} channel={channel} />
       <Nav openHendler={openHendler} />
       <SignIn
         open={openSignIn}
@@ -71,11 +76,11 @@ const App = () => {
       />
       <Switch>
         <Route path="/user/info">
-          <Mypage />
+          <Mypage channelHandler={channelHandler} />
         </Route>
 
         <Route exact path="/">
-          <Intro />
+          <Intro channelHandler={channelHandler} />
         </Route>
         <Route path="/makgeolli/info">
           <Makgeollis
@@ -83,13 +88,14 @@ const App = () => {
             pick={pick}
             isLoading={isLoading}
             error={error}
+            channelHandler={channelHandler}
           />
         </Route>
         <Route path="/makgeolli/list/:makId">
-          <Detail />
+          <Detail channelHandler={channelHandler} />
         </Route>
         <Route path="/brewery/info">
-          <Brewerys />
+          <Brewerys channelHandler={channelHandler} />
         </Route>
       </Switch>
     </Router>

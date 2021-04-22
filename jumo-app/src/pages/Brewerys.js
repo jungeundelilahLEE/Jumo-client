@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import res from '../atoms/dummyBrewery';
 
-const Brewerys = () => {
+const Brewerys = ({ channelHandler }) => {
   const [mapImage, setMapImage] = useState('');
+
+  useEffect(() => {
+    channelHandler('Brewery');
+  }, []);
 
   //! dummy data => server
   const { data } = res;

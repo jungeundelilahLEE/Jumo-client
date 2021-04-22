@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled, { css } from 'styled-components';
 // eslint-disable-next-line import/no-cycle
 import Nav from './Nav';
@@ -6,9 +6,13 @@ import Nav from './Nav';
 import IntroSec1 from '../images/intro-sec1.png';
 import Logo from '../images/JumoIcon.PNG';
 
-function Intro() {
+function Intro({ channelHandler }) {
   const introSec1 = IntroSec1;
   const logo = Logo;
+
+  useEffect(() => {
+    channelHandler('Intro');
+  }, []);
 
   return (
     <div>

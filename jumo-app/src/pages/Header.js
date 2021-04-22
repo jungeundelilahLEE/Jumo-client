@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { FiSearch } from 'react-icons/fi';
 import icon from '../images/JumoIcon.PNG';
 
-const Header = ({ handleChange }) => {
+const Header = ({ changeHandler, channel }) => {
   // const [searchText, setSearchText] = useState('');
   // const [searchItem, setSearchItem] = useState([]);
 
@@ -25,6 +25,7 @@ const Header = ({ handleChange }) => {
 
   return (
     <Navbar>
+      {/* {channel} // test용 지워주세요 */}
       <div className="Icon">
         <img src={icon} alt="icon" width="55px" height="55px" />
       </div>
@@ -33,13 +34,13 @@ const Header = ({ handleChange }) => {
           type="text"
           placeholder="검색어를 입력하세요"
           outline="none"
-          onChange={handleChange}
+          onChange={changeHandler}
         />
         <Fi>
           <FiSearch size="24" color="#e7d1bf" />
         </Fi>
       </Searching>
-      <div>Mypage</div>
+      <div>{channel}</div>
     </Navbar>
   );
 };
