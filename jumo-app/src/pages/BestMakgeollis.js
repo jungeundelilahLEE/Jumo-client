@@ -42,16 +42,14 @@ const BestMakgeollis = () => {
       });
   }, [itemLength]);
 
-  // useEffect(() => {
-  //   getBestList();
-  // }, [itemLength]);
-
   window.addEventListener('resize', () => {
-    window.location.reload();
+    // window.location.reload();
     let width = document.body.clientWidth;
     if (width < 768) {
+      window.location.reload();
       seItemLength(1);
     } else {
+      window.location.reload();
       seItemLength(5);
     }
   });
