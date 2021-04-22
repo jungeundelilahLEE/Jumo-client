@@ -26,11 +26,11 @@ const Inputs = ({ inputInfo, inputHandler }) => {
               data-type={info.type}
             />
 
-            {info.subtitle === 'Email' || info.subtitle === 'Nickname' ? (
+            {/* {info.subtitle === 'Email' || info.subtitle === 'Nickname' ? (
               <div>
                 <button type="button">check</button>
               </div>
-            ) : null}
+            ) : null} */}
           </StyleInputRow>
         ),
       )}
