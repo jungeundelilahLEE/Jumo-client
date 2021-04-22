@@ -32,18 +32,8 @@ const Detail = ({ channelHandler }) => {
 
   const dispatch = useDispatch();
 
-  //! dummy data => server
   useEffect(() => {
     channelHandler('Detail');
-    // const { data } = res;
-    // // const makg = data.filter(el => el.id === makId);
-    // // const makgeolli = makg[0];
-    // const makgeolli = data[0];
-    // const { views } = makgeolli;
-    // setItem(prevState => {
-    //   return { ...prevState, ...makgeolli };
-    // });
-    // SetViewCount(views + 1);
 
     setIsLoading(true);
     server
@@ -89,7 +79,6 @@ const Detail = ({ channelHandler }) => {
 
               <StyleTextLike>LIKE : {item.likes}</StyleTextLike>
             </div>
-            <div>리뷰 : {item.reviews}</div>
           </StyleDescInfo>
           <StyleExplanation>
             <StyleTitle>{item.name}</StyleTitle>
