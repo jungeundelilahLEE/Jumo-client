@@ -3,7 +3,7 @@
 import React, { useState, useSelector, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { removeReview, editReview } from '../actions';
+// import { removeReview, editReview } from '../actions';
 import server from '../apis/server';
 import StarIcon from './StarIcon';
 
@@ -44,7 +44,7 @@ const ReviewCard = ({ review, setAllReviews, makgeolliId }) => {
     }
   };
 
-  const modifyReview = async reviewId => {
+  const modifyReviews = async reviewId => {
     if (!inputText.length) {
       alert('리뷰를 입력해주세요(최소 2글자).');
       return;
@@ -73,6 +73,22 @@ const ReviewCard = ({ review, setAllReviews, makgeolliId }) => {
     setAllReviews(data);
   };
 
+  const removeReviews = async reviewId => {
+    const reviewDelete = await server.post(
+      '/review/remove',
+      {
+        review_id: reviewId,
+      },
+      { headers: { Authorization: `Bearer ${accessToken}` } },
+    );
+
+    const reviewList = await server.get(
+      `makgeolli/review?makgeolli_id=${makgeolliId}`,
+    );
+    const { data } = reviewList.data;
+
+    setAllReviews(data);
+  };
   useEffect(() => {
     getUserInfo();
   }, []);
@@ -81,13 +97,16 @@ const ReviewCard = ({ review, setAllReviews, makgeolliId }) => {
     setInputText(e.target.value);
   };
 
-  const handleDelete = reviewId => {
-    dispatch(removeReview(reviewId));
-  };
-
   const handleEdit = () => {
     setEdit(true);
     setSave(true);
+  };
+
+  const handleDelete = reviewId => {
+    if (window.confirm('정말 삭제하시겠습니까??') === false) {
+      return;
+    }
+    removeReviews(reviewId);
   };
 
   const handleUpdateSave = reviewId => {
@@ -97,7 +116,7 @@ const ReviewCard = ({ review, setAllReviews, makgeolliId }) => {
 
     setEdit(false);
     setSave(false);
-    modifyReview(reviewId);
+    modifyReviews(reviewId);
   };
 
   const handleUpdateCancel = () => {
