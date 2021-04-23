@@ -9,7 +9,7 @@ import ReviewList from '../components/ReviewList';
 
 // import res from '../atoms/dummyMaks';
 
-const Detail = ({ channelHandler }) => {
+const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
   const state = useSelector(states => states.userReducer);
   const { likeItems } = state;
   const accessToken = localStorage.getItem('accessToken');
@@ -70,6 +70,9 @@ const Detail = ({ channelHandler }) => {
   };
 
   useEffect(() => {
+    if (!navHeader) {
+      setNavHeader(true);
+    }
     channelHandler('Detail');
     getMakgeolliInfo();
     if (accessToken) {

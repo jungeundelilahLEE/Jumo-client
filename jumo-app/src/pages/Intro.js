@@ -6,11 +6,14 @@ import Nav from './Nav';
 import IntroSec1 from '../images/intro-sec1.png';
 import Logo from '../images/JumoIcon.PNG';
 
-function Intro({ channelHandler }) {
+function Intro({ channelHandler, navHeader, setNavHeader }) {
   const introSec1 = IntroSec1;
   const logo = Logo;
 
   useEffect(() => {
+    if (!navHeader) {
+      setNavHeader(true);
+    }
     channelHandler('Intro');
   }, []);
 

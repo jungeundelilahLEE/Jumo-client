@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import TitleRending from './TitleRending';
 import FirstRending from './FirstRending';
@@ -24,7 +24,12 @@ const Background = styled.div`
   height: auto;
 `;
 
-function Rending() {
+function Rending({ navHeader, setNavHeader }) {
+  useEffect(() => {
+    if (navHeader) {
+      setNavHeader(false);
+    }
+  }, []);
   return (
     <>
       <Background>

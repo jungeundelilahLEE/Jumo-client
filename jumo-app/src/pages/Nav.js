@@ -12,7 +12,7 @@ import remoteIntro from '../images/remote-intro1.png';
 import remoteMak from '../images/remote-mak1.png';
 import remoteBrew from '../images/remote-brew1.png';
 
-function Nav({ openHendler }) {
+function Nav({ openHandler }) {
   const dispatch = useDispatch();
   const accessToken = localStorage.getItem('accessToken');
   const isLogin = localStorage.getItem('isLogin');
@@ -47,7 +47,7 @@ function Nav({ openHendler }) {
             </Button>
           </Link>
         ) : (
-          <Button onClick={openHendler}>
+          <Button onClick={openHandler}>
             <Img src={remoteMypage} alt="SignIn" />
           </Button>
         )}
