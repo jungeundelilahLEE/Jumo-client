@@ -26,30 +26,23 @@ const StarInput = props => {
   }, [rating, hoverRating, index]);
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div
+    <Div
       onMouseEnter={() => onMouseEnter(index)}
       onMouseLeave={() => onMouseLeave()}
       onClick={() => onSaveRating(index + 1)}
     >
       <StyleStars fill={fill} />
-    </div>
+    </Div>
   );
 };
 
-// const StyleHalf = styled.span`
-//   width: 13px;
-//   border: 1px red solid;
-//   direction: rtl;
-//   margin-left: 15px;
-//   overflow: hidden;
-//   &:hover {
-//     overflow: visible;
-//   }
-// `;
-
+const Div = styled.div`
+  /* border: 2px solid yellow; */
+`;
 const StyleStars = styled(BsStarFill)`
   width: 20px;
   height: auto;
+  /* border: 3px solid yellow; */
 
   @media ${props => props.theme.mobile} {
   }
@@ -62,5 +55,4 @@ const StyleStars = styled(BsStarFill)`
   @media ${props => props.theme.desktop} {
   }
 `;
-
 export default StarInput;
