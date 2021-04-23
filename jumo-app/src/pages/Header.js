@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 // import axios from 'axios';
 import { FiSearch } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import icon from '../images/JumoIcon.PNG';
 
 const inputshow = () => {
@@ -34,7 +35,9 @@ const Header = ({ changeHandler, channel }) => {
     <Navbar>
       {/* {channel} // test용 지워주세요 */}
       <div className="Icon">
-        <img src={icon} alt="icon" width="55px" height="55px" />
+        <Link to="/">
+          <img src={icon} alt="icon" width="55px" height="55px" />
+        </Link>
       </div>
       <Searching>
         <Input
