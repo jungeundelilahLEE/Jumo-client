@@ -116,6 +116,7 @@ const MypageMyReviewBox = ({
     deleteReview();
   };
 
+  //! StarBox (컴포넌트) / StyleInput 추가
   return (
     <>
       <MyReviewImg src={image} alt="makImg" />
@@ -156,48 +157,131 @@ const MyReviewImg = styled.img`
   width: 8em;
   height: 10em;
   padding: 0.5em;
-  border: 3px dashed blue;
+  border: 3px dashed grey;
+  @media ${props => props.theme.tablet} {
+    width: 8em;
+    height: 10em;
+    padding: 0.5em;
+  }
+  @media ${props => props.theme.desktop} {
+    width: 10em;
+    height: 13em;
+    padding: 0.5em;
+    margin: 1em 1em 1em 2em;
+  }
 `;
 const MyReviewContent = styled.div`
-  display: block;
-  background-color: pink;
-  border: 3px dashed skyblue;
-  width: 40vw;
-  /* height: 20vh; //수정함: hgsignal */
+  display: flex;
+  /* background-color: pink; */
+  /* border: 3px dashed skyblue; */
+  flex-wrap: wrap;
+  width: 74vw;
+  height: 20vh;
   overflow: hidden;
   text-overflow: ellipsis;
   padding-top: 0.5em;
   padding-left: 0.5em;
+  padding-bottom: 0.5em;
+  margin-left: 0.5em;
+  box-shadow: 3px 2px 3px 1px rgba(194, 155, 134, 0.3),
+    1px -0.5px 3px 1px rgba(194, 155, 134, 0.3);
+  /* box-shadow: 3px 3px 5px 3px rgba(214, 214, 214, 0.5),
+      3px 3px 3px 3px rgba(214, 214, 214, 0.5); */
+  /* background: rgba(242, 238, 237, 0.3); */
+  /* background: rgba(255, 255, 255, 0.9); */
+  @media ${props => props.theme.tablet} {
+    width: 74vw;
+    height: 20vh;
+  }
+  @media ${props => props.theme.desktop} {
+    width: 65vw;
+    height: 20vh;
+    margin-right: 2em;
+  }
 `;
 const MyReviewCreatedAt = styled.div`
   display: flex;
   color: gray;
-  font-size: 0.9em;
+  font-size: 1.2em;
+  padding: 1em;
+  @media ${props => props.theme.tablet} {
+    font-size: 1.3em;
+  }
+  @media ${props => props.theme.desktop} {
+    font-size: 1.3em;
+  }
 `;
-const MyReviewReview = styled.div`
+const MyReviewReview = styled.textarea`
   display: inline-block;
-  width: 35vw;
+  width: 70vw;
   height: 9vh;
   white-space: nowrap;
-  overflow: scroll;
+  /* overflow: scroll; */
   color: black;
-  font-size: 1.2em;
+  font-size: 1.3em;
   text-indent: 0.3em;
-  border: 1px solid red;
+  border: none;
+  /* opacity: 0.9; */
+  /* border: 1px solid red; */
+  @media ${props => props.theme.tablet} {
+    font-size: 1.4em;
+  }
+  @media ${props => props.theme.desktop} {
+    /* width: 60vw; */
+    /* margin-right: 2em; */
+    font-size: 1.5em;
+  }
 `;
 const MyReviewBtnBox = styled.div`
   display: flex;
   flex-direction: row;
-  border: 3px dashed blue;
+  /* border: 3px dashed blue; */
   justify-content: flex-end;
   padding-right: 0.5em;
   padding-top: 0.5em;
+  @media ${props => props.theme.tablet} {
+  }
+  @media ${props => props.theme.desktop} {
+  }
 `;
 const MyReviewEditBtn = styled.button`
   margin-left: 0.3em;
+  width: 4em;
+  height: 2em;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  font-weight: bolder;
+  border: none;
+  background: #c29b86;
+  color: white;
+  border-radius: 5px;
+  margin: 0.3em 1em 0.5em 0;
+  @media ${props => props.theme.tablet} {
+  }
+  @media ${props => props.theme.desktop} {
+  }
 `;
 const MyReviewDeleteBtn = styled.button`
   margin-left: 0.3em;
+  margin-left: 0.3em;
+  width: 4em;
+  height: 2em;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  font-weight: bolder;
+  border: none;
+  background: #c29b86;
+  color: white;
+  border-radius: 5px;
+  margin: 0.3em 1em 0.5em 0;
+  @media ${props => props.theme.tablet} {
+  }
+  @media ${props => props.theme.desktop} {
+  }
 `;
 
 const StyleInput = styled.textarea`

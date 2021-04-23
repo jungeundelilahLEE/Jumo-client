@@ -62,18 +62,5 @@ const MyFavImg = styled.img`
   flex-wrap: nowrap;
   flex-shrink: 1;
 `;
-const MyFavTitle = styled.div`
-  flex-wrap: nowrap;
-  color: red;
-`;
-const MyFavDeleteBtn = styled.img`
-  border: 3px dashed yellow;
-  display: flex;
-  width: 6em;
-  height: 7em;
-  justify-content: center;
-  align-items: center;
-  margin-top: 40vh;
-  margin-right: 1.5em;
-`;
+
 export default MypageMyFavBox;

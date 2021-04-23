@@ -2,11 +2,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { BsTrash } from 'react-icons/bs';
 import { likeDeletes } from '../actions';
-import TrashBinImg from '../images/trash-bin.png';
 
 const LikeDeleteBtn = () => {
-  const trashBinImg = TrashBinImg;
   const dispatch = useDispatch();
   const [deletes, setDeletes] = useState(false);
 
@@ -22,11 +21,7 @@ const LikeDeleteBtn = () => {
     <div>
       {deletes === false ? (
         <MyFavsDeleteBtnArea>
-          <MyFavDeleteBtn
-            src={trashBinImg}
-            alt="trashBin"
-            onMouseMove={() => handleDeleteBtn()}
-          />
+          <TrashBin onMouseMove={() => handleDeleteBtn()} />
         </MyFavsDeleteBtnArea>
       ) : (
         <p>loading</p>
@@ -41,20 +36,49 @@ const LikeDeleteBtn = () => {
 
 const MyFavsDeleteBtnArea = styled.div`
   display: flex;
-  flex-direction: column;
-  border: 4px dashed deepskyblue;
-  width: 10vw;
-  justify-content: right;
+  flex-wrap: wrap;
+  width: 50vw;
+  align-items: center;
+  @media ${props => props.theme.tablet} {
+  }
+  @media ${props => props.theme.desktop} {
+    display: flex;
+    flex-wrap: wrap;
+    width: 10vw;
+    /* align-items: center; */
+    margin-top: -30%;
+  }
 `;
-const MyFavDeleteBtn = styled.img`
-  border: 3px dashed yellow;
+
+const TrashBin = styled(BsTrash)`
   display: flex;
-  width: 6em;
-  height: 7em;
+  width: 20em;
+  height: 20em;
+  height: auto;
+  color: #ffffff;
   justify-content: center;
   align-items: center;
-  margin-top: 40vh;
-  margin-right: 1.5em;
+  /* border: 10px double rgba(255, 255, 255, 0.6); */
+  filter: drop-shadow(5px 5px 5px #d1d1d1);
+  /* border-radius: 100%; */
+  padding: 10px;
+  @media ${props => props.theme.tablet} {
+  }
+  @media ${props => props.theme.desktop} {
+    display: flex;
+    width: 13em;
+    height: 13em;
+    height: auto;
+    color: #ffffff;
+    justify-content: center;
+    align-items: center;
+    /* border: 10px double rgba(255, 255, 255, 0.6); */
+    filter: drop-shadow(5px 5px 5px #d1d1d1);
+    /* border-radius: 100%; */
+    padding: 10px;
+  }
+
+  /* background:  */
 `;
 
 export default LikeDeleteBtn;
