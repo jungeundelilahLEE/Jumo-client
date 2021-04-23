@@ -85,7 +85,18 @@ const Search = styled.div`
 const StyleSpace = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column-reverse;
+  @media ${props => props.theme.tablet} {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  @media ${props => props.theme.desktop} {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+  }
 `;
 
 const Result = styled.div`
@@ -93,26 +104,50 @@ const Result = styled.div`
 `;
 
 const StyleMap = styled.img`
-  width: 50vw;
-  height: 70vh;
-  position: fixed;
-  right: 10%;
-  top: 15%;
-  transition-duration: 0.5s;
-  &:hover {
-    transform: translateX(5vw);
-    width: 60vw;
-    height: 75vh;
+  width: 100%;
+  height: 60vh;
+  margin-top: 8vh;
+  @media ${props => props.theme.tablet} {
+    width: 45vw;
+    height: 60vh;
+    position: fixed;
+    right: 3%;
+    top: 15%;
+    transition-duration: 0.5s;
+  }
+  @media ${props => props.theme.desktop} {
+    width: 45vw;
+    height: 65vh;
+    position: fixed;
+    right: 10%;
+    top: 15%;
+    transition-duration: 0.5s;
+    &:hover {
+      transform: translateX(5vw);
+      width: 50vw;
+      height: 70vh;
+    }
   }
 `;
 
 const StyleSearchBox = styled.div`
-  position: relative;
-  top: 50px;
-  left: -30%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: none;
+  @media ${props => props.theme.tablet} {
+    position: relative;
+    top: 50px;
+    left: -24%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  @media ${props => props.theme.desktop} {
+    position: relative;
+    top: 50px;
+    left: -28%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const StyleInput = styled.input`
@@ -125,13 +160,27 @@ const StyleInput = styled.input`
 `;
 
 const StyleResult = styled.div`
-  width: 20%;
   position: relative;
   top: 50px;
-  left: -33%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  padding-bottom: 12vh;
+  @media ${props => props.theme.tablet} {
+    width: 20%;
+    position: relative;
+    top: 50px;
+    left: -38%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  @media ${props => props.theme.desktop} {
+    width: 20%;
+    position: relative;
+    top: 50px;
+    left: -33%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const StyleInfo = styled.div`
