@@ -1,6 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
-import SansationRegular from './fonts/Sansation_Regular.ttf';
 
 const GlobalStyles = createGlobalStyle` 
   ${reset}
