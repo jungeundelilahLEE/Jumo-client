@@ -13,9 +13,9 @@ import ReviewList from '../components/ReviewList';
 const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
   const state = useSelector(states => states.userReducer);
   const { likeItems } = state;
-  const [likeValue, setLikeValue] = useState(false);
+  const [likeList, setLikeList] = useState([]);
   const accessToken = localStorage.getItem('accessToken');
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [allReivews, setAllReviews] = useState([]);
   const { name } = useParams();
 
@@ -79,20 +79,14 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
       });
 
       const { data } = res.data;
-      const userLikesInfo = data.map(el => {
-        if (el.makgeolli_id === item.id) {
-          setLikeValue(true);
-        }
-        return el.makgeolli_id;
-      });
-
-      // dispatch(addLike(userLikesInfo));
+      const userLikesInfo = data.map(el => el.makgeolli_id);
+      setLikeList([...userLikesInfo]);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const handleAddLike = async () => {
+  const handleAddLike = async itemId => {
     if (!accessToken) {
       return alert('로그인 해 주세요.');
     } else {
@@ -103,36 +97,25 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
           { headers: { Authorization: `Bearer ${accessToken}` } },
         );
 
-        // const { data } = plusLike.data;
-        // const userLikesInfo = data.map(el => {
-        //   if (el.makgeolli_id === item.id) {
-        //     setLikeValue(true);
-        //   }
-        //   return el.makgeolli_id;
-        // });
-
-        // dispatch(addLike(userLikesInfo));
+        setLikeList(prev => [...prev, itemId]);
       } catch (err) {
         console.log(err);
       }
     }
   };
 
-  const handleDeleteLike = async () => {
+  const handleDeleteLike = async itemId => {
     if (!accessToken) {
       return alert('로그인 해 주세요.');
     } else {
       try {
         const minusLike = await server.post(
           '/like/remove',
-          { name: name, id: item.id },
+          { name: name, id: itemId },
           { headers: { Authorization: `Bearer ${accessToken}` } },
         );
-        const { data } = minusLike.data;
-        const userLikesInfo = data.map(el => el.makgeolli_id);
-        setLikeValue(false);
 
-        // dispatch(addLike(userLikesInfo));
+        setLikeList(prev => prev.filter(el => el !== itemId));
       } catch (err) {
         console.log(err);
       }
@@ -153,18 +136,16 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
 
   useEffect(() => {
     getUserLikesInfo();
-  }, [likeValue]);
+  }, [isLoading]);
 
-  const handleLike = () => {
-    handleAddLike();
-    setLikeValue(true);
-    // dispatch(addLike(item.id));
+  const handleLike = itemId => {
+    handleAddLike(itemId);
+    setIsLoading(!isLoading);
   };
 
-  const handleRemoveLike = () => {
-    handleDeleteLike();
-    setLikeValue(false);
-    // dispatch(removeLike(item.id));
+  const handleRemoveLike = itemId => {
+    handleDeleteLike(itemId);
+    setIsLoading(!isLoading);
   };
 
   return (
@@ -178,13 +159,12 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
           <StyleDescInfo>
             <div>조회수 : {item.views}</div>
             <div>
-              <div>{likeItems[0]}</div>
-              {!likeValue ? (
-                <StyleSmallLikeBtn onClick={() => handleLike()}>
+              {!likeList.includes(item.id) ? (
+                <StyleSmallLikeBtn onClick={() => handleLike(item.id)}>
                   {item.likes}
                 </StyleSmallLikeBtn>
               ) : (
-                <StyleSmallLikeBtn onClick={() => handleRemoveLike()}>
+                <StyleSmallLikeBtn onClick={() => handleRemoveLike(item.id)}>
                   Not LIKE
                 </StyleSmallLikeBtn>
               )}
