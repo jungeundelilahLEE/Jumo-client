@@ -63,7 +63,7 @@ function Nav({ openHandler }) {
           ''
         )}
 
-        <Link to="/">
+        <Link to="/intro">
           <Button>
             <Img src={remoteIntro} alt="intro" />
             <Div>INTRO</Div>
