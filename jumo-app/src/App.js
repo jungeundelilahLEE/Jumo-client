@@ -1,5 +1,10 @@
-import React, { useState, useRef, useCallback } from 'react';
+/* eslint-disable no-use-before-define */
+/* eslint-disable dot-notation */
+/* eslint-disable no-shadow */
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import axios from 'axios';
+import server from './apis/server';
 import useSearchItem from './atoms/useSearchItem';
 import GlobalStyles from './styles/GlobalStyles';
 
@@ -20,8 +25,10 @@ const App = () => {
   const { isLoading, error, pick, hasMore } = useSearchItem(query, pageNum);
   // const { isLoading, error, pick, hasMore } = useListItem(pageNum);
   const [channel, setChannel] = useState('');
+  const [navHeader, setNavHeader] = useState(false);
   const [openSignIn, setOpenSignIn] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
+  const accessToken = localStorage.getItem('accessToken');
 
   const observer = useRef();
   const lastItemElementRef = useCallback(
@@ -38,6 +45,28 @@ const App = () => {
     [isLoading, hasMore],
   );
 
+  const onSilentRefresh = async () => {
+    await server
+      .post('/user/refreshToken', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then(res => onLoginSuccess(res))
+      .catch(err => {
+        throw new Error(`${err}`);
+      });
+  };
+
+  const onLoginSuccess = response => {
+    const JWT_EXPIRY_TIME = 12 * 3600 * 1000;
+    const { accessToken } = response.data;
+
+    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+
+    setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
+  };
+
   const changeHandler = e => {
     setQuery(e.target.value);
     setPageNum(1);
@@ -47,7 +76,7 @@ const App = () => {
     setChannel(name);
   };
 
-  const openHendler = () => {
+  const openHandler = () => {
     setOpenSignIn(true);
   };
   const closeHandler = () => {
@@ -59,12 +88,23 @@ const App = () => {
     setOpenSignUp(true);
   };
 
+  useEffect(() => {
+    if (accessToken) {
+      onSilentRefresh();
+    }
+  }, []);
+
   return (
     <Router>
       <GlobalStyles />
-      {/* <Rending /> */}
-      <Header changeHandler={changeHandler} channel={channel} />
-      <Nav openHendler={openHendler} />
+      {navHeader && (
+        <>
+          <Header changeHandler={changeHandler} channel={channel} />
+          <Nav openHandler={openHandler} />
+        </>
+      )}
+      {/* <Header changeHandler={changeHandler} channel={channel} />
+      <Nav openHandler={openHandler} /> */}
       <SignIn
         open={openSignIn}
         closeHandler={closeHandler}
@@ -72,16 +112,28 @@ const App = () => {
       />
       <SignUp
         close={openSignUp}
-        openHendler={openHendler}
+        openHandler={openHandler}
         closeHandler={closeHandler}
       />
       <Switch>
-        <Route path="/user/info">
-          <Mypage channelHandler={channelHandler} />
+        <Route exact path="/">
+          <Rending navHeader={navHeader} setNavHeader={setNavHeader} />
         </Route>
 
-        <Route exact path="/">
-          <Intro channelHandler={channelHandler} />
+        <Route path="/user/info">
+          <Mypage
+            channelHandler={channelHandler}
+            navHeader={navHeader}
+            setNavHeader={setNavHeader}
+          />
+        </Route>
+
+        <Route path="/intro">
+          <Intro
+            channelHandler={channelHandler}
+            navHeader={navHeader}
+            setNavHeader={setNavHeader}
+          />
         </Route>
         <Route path="/makgeolli/info">
           <Makgeollis
@@ -90,13 +142,23 @@ const App = () => {
             isLoading={isLoading}
             error={error}
             channelHandler={channelHandler}
+            navHeader={navHeader}
+            setNavHeader={setNavHeader}
           />
         </Route>
-        <Route path="/makgeolli/list/:makId">
-          <Detail channelHandler={channelHandler} />
+        <Route path="/makgeolli/list/:name">
+          <Detail
+            channelHandler={channelHandler}
+            navHeader={navHeader}
+            setNavHeader={setNavHeader}
+          />
         </Route>
         <Route path="/brewery/info">
-          <Brewerys channelHandler={channelHandler} />
+          <Brewerys
+            navHeader={navHeader}
+            channelHandler={channelHandler}
+            setNavHeader={setNavHeader}
+          />
         </Route>
       </Switch>
     </Router>

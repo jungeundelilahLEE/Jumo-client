@@ -29,7 +29,7 @@ const StarInput = props => {
     <div
       onMouseEnter={() => onMouseEnter(index)}
       onMouseLeave={() => onMouseLeave()}
-      onClick={() => onSaveRating(index)}
+      onClick={() => onSaveRating(index + 1)}
     >
       <StyleStars fill={fill} />
     </div>

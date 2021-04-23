@@ -7,7 +7,7 @@ import Inputs from '../atoms/Inputs';
 import server, { clientURL } from '../apis/server';
 import img from '../images/JustJ.PNG';
 
-const SignUp = ({ close, closeHandler, openHendler }) => {
+const SignUp = ({ close, closeHandler, openHandler }) => {
   // document.body.style.overflow = 'hidden';
 
   const history = useHistory();
@@ -78,7 +78,7 @@ const SignUp = ({ close, closeHandler, openHendler }) => {
         });
         localStorage.setItem('oauth', 'local');
         closeHandler();
-        openHendler();
+        openHandler();
         alert('정상적으로 회원가입 되었습니다.');
         history.push('/user/signin');
       } catch (err) {

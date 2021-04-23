@@ -1,29 +1,112 @@
+/* eslint-disable camelcase */
 /* eslint-disable react/prop-types */
-import React, { useState, useRef } from 'react';
+import React, { useState, useSelector, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { removeReview, editReview } from '../actions';
-// import PropTypes from 'prop-types';
+// import { removeReview, editReview } from '../actions';
+import server from '../apis/server';
 import StarIcon from './StarIcon';
 
-const ReviewCard = ({ review, user }) => {
-  const dispatch = useDispatch();
-  const { id, userId, star, username, createAt, image, comment } = review;
+const ReviewCard = ({ review, setAllReviews, makgeolliId }) => {
+  const {
+    id,
+    user_id,
+    star,
+    username,
+    createdAt,
+    updatedAt,
+    image,
+    comment,
+  } = review;
+  const accessToken = localStorage.getItem('accessToken');
+  const [userInfo, setUserInfo] = useState({
+    id: null,
+    email: '',
+    username: '',
+  });
   const [inputText, setInputText] = useState('');
   const [edit, setEdit] = useState(false);
   const [save, setSave] = useState(false);
+  const dispatch = useDispatch();
+
+  const getUserInfo = async () => {
+    try {
+      const res = await server.get('/user/info', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const { data } = res.data;
+      setUserInfo(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const modifyReviews = async reviewId => {
+    if (!inputText.length) {
+      alert('리뷰를 입력해주세요(최소 2글자).');
+      return;
+    }
+
+    const reviewUpdate = await server.put(
+      '/review/update',
+      {
+        // star: rating,
+        comment: inputText,
+        // image:"",
+        review_id: reviewId,
+      },
+      {
+        headers: {
+          'content-type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+    const reviewList = await server.get(
+      `makgeolli/review?makgeolli_id=${makgeolliId}`,
+    );
+    const { data } = reviewList.data;
+
+    setAllReviews(data);
+  };
+
+  const removeReviews = async reviewId => {
+    const reviewDelete = await server.post(
+      '/review/remove',
+      {
+        review_id: reviewId,
+      },
+      { headers: { Authorization: `Bearer ${accessToken}` } },
+    );
+
+    const reviewList = await server.get(
+      `makgeolli/review?makgeolli_id=${makgeolliId}`,
+    );
+    const { data } = reviewList.data;
+
+    setAllReviews(data);
+  };
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
   const handleReview = e => {
     setInputText(e.target.value);
   };
 
-  const handleDelete = reviewId => {
-    dispatch(removeReview(reviewId));
-  };
-
   const handleEdit = () => {
     setEdit(true);
     setSave(true);
+  };
+
+  const handleDelete = reviewId => {
+    if (window.confirm('정말 삭제하시겠습니까??') === false) {
+      return;
+    }
+    removeReviews(reviewId);
   };
 
   const handleUpdateSave = reviewId => {
@@ -33,7 +116,7 @@ const ReviewCard = ({ review, user }) => {
 
     setEdit(false);
     setSave(false);
-    dispatch(editReview(reviewId, inputText));
+    modifyReviews(reviewId);
   };
 
   const handleUpdateCancel = () => {
@@ -50,7 +133,7 @@ const ReviewCard = ({ review, user }) => {
             <StarIcon index={idx} star={star} key={el} />
           ))}
         </StyleStarBox>
-        <StyleCreated>{createAt}</StyleCreated>
+        <StyleCreated>{createdAt}</StyleCreated>
       </StyleWriter>
       <StyleContents>
         {image !== '' && <StyleImg src={image} alt="유저 이미지" />}
@@ -67,7 +150,7 @@ const ReviewCard = ({ review, user }) => {
             <StyleText>{comment}</StyleText>
           )}
 
-          {userId === user.id && !save ? (
+          {user_id === userInfo.id && !save ? (
             <StyleModifyBox>
               <StyleChangeBtn onClick={() => handleEdit()}>edit</StyleChangeBtn>
               <StyleChangeBtn onClick={() => handleDelete(id)}>
@@ -93,23 +176,6 @@ const ReviewCard = ({ review, user }) => {
     </StyleReviewsBox>
   );
 };
-
-// ReviewCard.defaultProps = {
-//   review: {},
-// };
-
-// ReviewCard.propTypes = {
-//   review: PropTypes.shape({
-//     id: PropTypes.number,
-//     userId: PropTypes.number,
-//     userName: PropTypes.string,
-//     star: PropTypes.number,
-//     comment: PropTypes.string,
-//     image: PropTypes.string,
-//     createAt: PropTypes.string,
-//     updateAt: PropTypes.string,
-//   }),
-// };
 
 const StyleReviewsBox = styled.div`
   min-height: 10vmin;

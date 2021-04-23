@@ -4,10 +4,13 @@ import { Link } from 'react-router-dom';
 import { FiSearch } from 'react-icons/fi';
 import res from '../atoms/dummyBrewery';
 
-const Brewerys = ({ channelHandler }) => {
+const Brewerys = ({ channelHandler, navHeader, setNavHeader }) => {
   const [mapImage, setMapImage] = useState('');
 
   useEffect(() => {
+    if (!navHeader) {
+      setNavHeader(true);
+    }
     channelHandler('Brewery');
   }, []);
 
