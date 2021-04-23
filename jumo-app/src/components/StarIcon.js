@@ -28,16 +28,6 @@ const StarIcon = props => {
   );
 };
 
-// StarIcon.defaultProps = {
-//   index: 0,
-//   star: 0,
-// };
-
-// StarIcon.propTypes = {
-//   index: PropTypes.number,
-//   star: PropTypes.number,
-// };
-
 const StylesHalfStars = styled(BsStarHalf)`
   width: 20px;
   height: auto;

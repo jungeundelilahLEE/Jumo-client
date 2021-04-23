@@ -22,6 +22,7 @@ const BestBottom = ({ item, idx }) => {
 const StyleInfoTop = styled.div`
   font-size: 1rem;
   text-align: center;
+  justify-content: center;
 `;
 
 const StyleInfoVol = styled.div`
@@ -32,6 +33,7 @@ const StyleInfoVol = styled.div`
 const StyleInfoBox = styled.div`
   border: 0.5vmin hotpink solid;
   padding: 2vmin;
+  justify-content: center;
 
   @media ${props => props.theme.mobile} {
   }
@@ -66,9 +68,10 @@ const StyleMobileImg = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  width: 100px;
-  height: 20vh;
+  width: 90px;
+  height: 18vh;
   margin: 2vmin;
+  border: 3px solid white;
 
   &:hover ${StyleItemInfo} {
     display: flex;
@@ -92,3 +95,77 @@ const StyleMobileImg = styled.div`
 `;
 
 export default BestBottom;
+
+// const StyleInfoTop = styled.div`
+//   font-size: 1rem;
+//   text-align: center;
+// `;
+
+// const StyleInfoVol = styled.div`
+//   font-size: 1rem;
+//   margin-top: 2vmin;
+// `;
+
+// const StyleInfoBox = styled.div`
+//   border: 0.5vmin hotpink solid;
+//   padding: 2vmin;
+
+//   @media ${props => props.theme.mobile} {
+//   }
+
+//   @media ${props => props.theme.tablet} {
+//   }
+
+//   @media ${props => props.theme.desktop} {
+//     padding: 1vmin;
+//   }
+// `;
+
+// const StyleItemInfo = styled.div`
+//   display: none;
+//   width: 100%;
+//   height: 100%;
+//   background-color: white;
+
+//   @media ${props => props.theme.mobile} {
+//   }
+
+//   @media ${props => props.theme.tablet} {
+//   }
+
+//   @media ${props => props.theme.desktop} {
+//   }
+// `;
+
+// const StyleMobileImg = styled.div`
+//   display: block;
+//   background-image: ${props => `url(${props.item.image})`};
+//   background-size: cover;
+//   background-repeat: no-repeat;
+//   background-position: center;
+//   width: 100px;
+//   height: 20vh;
+//   margin: 2vmin;
+
+//   &:hover ${StyleItemInfo} {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: space-evenly;
+//   }
+
+//   @media ${props => props.theme.mobile} {
+//   }
+
+//   @media ${props => props.theme.tablet} {
+//     display: none;
+//   }
+
+//   @media ${props => props.theme.desktop} {
+//     width: 150px;
+//     height: 30vh;
+//     margin: 0 4vmin 0 0;
+//   }
+// `;
+
+// export default BestBottom;

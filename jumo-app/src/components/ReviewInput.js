@@ -94,6 +94,7 @@ const ReviewInput = ({ makgeolliId, setAllReviews }) => {
             />
           ))}
         </StyleStarBox>
+
         <StyleInputWrap>
           <StyleInputItem>
             <StyleInput
@@ -107,9 +108,10 @@ const ReviewInput = ({ makgeolliId, setAllReviews }) => {
             <StyleSaveBtn onClick={handleSave}>SAVE</StyleSaveBtn>
           </StyleBtnItem>
         </StyleInputWrap>
+
         <StyleBtnWrap>
           <StyleBtnArea>
-            <StyleBtn>photo</StyleBtn>
+            <StyleBtnPhoto>photo</StyleBtnPhoto>
           </StyleBtnArea>
         </StyleBtnWrap>
       </div>
@@ -118,55 +120,69 @@ const ReviewInput = ({ makgeolliId, setAllReviews }) => {
 };
 
 const StyleInputBox = styled.div`
+  display: flex;
   width: 100vw;
   padding-top: 10vmin;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  /* border: 5px dashed black; */
+  padding: 3em 2em 1em;
   justify-content: center;
-
-  @media ${props => props.theme.mobile} {
-  }
-
   @media ${props => props.theme.tablet} {
+    display: flex;
+    width: 100vw;
   }
-
   @media ${props => props.theme.desktop} {
+    display: flex;
+    width: 80vw;
   }
 `;
 
 const StyleStarBox = styled.div`
   display: flex;
-  justify-content: center;
-
-  @media ${props => props.theme.mobile} {
-  }
-
+  justify-content: flex-start;
+  margin-bottom: 1em;
   @media ${props => props.theme.tablet} {
+    display: flex;
     justify-content: flex-start;
+    margin-bottom: 1em;
   }
-
   @media ${props => props.theme.desktop} {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 1em;
   }
 `;
 
 const StyleInputWrap = styled.div`
-  width: 100vw;
-  height: 20vmin;
   display: flex;
-  border-top: 2px red solid;
-
-  @media ${props => props.theme.mobile} {
-  }
-
+  flex-direction: row;
+  width: 100%;
+  height: 20vmin;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 3px 2px 3px 1px rgba(194, 155, 134, 0.3),
+    -1px -1px 3px 1px rgba(194, 155, 134, 0.3);
+  border-radius: 2vmin;
   @media ${props => props.theme.tablet} {
-    border-bottom: 2px red solid;
+    display: flex;
+    flex-direction: row;
+    width: 87vw;
+    height: 20vmin;
+    justify-content: center;
+    box-shadow: 3px 2px 3px 1px rgba(194, 155, 134, 0.3),
+      -1px -1px 3px 1px rgba(194, 155, 134, 0.3);
+    border-radius: 2vmin;
   }
-
   @media ${props => props.theme.desktop} {
-    width: 80vw;
-    height: 15vmin;
-    border: 2px red solid;
+    width: 70vw;
+    height: 20vmin;
+    display: flex;
+    flex-direction: row;
+    /* width: 87vw; */
+    /* height: 20vmin; */
+    justify-content: center;
+    box-shadow: 3px 2px 3px 1px rgba(194, 155, 134, 0.3),
+      -1px -1px 3px 1px rgba(194, 155, 134, 0.3);
+    border-radius: 2vmin;
   }
 `;
 
@@ -179,8 +195,9 @@ const StyleInput = styled.textarea`
   height: 96%;
   border: none;
   resize: none;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   padding: 2vmin;
+  /* border: 2px solid pink; */
 
   @media ${props => props.theme.mobile} {
   }
@@ -201,7 +218,7 @@ const StyleBtnArea = styled.div`
   margin-left: auto;
 `;
 
-const StyleBtn = styled.button`
+const StyleBtnPhoto = styled.button`
   margin-top: 10px;
   margin-left: 20px;
 `;
@@ -209,12 +226,26 @@ const StyleBtn = styled.button`
 const StyleBtnItem = styled.div`
   flex: 1;
   padding: 3px;
+  /* border: 2px solid red; */
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 90%;
 `;
 
 const StyleSaveBtn = styled.button`
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 90%;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
   font-size: 1.3rem;
+  font-weight: bolder;
+  border: none;
+  background: #c29b86;
+  color: white;
+  border-radius: 5px;
+  margin: 0.3em 1em 0.5em 0; //! 왜.align-items..안먹음
 
   @media ${props => props.theme.mobile} {
   }
@@ -227,3 +258,112 @@ const StyleSaveBtn = styled.button`
 `;
 
 export default ReviewInput;
+
+// const StyleInputBox = styled.div`
+//   width: 100vw;
+//   padding-top: 10vmin;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+
+//   @media ${props => props.theme.mobile} {
+//   }
+
+//   @media ${props => props.theme.tablet} {
+//   }
+
+//   @media ${props => props.theme.desktop} {
+//   }
+// `;
+
+// const StyleStarBox = styled.div`
+//   display: flex;
+//   justify-content: center;
+
+//   @media ${props => props.theme.mobile} {
+//   }
+
+//   @media ${props => props.theme.tablet} {
+//     justify-content: flex-start;
+//   }
+
+//   @media ${props => props.theme.desktop} {
+//   }
+// `;
+
+// const StyleInputWrap = styled.div`
+//   width: 100vw;
+//   height: 20vmin;
+//   display: flex;
+//   border-top: 2px red solid;
+
+//   @media ${props => props.theme.mobile} {
+//   }
+
+//   @media ${props => props.theme.tablet} {
+//     border-bottom: 2px red solid;
+//   }
+
+//   @media ${props => props.theme.desktop} {
+//     width: 80vw;
+//     height: 15vmin;
+//     border: 2px red solid;
+//   }
+// `;
+
+// const StyleInputItem = styled.div`
+//   flex: 6;
+// `;
+
+// const StyleInput = styled.textarea`
+//   width: 100%;
+//   height: 96%;
+//   border: none;
+//   resize: none;
+//   font-size: 1.5rem;
+//   padding: 2vmin;
+
+//   @media ${props => props.theme.mobile} {
+//   }
+
+//   @media ${props => props.theme.tablet} {
+//   }
+
+//   @media ${props => props.theme.desktop} {
+//     font-size: 1.2rem;
+//   }
+// `;
+
+// const StyleBtnWrap = styled.div`
+//   display: flex;
+// `;
+
+// const StyleBtnArea = styled.div`
+//   margin-left: auto;
+// `;
+
+// const StyleBtn = styled.button`
+//   margin-top: 10px;
+//   margin-left: 20px;
+// `;
+
+// const StyleBtnItem = styled.div`
+//   flex: 1;
+//   padding: 3px;
+// `;
+
+// const StyleSaveBtn = styled.button`
+//   width: 100%;
+//   height: 100%;
+//   font-size: 1.3rem;
+
+//   @media ${props => props.theme.mobile} {
+//   }
+
+//   @media ${props => props.theme.tablet} {
+//   }
+
+//   @media ${props => props.theme.desktop} {
+//   }
+// `;
