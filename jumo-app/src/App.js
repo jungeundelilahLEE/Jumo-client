@@ -97,7 +97,6 @@ const App = () => {
   return (
     <Router>
       <GlobalStyles />
-
       {navHeader && (
         <>
           <Header changeHandler={changeHandler} channel={channel} />
@@ -106,7 +105,6 @@ const App = () => {
       )}
       {/* <Header changeHandler={changeHandler} channel={channel} />
       <Nav openHandler={openHandler} /> */}
-
       <SignIn
         open={openSignIn}
         closeHandler={closeHandler}

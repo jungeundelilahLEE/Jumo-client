@@ -15,8 +15,8 @@ const SignIn = ({ open, closeHandler, signupModalHandler }) => {
   const dispatch = useDispatch();
 
   const inputInfo = [
-    { subtitle: 'Email', placeholder: '이메일', type: 'email' },
-    { subtitle: 'password', placeholder: '비밀번호', type: 'password' },
+    { subtitle: '', placeholder: 'abc@gmail.com', type: 'email' },
+    { subtitle: '', placeholder: 'password', type: 'password' },
   ];
 
   const [info, setInfo] = useState({
@@ -112,16 +112,19 @@ const SignIn = ({ open, closeHandler, signupModalHandler }) => {
           <BoxWrapper>
             <BoxInner>
               <Title>
-                <div>Sign In</div>
+                <div>SIGN IN</div>
                 <Image>
-                  <img src={img} alt="icon" width="150px" height="80px" />
+                  <img src={img} alt="icon" width="130px" height="80px" />
                   <X onClick={closeHandler}>x</X>
                 </Image>
               </Title>
               <br />
-              <Inputs inputInfo={inputInfo} inputHandler={inputHandler} />
-              <br />
-              <Alert>{errorMessage}</Alert>
+              <Input>
+                <Inputs inputInfo={inputInfo} inputHandler={inputHandler} />
+                <br />
+                <Alert>{errorMessage}</Alert>
+                <br />
+              </Input>
               <br />
               <Buttons>
                 <Button type="submit" onClick={() => submitHandler()}>
@@ -143,8 +146,9 @@ const SignIn = ({ open, closeHandler, signupModalHandler }) => {
                 </Link>
               </Buttons>
               <br />
-              <Buttons onClick={signupModalHandler}>
-                아직 회원이 아니신가요? 회원가입하러가기
+              <Buttons>
+                아직 회원이 아니신가요?
+                <GoTo onClick={signupModalHandler}>회원가입하러가기</GoTo>
               </Buttons>
             </BoxInner>
           </BoxWrapper>
@@ -153,10 +157,6 @@ const SignIn = ({ open, closeHandler, signupModalHandler }) => {
     </>
   );
 };
-
-const Text = styled.div`
-  font-size: 35px;
-`;
 
 const BoxInner = styled.div`
   box-sizing: border-box;
@@ -172,6 +172,13 @@ const BoxInner = styled.div`
   padding: 0px 0px 10px 0px;
 `;
 
+const GoTo = styled.div`
+  color: blue;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 const BoxWrapper = styled.div`
   box-sizing: border-box;
   display: block;
@@ -184,10 +191,11 @@ const BoxWrapper = styled.div`
   overflow: auto;
   outline: 0;
 `;
+
 const Input = styled.div`
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: center;
+  align-items: ;
 `;
 
 const OutBox = styled.div`
@@ -203,6 +211,7 @@ const OutBox = styled.div`
   z-index: 999;
 `;
 const Title = styled.div`
+  font-family: 'Sansation';
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -218,6 +227,7 @@ const Alert = styled.div`
   text-align: center;
 `;
 const Button = styled.button`
+  font-family: 'Sansation', 'Nanum Gothic';
   width: 200px;
   height: 20px;
   background-color: #c29b86;
@@ -234,6 +244,7 @@ const Button = styled.button`
   }
 `;
 const SkipButton = styled.button`
+  font-family: 'Sansation';
   width: 200px;
   height: 20px;
   background-color: #293848;
@@ -250,14 +261,11 @@ const SkipButton = styled.button`
   }
 `;
 const Buttons = styled.div`
+  font-family: 'Nanum Gothic';
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  text-aligns: center;
-`;
-const A = styled.a`
-  color: blue;
 `;
 
 const Line = styled.div`
