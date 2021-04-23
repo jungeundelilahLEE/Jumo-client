@@ -40,14 +40,55 @@ const MyFavsCard1 = () => {
   );
 };
 
+const Items = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  /* border: 10px solid red; */
+  width: 40vw;
+  height: 40vh;
+  /* align-items: center; */
+  @media ${props => props.theme.tablet} {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* border: 10px solid red; */
+    width: 30vw;
+    height: 30vh;
+    /* align-items: center; */
+  }
+  @media ${props => props.theme.desktop} {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* border: 10px solid red; */
+    width: 40vw;
+    height: 40vh;
+    align-items: center;
+  }
+`;
+
 const Div1 = styled.div`
   display: flex;
-  border: 5px dashed pink;
+  /* border: 5px dashed pink; */
+  margin: 2em;
 `;
+
 const Image = styled.img`
   display: flex;
-  width: 100px;
-  height: 100px;
+  width: 10em;
+  height: 13em;
+  @media ${props => props.theme.tablet} {
+    display: flex;
+    width: 10em;
+    height: 13em;
+  }
+  @media ${props => props.theme.desktop} {
+    display: flex;
+    width: 15em;
+    height: 20em;
+  }
 `;
 
 export default MyFavsCard1;
