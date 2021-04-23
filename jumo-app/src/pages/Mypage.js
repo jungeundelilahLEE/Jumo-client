@@ -17,7 +17,7 @@ import MyFavsCard from './MyFavsCard1';
 import LikeDeleteBtn from './LikeDeleteBtn';
 import MyFavs from './MyFavs';
 
-const Mypage = ({ channelHandler }) => {
+const Mypage = ({ channelHandler, navHeader, setNavHeader }) => {
   const state = useSelector(states => states.signinReducer);
   const { isLogin, user } = state;
   const { id, username, email, createdAt } = user;
@@ -60,6 +60,9 @@ const Mypage = ({ channelHandler }) => {
   };
 
   useEffect(() => {
+    if (!navHeader) {
+      setNavHeader(true);
+    }
     channelHandler('Mypage');
     getUserInfo();
   }, []);

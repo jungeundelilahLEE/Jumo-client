@@ -20,6 +20,7 @@ const App = () => {
   const { isLoading, error, pick, hasMore } = useSearchItem(query, pageNum);
   // const { isLoading, error, pick, hasMore } = useListItem(pageNum);
   const [channel, setChannel] = useState('');
+  const [navHeader, setNavHeader] = useState(false);
   const [openSignIn, setOpenSignIn] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
 
@@ -47,7 +48,7 @@ const App = () => {
     setChannel(name);
   };
 
-  const openHendler = () => {
+  const openHandler = () => {
     setOpenSignIn(true);
   };
   const closeHandler = () => {
@@ -62,9 +63,16 @@ const App = () => {
   return (
     <Router>
       <GlobalStyles />
-      <Rending />
-      <Header changeHandler={changeHandler} channel={channel} />
-      <Nav openHendler={openHendler} />
+
+      {navHeader && (
+        <>
+          <Header changeHandler={changeHandler} channel={channel} />
+          <Nav openHandler={openHandler} />
+        </>
+      )}
+      {/* <Header changeHandler={changeHandler} channel={channel} />
+      <Nav openHandler={openHandler} /> */}
+
       <SignIn
         open={openSignIn}
         closeHandler={closeHandler}
@@ -72,16 +80,28 @@ const App = () => {
       />
       <SignUp
         close={openSignUp}
-        openHendler={openHendler}
+        openHandler={openHandler}
         closeHandler={closeHandler}
       />
       <Switch>
-        <Route path="/user/info">
-          <Mypage channelHandler={channelHandler} />
+        <Route exact path="/">
+          <Rending navHeader={navHeader} setNavHeader={setNavHeader} />
         </Route>
 
-        <Route exact path="/">
-          <Intro channelHandler={channelHandler} />
+        <Route path="/user/info">
+          <Mypage
+            channelHandler={channelHandler}
+            navHeader={navHeader}
+            setNavHeader={setNavHeader}
+          />
+        </Route>
+
+        <Route path="/intro">
+          <Intro
+            channelHandler={channelHandler}
+            navHeader={navHeader}
+            setNavHeader={setNavHeader}
+          />
         </Route>
         <Route path="/makgeolli/info">
           <Makgeollis
@@ -90,13 +110,23 @@ const App = () => {
             isLoading={isLoading}
             error={error}
             channelHandler={channelHandler}
+            navHeader={navHeader}
+            setNavHeader={setNavHeader}
           />
         </Route>
         <Route path="/makgeolli/list/:name">
-          <Detail channelHandler={channelHandler} />
+          <Detail
+            channelHandler={channelHandler}
+            navHeader={navHeader}
+            setNavHeader={setNavHeader}
+          />
         </Route>
         <Route path="/brewery/info">
-          <Brewerys channelHandler={channelHandler} />
+          <Brewerys
+            navHeader={navHeader}
+            channelHandler={channelHandler}
+            setNavHeader={setNavHeader}
+          />
         </Route>
       </Switch>
     </Router>
