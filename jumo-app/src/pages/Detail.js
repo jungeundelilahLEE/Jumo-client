@@ -1,6 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable object-shorthand */
-/* eslint-disable no-else-return */
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,12 +7,14 @@ import server from '../apis/server';
 import ReviewInput from '../components/ReviewInput';
 import ReviewList from '../components/ReviewList';
 
+// import res from '../atoms/dummyMaks';
+
 const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
   const state = useSelector(states => states.userReducer);
   const { likeItems } = state;
-  const [likeValue, setLikeValue] = useState(false);
   const accessToken = localStorage.getItem('accessToken');
   // const [isLoading, setIsLoading] = useState(false);
+  // const [viewCount, SetViewCount] = useState(0);
   const [allReivews, setAllReviews] = useState([]);
   const { name } = useParams();
 
@@ -41,16 +40,16 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
 
   const dispatch = useDispatch();
 
-  const getMakgeolliInfo = async () => {
+  const getMakgeolliInfo = () => {
     // setIsLoading(true);
-    await server
+    server
       .get(`/makgeolli/list?name=${name}`)
       .then(res =>
         setItem(prev => {
           return { ...prev, ...res.data.data };
         }),
       )
-      .then(iteminfo => {
+      .then(() => {
         // setIsLoading(false);
       });
   };
@@ -70,101 +69,23 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
     }
   };
 
-  const getUserLikesInfo = async () => {
-    try {
-      const res = await server.get('/like/info', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-
-      const { data } = res.data;
-      const userLikesInfo = data.map(el => {
-        if (el.makgeolli_id === item.id) {
-          setLikeValue(true);
-        }
-        return el.makgeolli_id;
-      });
-
-      // dispatch(addLike(userLikesInfo));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleAddLike = async () => {
-    if (!accessToken) {
-      return alert('로그인 해 주세요.');
-    } else {
-      try {
-        const plusLike = await server.post(
-          '/like/create',
-          { name: name },
-          { headers: { Authorization: `Bearer ${accessToken}` } },
-        );
-
-        // const { data } = plusLike.data;
-        // const userLikesInfo = data.map(el => {
-        //   if (el.makgeolli_id === item.id) {
-        //     setLikeValue(true);
-        //   }
-        //   return el.makgeolli_id;
-        // });
-
-        // dispatch(addLike(userLikesInfo));
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  };
-
-  const handleDeleteLike = async () => {
-    if (!accessToken) {
-      return alert('로그인 해 주세요.');
-    } else {
-      try {
-        const minusLike = await server.post(
-          '/like/remove',
-          { name: name, id: item.id },
-          { headers: { Authorization: `Bearer ${accessToken}` } },
-        );
-        const { data } = minusLike.data;
-        const userLikesInfo = data.map(el => el.makgeolli_id);
-        setLikeValue(false);
-
-        // dispatch(addLike(userLikesInfo));
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  };
-
   useEffect(() => {
-    channelHandler('Detail');
     if (!navHeader) {
       setNavHeader(true);
     }
+    channelHandler('Detail');
     getMakgeolliInfo();
     if (accessToken) {
       getUserInfo();
-      getUserLikesInfo();
     }
   }, []);
 
-  useEffect(() => {
-    getUserLikesInfo();
-  }, [likeValue]);
-
   const handleLike = () => {
-    handleAddLike();
-    setLikeValue(true);
-    // dispatch(addLike(item.id));
+    dispatch(addLike(item.id));
   };
 
   const handleRemoveLike = () => {
-    handleDeleteLike();
-    setLikeValue(false);
-    // dispatch(removeLike(item.id));
+    dispatch(removeLike(item.id));
   };
 
   return (
@@ -181,8 +102,7 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
           <StyleDescInfo>
             <div>조회수 : {item.views}</div>
             <div>
-              <div>{likeItems[0]}</div>
-              {!likeValue ? (
+              {!likeItems.includes(item.id) ? (
                 <StyleSmallLikeBtn onClick={() => handleLike()}>
                   {item.likes}
                 </StyleSmallLikeBtn>
