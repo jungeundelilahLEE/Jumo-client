@@ -1,9 +1,16 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
 // import axios from 'axios';
 import { FiSearch } from 'react-icons/fi';
 import icon from '../images/JumoIcon.PNG';
+
+const inputshow = () => {
+  if (document.getElementById('input').style.visibility === 'visible') {
+    document.getElementById('input').style.visibility = 'hidden';
+  } else {
+    document.getElementById('input').style.visibility = 'visible';
+  }
+};
 
 const Header = ({ changeHandler, channel }) => {
   // const [searchText, setSearchText] = useState('');
@@ -31,13 +38,14 @@ const Header = ({ changeHandler, channel }) => {
       </div>
       <Searching>
         <Input
+          id="input"
           type="text"
           placeholder="검색어를 입력하세요"
           outline="none"
           onChange={changeHandler}
         />
         <Fi>
-          <FiSearch size="24" color="#e7d1bf" />
+          <FiSearch size="24" color="#e7d1bf" onClick={inputshow} />
         </Fi>
       </Searching>
       <div>{channel}</div>
@@ -50,6 +58,7 @@ const Fi = styled.div`
 `;
 
 const Navbar = styled.div`
+  font-family: 'Sansation';
   display: flex;
   position: absolute;
   justify-content: space-between;
@@ -61,7 +70,7 @@ const Navbar = styled.div`
   height: 50px;
 `;
 const Input = styled.input`
-  /* display: none; */
+  visibility: hidden;
   font-family: Sunflower;
   background-color: #293848;
   color: #e7d1bf;
@@ -82,13 +91,13 @@ const Input = styled.input`
 const Searching = styled.div`
   display: flex;
   @media ${props => props.theme.mobile} {
-    transform: translateX(20vw);
+    transform: translateX(10vw);
   }
   @media ${props => props.theme.tablet} {
-    transform: translateX(30vw);
+    transform: translateX(15vw);
   }
   @media ${props => props.theme.desktop} {
-    transform: translateX(40vw);
+    transform: translateX(25vw);
   }
 `;
 

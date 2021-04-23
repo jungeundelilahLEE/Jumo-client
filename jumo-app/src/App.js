@@ -62,7 +62,7 @@ const App = () => {
   return (
     <Router>
       <GlobalStyles />
-      <Rending />
+      {/* <Rending /> */}
       <Header changeHandler={changeHandler} channel={channel} />
       <Nav openHendler={openHendler} />
       <SignIn

@@ -5,7 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { signIn } from '../actions';
 import Inputs from '../atoms/Inputs';
 import server, { clientURL } from '../apis/server';
-import img from '../images/JumoIcon.PNG';
+import img from '../images/JustJ.PNG';
 
 const SignUp = ({ close, closeHandler, openHendler }) => {
   // document.body.style.overflow = 'hidden';
@@ -24,18 +24,15 @@ const SignUp = ({ close, closeHandler, openHendler }) => {
 
   const inputInfo = [
     {
-      subtitle: 'Nickname',
       placeholder: '이름',
       type: 'username',
     },
-    { subtitle: 'Email', placeholder: 'Email', type: 'email' },
+    { placeholder: 'Email', type: 'email' },
     {
-      subtitle: 'password',
       placeholder: '비밀번호(8자리 이상)',
       type: 'password',
     },
     {
-      subtitle: 'password',
       placeholder: '비밀번호',
       type: 'checkPassword',
     },
@@ -97,9 +94,9 @@ const SignUp = ({ close, closeHandler, openHendler }) => {
           <BoxWrapper>
             <BoxInner>
               <Title>
-                <div>Sign Up</div>
+                <div>SIGN UP</div>
                 <Image>
-                  <img src={img} alt="icon" width="150px" height="80px" />
+                  <img src={img} alt="icon" width="140px" height="80px" />
                   <X onClick={closeHandler}>x</X>
                 </Image>
               </Title>
@@ -111,7 +108,6 @@ const SignUp = ({ close, closeHandler, openHendler }) => {
 
               <br />
               <Alert>{errorMessage}</Alert>
-              <br />
               <br />
               <Line />
               <br />
@@ -146,7 +142,7 @@ const BoxInner = styled.div`
   top: 50%;
   transform: translateY(-50%);
   margin: 0 auto;
-  padding: 0px 0px 40px 0px;
+  padding: 0px 0px 10px 0px;
 `;
 
 const BoxWrapper = styled.div`
@@ -166,10 +162,6 @@ const Input = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-const InputForm = styled.input`
-  width: 200px;
-  height: 20px;
-`;
 const OutBox = styled.div`
   box-sizing: border-box;
   display: box;
@@ -182,6 +174,7 @@ const OutBox = styled.div`
   z-index: 999;
 `;
 const Title = styled.div`
+  font-family: 'Sansation';
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -197,20 +190,26 @@ const Alert = styled.div`
   text-align: center;
 `;
 const Button = styled.button`
+  font-family: 'Sansation';
   width: 200px;
   height: 20px;
   background-color: #c29b86;
   border-radius: 4px;
   border: 0px;
   cursor: pointer;
+  padding: 15px;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+  &:active {
+    transform: translateY(2px);
+  }
 `;
 const SkipButton = styled.button`
+  font-family: 'Sansation';
   width: 200px;
-  height: 20px;
+  height: 30px;
   background-color: #293848;
   border: 0px;
   border-radius: 4px;
