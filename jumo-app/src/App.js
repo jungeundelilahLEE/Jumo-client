@@ -1,5 +1,10 @@
-import React, { useState, useRef, useCallback } from 'react';
+/* eslint-disable no-use-before-define */
+/* eslint-disable dot-notation */
+/* eslint-disable no-shadow */
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import axios from 'axios';
+import server from './apis/server';
 import useSearchItem from './atoms/useSearchItem';
 import GlobalStyles from './styles/GlobalStyles';
 
@@ -23,6 +28,7 @@ const App = () => {
   const [navHeader, setNavHeader] = useState(false);
   const [openSignIn, setOpenSignIn] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
+  const accessToken = localStorage.getItem('accessToken');
 
   const observer = useRef();
   const lastItemElementRef = useCallback(
@@ -38,6 +44,28 @@ const App = () => {
     },
     [isLoading, hasMore],
   );
+
+  const onSilentRefresh = async () => {
+    await server
+      .post('/user/refreshToken', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then(res => onLoginSuccess(res))
+      .catch(err => {
+        throw new Error(`${err}`);
+      });
+  };
+
+  const onLoginSuccess = response => {
+    const JWT_EXPIRY_TIME = 12 * 3600 * 1000;
+    const { accessToken } = response.data;
+
+    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+
+    setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
+  };
 
   const changeHandler = e => {
     setQuery(e.target.value);
@@ -59,6 +87,12 @@ const App = () => {
     setOpenSignIn(false);
     setOpenSignUp(true);
   };
+
+  useEffect(() => {
+    if (accessToken) {
+      onSilentRefresh();
+    }
+  }, []);
 
   return (
     <Router>
