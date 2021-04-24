@@ -2,24 +2,51 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FiSearch } from 'react-icons/fi';
-import res from '../atoms/dummyBrewery';
+import server from '../apis/server';
+// import res from '../atoms/dummyBrewery';
 
 const Brewerys = ({ channelHandler, navHeader, setNavHeader }) => {
+  const [brewerys, setBrewerys] = useState([]);
   const [mapImage, setMapImage] = useState('');
+  const [searchText, setSearchText] = useState('');
+
+  const getBreweryInfo = async () => {
+    // setIsLoading(true);
+    server
+      .get(`/brewery/info`)
+      .then(res => setBrewerys([...res.data.data]))
+      .then(() => {
+        // setIsLoading(false);
+      });
+  };
+
+  const getSearchBrewerys = async () => {
+    // setIsLoading(true);
+    server
+      .get(`/brewery/search?query=${searchText}`)
+      .then(res => setBrewerys([...res.data.data]))
+      .then(() => {
+        // setIsLoading(false);
+      });
+  };
 
   useEffect(() => {
     if (!navHeader) {
       setNavHeader(true);
     }
     channelHandler('Brewery');
+    getBreweryInfo();
   }, []);
 
-  //! dummy data => server
-  const { data } = res;
-  const list = data;
+  useEffect(() => {
+    getSearchBrewerys();
+  }, [searchText]);
 
   const handleMap = searchMap => {
     setMapImage(searchMap);
+  };
+  const searchHandler = e => {
+    setSearchText(e.target.value);
   };
 
   return (
@@ -27,22 +54,25 @@ const Brewerys = ({ channelHandler, navHeader, setNavHeader }) => {
       <StyleBrewerys>
         <StyleSearchBox>
           <Search>
-            <StyleInput placeholder="  위치를 입력해주세요" />
+            <StyleInput
+              placeholder="  위치를 입력해주세요"
+              onChange={searchHandler}
+            />
             <FiSearch size="30px" color="#293848" />
           </Search>
           <Result>
-            소공동 지역에서 {list.length}개의 양조장이검색되었습니다.
+            {searchText} 지역에서 {brewerys.length}개의 양조장이검색되었습니다.
           </Result>
         </StyleSearchBox>
 
         <StyleSpace>
           <StyleResult>
-            {list.map(el => (
+            {brewerys.map(el => (
               <StyleInfo key={el.id}>
                 <StyleTitle onClick={() => handleMap(el.image)}>
                   {el.name}
                 </StyleTitle>
-                <Link to={`/makgeolli/list/${el.id}`}>
+                <Link to={`/makgeolli/list/${el.kinds}`}>
                   <RepresentM>대표 막걸리 : {el.kinds}</RepresentM>
                 </Link>
                 <div>{el.address}</div>

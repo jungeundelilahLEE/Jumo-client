@@ -89,34 +89,6 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
 
       setLikeList(userLikesInfo);
       setLikeId(getLikeId);
-
-      // .then(res => {
-      //   const { data } = res.data;
-      //   return data;
-      // })
-      // .then(data => {
-      //   const userLikesInfo = data.map(el => el.makgeolli_id);
-      //   const getLikeId = data.map(el => {
-      //     if (el.makgeolli_id === itemId) {
-      //       return el.id;
-      //     }
-      //     return;
-      //   });
-
-      //   setLikeList([...userLikesInfo]);
-      //   setLikeId([...getLikeId]);
-      // });
-
-      // const { data } = res.data;
-      // const userLikesInfo = data.map(el => el.makgeolli_id);
-      // const getLikeId = data.map(el => {
-      //   if (el.makgeolli_id === item.id) {
-      //     return el.id;
-      //   }
-      //   return el.makgeolli_id;
-      // });
-
-      // setLikeList(data);
     } catch (err) {
       console.log(err);
     }
@@ -132,8 +104,6 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
           { name: name },
           { headers: { Authorization: `Bearer ${accessToken}` } },
         );
-        // window.location.reload();
-        // setLikeList(prev => [...prev, itemId]);
       } catch (err) {
         console.log(err);
       }
