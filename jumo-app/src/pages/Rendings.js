@@ -1,9 +1,28 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import styled from 'styled-components';
 import TitleRending from './TitleRending';
 import FirstRending from './FirstRending';
 import SecondRending from './SecondRending';
 import background from '../images/Background2.png';
+import useScrollFadeIn from './useScrollFadeIn';
+import useScrollClipPath from './useScrollClipPath';
+
+const Rending = () => {
+  return (
+    <>
+      <Background>
+        <TitleRending />
+        <div {...useScrollFadeIn('up', 1, 0)}>
+          <SecondRending />
+        </div>
+        <div {...useScrollFadeIn('left', 1, 0)}>
+          <FirstRending />
+        </div>
+      </Background>
+    </>
+  );
+};
 
 const Background = styled.div`
   display: flex;
@@ -59,17 +78,5 @@ const Background = styled.div`
     height: auto;
   }
 `;
-
-function Rending() {
-  return (
-    <>
-      <Background>
-        <TitleRending />
-        <SecondRending />
-        <FirstRending />
-      </Background>
-    </>
-  );
-}
 
 export default Rending;

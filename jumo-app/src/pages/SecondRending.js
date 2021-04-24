@@ -1,45 +1,18 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  withRouter,
-} from 'react-router-dom';
+import { Link, withRouter, useHistory } from 'react-router-dom';
 import { FiArrowDown } from 'react-icons/fi';
+import photo from '../images/sideA.png';
+import useScrollClipPath from './useScrollClipPath';
 
-function SecondRending() {
-  const slidein = keyframes`
-    from {
-      opacity: 0
-    }
-    to {
-      opacity: 1
-    }
-  `;
+const SecondRending = () => {
   const contentSlide = keyframes`
     from {
       transform: translateX(-1200px);
     }
     to {
       transform: translateX(0px);
-    }
-  `;
-  const positionComeIn = keyframes`
-   0%{
-     transform: translateX(-100px);
-   }    
-   100%{
-     transform: translateX(0px);
-   }
- `;
-  const speakingDown = () => keyframes`
-    from {
-      transform: translateY(15px)
-    }
-    to {
-      transform: translateY(0px)
     }
   `;
   const SecondChapter = styled.div`
@@ -54,8 +27,7 @@ function SecondRending() {
     font-family: 'Sansation';
     font-weight: lighter;
     width: 50vw;
-    font-size: 5rem;
-    animation: ${slidein} 3s, ${positionComeIn} 3s;
+    font-size: 4rem;
     transition-duration: 1s;
     @media ${props => props.theme.tablet} {
       padding: 20px;
@@ -64,7 +36,6 @@ function SecondRending() {
       font-weight: lighter;
       width: 50vw;
       font-size: 8rem;
-      animation: ${slidein} 3s, ${positionComeIn} 3s;
       transition-duration: 1s;
       &:hover {
         font-size: 7rem;
@@ -77,7 +48,6 @@ function SecondRending() {
       font-weight: lighter;
       width: 50vw;
       font-size: 8rem;
-      animation: ${slidein} 3s, ${positionComeIn} 3s;
       transition-duration: 1s;
       &:hover {
         font-size: 10rem;
@@ -102,9 +72,8 @@ function SecondRending() {
       background-color: rgba(255, 100, 100, 1);
       font-family: 'Nanum Gothic';
       color: white;
-      text-align: center;
       float: right;
-      left: 72%;
+      text-align: center;
       width: 200px;
       height: 40px;
       border-radius: 10px;
@@ -123,20 +92,12 @@ function SecondRending() {
       display: none;
     }
     @media ${props => props.theme.desktop} {
-      display: inline;
+      display: flex;
       position: absolute;
-      font-size: 2.3rem;
-      padding: 2rem;
-      color: white;
-      height: 34.3%;
-      line-height: 180%;
-      writing-mode: vertical-lr;
-      top: 33%;
-      right: 5%;
-      font-family: 'Independence_hall';
-      text-shadow: 2px 2px 2px gray;
-      animation: ${speakingDown} 2s 1.5s, ${slidein} 2s 1.5s;
-      animation-fill-mode: backwards;
+      top: 40%;
+      right: 3%;
+      width: 20vw;
+      height: 40vh;
       transition-duration: 1s;
       &:hover {
         transform: translate(-10px, -10px);
@@ -144,7 +105,9 @@ function SecondRending() {
     }
   `;
   const InnerContent = styled.h2`
-    line-height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 10px;
     width: 100%;
     color: white;
@@ -153,12 +116,11 @@ function SecondRending() {
     font-family: 'Nanum Gothic', sans-serif;
     background-color: rgba(0, 0, 10, 0.1);
     font-size: 2rem;
-    animation: ${contentSlide} 3s 1s;
-    animation-fill-mode: backwards;
     transition-duration: 1s;
     @media ${props => props.theme.tablet} {
-      margin: 10px;
-      line-height: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       padding: 10px;
       width: 95vw;
       color: white;
@@ -167,7 +129,7 @@ function SecondRending() {
       font-family: 'Nanum Gothic', sans-serif;
       background-color: rgba(0, 0, 10, 0.1);
       font-size: 2rem;
-      animation: ${contentSlide} 3s 1s;
+      animation: ${contentSlide} 1s 0.5s;
       animation-fill-mode: backwards;
       transition-duration: 1s;
       &:hover {
@@ -175,9 +137,10 @@ function SecondRending() {
       }
     }
     @media ${props => props.theme.desktop} {
-      margin: 10px;
-      line-height: 40px;
-      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 20px;
       width: 70vw;
       color: white;
       font-weight: bold;
@@ -185,7 +148,7 @@ function SecondRending() {
       font-family: 'Nanum Gothic', sans-serif;
       background-color: rgba(0, 0, 10, 0.1);
       font-size: 2rem;
-      animation: ${contentSlide} 3s 1s;
+      animation: ${contentSlide} 2s 0.5s;
       animation-fill-mode: backwards;
       transition-duration: 1s;
       &:hover {
@@ -198,7 +161,7 @@ function SecondRending() {
     text-align: center;
     font-weight: bold;
     font-size: 20px;
-    padding-top: 5vh;
+    padding-top: 3vh;
     @media ${props => props.theme.tablet} {
       color: white;
       text-align: center;
@@ -209,6 +172,16 @@ function SecondRending() {
       &:hover {
         transform: translateY(10px);
       }
+    }
+  `;
+  const Top = styled.div`
+    display: flex;
+    padding: 10px;
+    flex-direction: row;
+    justify-content: space-around;
+    @media ${props => props.theme.tablet} {
+      display: flex;
+      justify-content: space-between;
     }
   `;
   const Top1 = styled.div`
@@ -253,26 +226,12 @@ function SecondRending() {
       }
     }
   `;
-  const Top = styled.div`
-    display: flex;
-    padding-top: 20px;
-    flex-direction: row;
-    justify-content: space-around;
-    @media ${props => props.theme.tablet} {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-    }
-  `;
   const toBre = () => {
     window.scrollTo({ top: 2000, left: 0, behavior: 'smooth' });
   };
   return (
     <SecondChapter>
       <Makgeolli>MAKGEOLLI</Makgeolli>
-      <Speaking>
-        그 술의 힘, 그 술의 맛, 그 술의 멋 네 피 속에 불사의 생명을 부으리라
-      </Speaking>
       <InnerContent>
         다양한 막걸리를 구경하고 맛보고 평점을 주세요!
         <br />
@@ -287,11 +246,14 @@ function SecondRending() {
           <More>다른 막걸리 보러가기</More>
         </Link>
       </InnerContent>
+      <Speaking>
+        <img src={photo} alt="sideA" />
+      </Speaking>
       <Brewerys onClick={toBre}>
         <FiArrowDown />
       </Brewerys>
     </SecondChapter>
   );
-}
+};
 
 export default SecondRending;

@@ -33,7 +33,6 @@ const Header = ({ changeHandler, channel }) => {
 
   return (
     <Navbar>
-      {/* {channel} // test용 지워주세요 */}
       <div className="Icon">
         <Link to="/">
           <img src={icon} alt="icon" width="55px" height="55px" />
@@ -57,7 +56,10 @@ const Header = ({ changeHandler, channel }) => {
 };
 
 const Fi = styled.div`
-  display: flex;
+  display: none;
+  @media ${props => props.theme.tablet} {
+    display: flex;
+  }
 `;
 
 const Navbar = styled.div`
@@ -73,8 +75,8 @@ const Navbar = styled.div`
   height: 50px;
 `;
 const Input = styled.input`
-  visibility: hidden;
-  font-family: Sunflower;
+  visibility: visible;
+  font-family: 'Nanum Gothic';
   background-color: #293848;
   color: #e7d1bf;
   border-top: none;
@@ -83,23 +85,34 @@ const Input = styled.input`
   border-bottom: 3px solid #e7d1bf;
   outline: none;
   width: 45vh;
-  &:focus {
+  @media ${props => props.theme.tablet} {
+    visibility: hidden;
+    font-family: 'Nanum Gothic';
     background-color: #293848;
+    color: #e7d1bf;
     border-top: none;
     border-right: none;
     border-left: none;
+    border-bottom: 3px solid #e7d1bf;
     outline: none;
+    width: 45vh;
+    &:focus {
+      background-color: #293848;
+      border-top: none;
+      border-right: none;
+      border-left: none;
+      outline: none;
+    }
   }
 `;
 const Searching = styled.div`
   display: flex;
-  @media ${props => props.theme.mobile} {
-    transform: translateX(10vw);
-  }
   @media ${props => props.theme.tablet} {
+    display: flex;
     transform: translateX(15vw);
   }
   @media ${props => props.theme.desktop} {
+    display: flex;
     transform: translateX(25vw);
   }
 `;
