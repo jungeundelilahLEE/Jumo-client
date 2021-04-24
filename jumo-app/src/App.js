@@ -69,7 +69,7 @@ const App = () => {
 
   const changeHandler = e => {
     setQuery(e.target.value);
-    setPageNum(1);
+    setPageNum(0);
   };
 
   const channelHandler = name => {

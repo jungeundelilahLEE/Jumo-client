@@ -11,6 +11,8 @@ import server from '../apis/server';
 import ReviewInput from '../components/ReviewInput';
 import ReviewList from '../components/ReviewList';
 
+// import res from '../atoms/dummyMaks';
+
 const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
   const [likeList, setLikeList] = useState([]);
   const [likeId, setLikeId] = useState([]);
@@ -41,14 +43,14 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
 
   const getMakgeolliInfo = async () => {
     // setIsLoading(true);
-    await server
+    server
       .get(`/makgeolli/list?name=${name}`)
       .then(res =>
         setItem(prev => {
           return { ...prev, ...res.data.data };
         }),
       )
-      .then(iteminfo => {
+      .then(() => {
         // setIsLoading(false);
       });
   };
@@ -157,10 +159,10 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
   };
 
   useEffect(() => {
-    channelHandler('Detail');
     if (!navHeader) {
       setNavHeader(true);
     }
+    channelHandler('Detail');
     getMakgeolliInfo();
     getUserInfo();
   }, []);
