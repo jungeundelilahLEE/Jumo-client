@@ -130,7 +130,7 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
           { name: name },
           { headers: { Authorization: `Bearer ${accessToken}` } },
         );
-        window.location.reload();
+        // window.location.reload();
         // setLikeList(prev => [...prev, itemId]);
       } catch (err) {
         console.log(err);
@@ -148,7 +148,7 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
           { name: name, id: likeId },
           { headers: { Authorization: `Bearer ${accessToken}` } },
         );
-        window.location.reload();
+        // window.location.reload();
         // setLikeList(prev => prev.filter(el => el !== delLike));
       } catch (err) {
         console.log(err);
@@ -162,27 +162,29 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
       setNavHeader(true);
     }
     getMakgeolliInfo();
-    // if (accessToken) {
-    //   getUserInfo();
-    //   getUserLikesInfo();
-    // }
+    getUserInfo();
   }, []);
 
   useEffect(() => {
     if (accessToken) {
-      getUserInfo();
       getUserLikesInfo();
     }
   }, [item]);
 
+  useEffect(() => {
+    if (accessToken) {
+      getMakgeolliInfo();
+    }
+  }, [isLoading]);
+
   const handleLike = () => {
     handleAddLike();
-    // setIsLoading(!isLoading);
+    setIsLoading(!isLoading);
   };
 
   const handleRemoveLike = () => {
     handleDeleteLike();
-    // setIsLoading(!isLoading);
+    setIsLoading(!isLoading);
   };
 
   return (

@@ -30,7 +30,7 @@ function Nav({ openHandler }) {
       dispatch(signOut());
       localStorage.setItem('isLogin', JSON.stringify(false));
       history.push('/');
-      window.location.reload();
+      // window.location.reload();
     } catch (err) {
       console.log(err);
     }
