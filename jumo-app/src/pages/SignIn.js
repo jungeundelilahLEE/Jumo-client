@@ -3,6 +3,7 @@ import { useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FcGoogle } from 'react-icons/fc';
 import { useSelector, useDispatch } from 'react-redux';
+import { BiX } from 'react-icons/bi';
 import { signIn } from '../actions';
 import server, { clientURL } from '../apis/server';
 import Inputs from '../atoms/Inputs';
@@ -115,7 +116,9 @@ const SignIn = ({ open, closeHandler, signupModalHandler }) => {
                 <div>SIGN IN</div>
                 <Image>
                   <img src={img} alt="icon" width="130px" height="80px" />
-                  <X onClick={closeHandler}>x</X>
+                  <X onClick={closeHandler}>
+                    <BiX color="white" />
+                  </X>
                 </Image>
               </Title>
               <br />
@@ -195,7 +198,6 @@ const BoxWrapper = styled.div`
 const Input = styled.div`
   display: flex;
   justify-content: center;
-  align-items: ;
 `;
 
 const OutBox = styled.div`
@@ -220,7 +222,7 @@ const Title = styled.div`
 `;
 const Image = styled.div`
   background-color: #293848;
-  padding: 0px 0px 5px 25px;
+  padding: 0px 10px 0px 18px;
 `;
 const Alert = styled.div`
   color: red;
@@ -276,12 +278,10 @@ const Line = styled.div`
   border-bottom: 1px solid #c29b86;
 `;
 
-const X = styled.button`
+const X = styled.div`
   float: right;
   width: 20px;
   height: 20px;
-  padding: 0px;
-  margin: 0px;
 `;
 
 export default SignIn;
