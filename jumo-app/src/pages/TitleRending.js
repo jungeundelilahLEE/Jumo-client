@@ -1,12 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  withRouter,
-} from 'react-router-dom';
+import { Link, withRouter, useHistory } from 'react-router-dom';
 import { FiArrowDown } from 'react-icons/fi';
 import jumo from '../images/JumoIcon.PNG';
 
@@ -56,25 +50,17 @@ function TitleRending() {
     0% {
       letter-spacing: 0px;
     } 
-    30% {
-      letter-spacing: 200rem;
+    20% {
+      letter-spacing: 60vw;
     }
-    78% {
-      letter-spacing: -200rem;
+    80% {
+      letter-spacing: -70vw;
     }
     100% {
       letter-spacing: 0px;
     }
   `;
 
-  const positionComeIn = keyframes`
-    0%{
-      transform: translateX(-100px);
-    }    
-    100%{
-      transform: translateX(0px);
-    }
-  `;
   const positionDown = keyframes`
     0%{
       transform: translateY(-50px);
@@ -93,7 +79,7 @@ function TitleRending() {
     animation-name: fly-right-one;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
-    animation-duration: 15s;
+    animation-duration: 8s;
     animation-delay: 0;
     @keyframes fly-cycle {
       100% {
@@ -131,34 +117,26 @@ function TitleRending() {
     animation-delay: -0.5s;
     @keyframes fly-right-one {
       0% {
-        transform: scale(0.3) translateX(-10vw);
-      }
-
-      10% {
-        transform: translateY(2vh) translateX(10vw) scale(0.4);
+        transform: scale(0.3) translateX(5vw);
       }
 
       20% {
-        transform: translateY(0vh) translateX(30vw) scale(0.5);
-      }
-
-      30% {
-        transform: translateY(4vh) translateX(50vw) scale(0.6);
+        transform: translateY(0vh) translateX(25vw) scale(0.5);
       }
 
       40% {
-        transform: translateY(2vh) translateX(70vw) scale(0.6);
-      }
-
-      50% {
-        transform: translateY(0vh) translateX(90vw) scale(0.6);
+        transform: translateY(2vh) translateX(45vw) scale(0.6);
       }
 
       60% {
-        transform: translateY(0vh) translateX(110vw) scale(0.6);
+        transform: translateY(0vh) translateX(65vw) scale(0.6);
+      }
+
+      80% {
+        transform: translateY(0vh) translateX(85vw) scale(0.6);
       }
       100% {
-        transform: translateY(0vh) translateX(130vw) scale(0.6);
+        transform: translateY(0vh) translateX(105vw) scale(0.6);
       }
     }
   `;
@@ -175,34 +153,26 @@ function TitleRending() {
     animation-delay: -1s;
     @keyframes fly-right-two {
       0% {
-        transform: scale(0.3) translateX(-10vw);
-      }
-
-      10% {
-        transform: translateY(2vh) translateX(5vw) scale(0.4);
+        transform: scale(0.3) translateX(5vw);
       }
 
       20% {
-        transform: translateY(0vh) translateX(15vw) scale(0.5);
-      }
-
-      30% {
-        transform: translateY(4vh) translateX(35vw) scale(0.6);
+        transform: translateY(0vh) translateX(25vw) scale(0.5);
       }
 
       40% {
-        transform: translateY(2vh) translateX(55vw) scale(0.6);
-      }
-
-      50% {
-        transform: translateY(0vh) translateX(75vw) scale(0.6);
+        transform: translateY(3vh) translateX(45vw) scale(0.6);
       }
 
       60% {
-        transform: translateY(0vh) translateX(90vw) scale(0.6);
+        transform: translateY(0vh) translateX(65vw) scale(0.6);
+      }
+
+      80% {
+        transform: translateY(2vh) translateX(85vw) scale(0.6);
       }
       100% {
-        transform: translateY(0vh) translateX(130vw) scale(0.6);
+        transform: translateY(0vh) translateX(105vw) scale(0.6);
       }
     }
   `;
@@ -211,7 +181,27 @@ function TitleRending() {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    height: 720px;
+    width: 100vmin;
+    height: 100vh;
+    word-break: break-all;
+    @media ${props => props.theme.tablet} {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      width: 100vw;
+      height: 720px;
+      word-break: break-all;
+    }
+    @media ${props => props.theme.desktop} {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      width: 100vw;
+      height: 720px;
+      word-break: break-all;
+    }
   `;
   const SubTitle = styled.h1`
     font-size: 1.5rem;
@@ -228,63 +218,98 @@ function TitleRending() {
   const Title = styled.div`
     display: flex;
     font-family: 'Quicksand', sans-serif;
-    font-size: 4rem;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    animation: ${intro} 2s 2.4s, ${shadow} 1s 6s;
+    animation: ${intro} 2s 3.4s, ${shadow} 1s 6s;
     animation-timing-function: ease-in;
     animation-fill-mode: forwards;
+    @media ${props => props.theme.tablet} {
+      display: flex;
+      font-family: 'Quicksand', sans-serif;
+      justify-content: center;
+      align-items: center;
+      animation: ${intro} 2s 3.4s, ${shadow} 1s 6s;
+      animation-timing-function: ease-in;
+      animation-fill-mode: forwards;
+    }
   `;
   const toMak = () => {
     window.scrollTo({ top: 710, left: 0, behavior: 'smooth' });
   };
   const J = styled.div`
     color: white;
-    font-size: 15rem;
-    animation: ${popUp} 1s, ${slidein} 1s, ${rotate} 1.4s 4.4s;
+    font-size: 13rem;
+    animation: ${popUp} 1s 1s, ${slidein} 1s 1s, ${rotate} 1.4s 5.4s;
     animation-fill-mode: backwards;
     transition-duration: 1s;
-    &:hover {
-      color: red;
-      font-size: 17rem;
-      text-shadow: 0px 0px 0px black;
+    @media ${props => props.theme.tablet} {
+      color: white;
+      font-size: 13rem;
+      animation: ${popUp} 1s 1s, ${slidein} 1s 1s, ${rotate} 1.4s 5.4s;
+      animation-fill-mode: backwards;
+      transition-duration: 1s;
+      &:hover {
+        color: red;
+        font-size: 15rem;
+        text-shadow: 0px 0px 0px black;
+      }
     }
   `;
   const U = styled.div`
     color: white;
-    font-size: 10rem;
-    animation: ${popUp} 1s 0.5s, ${slidein} 1s 0.5s;
+    font-size: 7rem;
+    animation: ${popUp} 1s 1.5s, ${slidein} 1s 1.5s;
     animation-fill-mode: backwards;
     transition-duration: 1s;
-    &:hover {
-      color: blue;
-      font-size: 12rem;
-      text-shadow: 0px 0px 0px black;
+    @media ${props => props.theme.tablet} {
+      color: white;
+      font-size: 7rem;
+      animation: ${popUp} 1s 1.5s, ${slidein} 1s 1.5s;
+      animation-fill-mode: backwards;
+      transition-duration: 1s;
+      &:hover {
+        color: blue;
+        font-size: 9rem;
+        text-shadow: 0px 0px 0px black;
+      }
     }
   `;
   const M = styled.div`
     color: white;
-    font-size: 10rem;
-    animation: ${popUp} 1s 1s, ${slidein} 1s 1s;
+    font-size: 7rem;
+    animation: ${popUp} 1s 2s, ${slidein} 1s 2s;
     animation-fill-mode: backwards;
     transition-duration: 1s;
-    &:hover {
-      color: green;
-      font-size: 12rem;
-      text-shadow: 0px 0px 0px black;
+    @media ${props => props.theme.tablet} {
+      color: white;
+      font-size: 7rem;
+      animation: ${popUp} 1s 2s, ${slidein} 1s 2s;
+      animation-fill-mode: backwards;
+      transition-duration: 1s;
+      &:hover {
+        color: green;
+        font-size: 9rem;
+        text-shadow: 0px 0px 0px black;
+      }
     }
   `;
   const O = styled.div`
     color: white;
-    font-size: 10rem;
-    animation: ${popUp} 1s 1.5s, ${slidein} 1s 1.5s;
+    font-size: 7rem;
+    animation: ${popUp} 1s 2.5s, ${slidein} 1s 2.5s;
     animation-fill-mode: backwards;
     transition-duration: 1s;
-    &:hover {
-      color: purple;
-      font-size: 12rem;
-      text-shadow: 0px 0px 0px black;
+    @media ${props => props.theme.tablet} {
+      color: white;
+      font-size: 7rem;
+      animation: ${popUp} 1s 2.5s, ${slidein} 1s 2.5s;
+      animation-fill-mode: backwards;
+      transition-duration: 1s;
+      &:hover {
+        color: purple;
+        font-size: 9rem;
+        text-shadow: 0px 0px 0px black;
+      }
     }
   `;
   return (

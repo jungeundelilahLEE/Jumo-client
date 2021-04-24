@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Inputs = ({ inputInfo, inputHandler }) => {
+const Inputs = ({ inputInfo, inputHandler, onKeyPress }) => {
   return (
     <Input>
       {inputInfo.map(info =>
@@ -13,6 +13,7 @@ const Inputs = ({ inputInfo, inputHandler }) => {
             <InputForm
               placeholder={info.placeholder}
               onChange={inputHandler}
+              onKeyPress={onKeyPress}
               data-type={info.type}
               type="password"
             />

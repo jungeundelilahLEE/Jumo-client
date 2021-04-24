@@ -69,7 +69,7 @@ const App = () => {
 
   const changeHandler = e => {
     setQuery(e.target.value);
-    setPageNum(1);
+    setPageNum(0);
   };
 
   const channelHandler = name => {
@@ -109,11 +109,15 @@ const App = () => {
         open={openSignIn}
         closeHandler={closeHandler}
         signupModalHandler={signupModalHandler}
+        navHeader={navHeader}
+        setNavHeader={setNavHeader}
       />
       <SignUp
         close={openSignUp}
         openHandler={openHandler}
         closeHandler={closeHandler}
+        navHeader={navHeader}
+        setNavHeader={setNavHeader}
       />
       <Switch>
         <Route exact path="/">

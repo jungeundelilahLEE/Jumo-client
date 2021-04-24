@@ -1,3 +1,7 @@
+/* eslint-disable no-useless-return */
+/* eslint-disable consistent-return */
+/* eslint-disable object-shorthand */
+/* eslint-disable no-else-return */
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,11 +21,10 @@ import ReviewList from '../components/ReviewList';
 // import res from '../atoms/dummyMaks';
 
 const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
-  const state = useSelector(states => states.userReducer);
-  const { likeItems } = state;
+  const [likeList, setLikeList] = useState([]);
+  const [likeId, setLikeId] = useState([]);
   const accessToken = localStorage.getItem('accessToken');
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [viewCount, SetViewCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const [allReivews, setAllReviews] = useState([]);
   const { name } = useParams();
 
@@ -45,9 +48,7 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
     updatedAt: null,
   });
 
-  const dispatch = useDispatch();
-
-  const getMakgeolliInfo = () => {
+  const getMakgeolliInfo = async () => {
     // setIsLoading(true);
     server
       .get(`/makgeolli/list?name=${name}`)
@@ -76,23 +77,93 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
     }
   };
 
+  const getUserLikesInfo = async () => {
+    try {
+      const res = await server.get('/like/info', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const { data } = res.data;
+      const userLikesInfo = data.map(el => el.makgeolli_id);
+      const getLikeId = data.map(el => {
+        if (el.makgeolli_id === item.id) {
+          return el.id;
+        }
+        return;
+      });
+
+      setLikeList(userLikesInfo);
+      setLikeId(getLikeId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleAddLike = async () => {
+    if (!accessToken) {
+      return alert('로그인 해 주세요.');
+    } else {
+      try {
+        const plusLike = await server.post(
+          '/like/create',
+          { name: name },
+          { headers: { Authorization: `Bearer ${accessToken}` } },
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  const handleDeleteLike = async () => {
+    if (!accessToken) {
+      return alert('로그인 해 주세요.');
+    } else {
+      try {
+        const minusLike = await server.post(
+          '/like/remove',
+          { name: name, id: likeId },
+          { headers: { Authorization: `Bearer ${accessToken}` } },
+        );
+        // window.location.reload();
+        // setLikeList(prev => prev.filter(el => el !== delLike));
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   useEffect(() => {
     if (!navHeader) {
       setNavHeader(true);
     }
     channelHandler('Detail');
     getMakgeolliInfo();
-    if (accessToken) {
-      getUserInfo();
-    }
+    getUserInfo();
   }, []);
 
+  useEffect(() => {
+    if (accessToken) {
+      getUserLikesInfo();
+    }
+  }, [item]);
+
+  useEffect(() => {
+    if (accessToken) {
+      getMakgeolliInfo();
+    }
+  }, [isLoading]);
+
   const handleLike = () => {
-    dispatch(addLike(item.id));
+    handleAddLike();
+    setIsLoading(!isLoading);
   };
 
   const handleRemoveLike = () => {
-    dispatch(removeLike(item.id));
+    handleDeleteLike();
+    setIsLoading(!isLoading);
   };
 
   return (
@@ -167,6 +238,7 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
           )}
         </StyleVertical>
       </StyleSection>
+
 
       <ReviewInput makgeolliId={item.id} setAllReviews={setAllReviews} />
       <ReviewList
