@@ -1,12 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  withRouter,
-} from 'react-router-dom';
+import { Link, withRouter, useHistory } from 'react-router-dom';
 import { FiArrowDown } from 'react-icons/fi';
 import jumo from '../images/JumoIcon.PNG';
 
@@ -226,7 +220,7 @@ function TitleRending() {
     font-family: 'Quicksand', sans-serif;
     justify-content: center;
     align-items: center;
-    animation: ${intro} 2s 2.4s, ${shadow} 1s 6s;
+    animation: ${intro} 2s 3.4s, ${shadow} 1s 6s;
     animation-timing-function: ease-in;
     animation-fill-mode: forwards;
     @media ${props => props.theme.tablet} {
@@ -234,7 +228,7 @@ function TitleRending() {
       font-family: 'Quicksand', sans-serif;
       justify-content: center;
       align-items: center;
-      animation: ${intro} 2s 2.4s, ${shadow} 1s 6s;
+      animation: ${intro} 2s 3.4s, ${shadow} 1s 6s;
       animation-timing-function: ease-in;
       animation-fill-mode: forwards;
     }
@@ -245,13 +239,13 @@ function TitleRending() {
   const J = styled.div`
     color: white;
     font-size: 13rem;
-    animation: ${popUp} 1s, ${slidein} 1s, ${rotate} 1.4s 4.4s;
+    animation: ${popUp} 1s 1s, ${slidein} 1s 1s, ${rotate} 1.4s 5.4s;
     animation-fill-mode: backwards;
     transition-duration: 1s;
     @media ${props => props.theme.tablet} {
       color: white;
       font-size: 13rem;
-      animation: ${popUp} 1s, ${slidein} 1s, ${rotate} 1.4s 4.4s;
+      animation: ${popUp} 1s 1s, ${slidein} 1s 1s, ${rotate} 1.4s 5.4s;
       animation-fill-mode: backwards;
       transition-duration: 1s;
       &:hover {
@@ -264,13 +258,13 @@ function TitleRending() {
   const U = styled.div`
     color: white;
     font-size: 7rem;
-    animation: ${popUp} 1s 0.5s, ${slidein} 1s 0.5s;
+    animation: ${popUp} 1s 1.5s, ${slidein} 1s 1.5s;
     animation-fill-mode: backwards;
     transition-duration: 1s;
     @media ${props => props.theme.tablet} {
       color: white;
       font-size: 7rem;
-      animation: ${popUp} 1s 0.5s, ${slidein} 1s 0.5s;
+      animation: ${popUp} 1s 1.5s, ${slidein} 1s 1.5s;
       animation-fill-mode: backwards;
       transition-duration: 1s;
       &:hover {
@@ -283,13 +277,13 @@ function TitleRending() {
   const M = styled.div`
     color: white;
     font-size: 7rem;
-    animation: ${popUp} 1s 1s, ${slidein} 1s 1s;
+    animation: ${popUp} 1s 2s, ${slidein} 1s 2s;
     animation-fill-mode: backwards;
     transition-duration: 1s;
     @media ${props => props.theme.tablet} {
       color: white;
       font-size: 7rem;
-      animation: ${popUp} 1s 1s, ${slidein} 1s 1s;
+      animation: ${popUp} 1s 2s, ${slidein} 1s 2s;
       animation-fill-mode: backwards;
       transition-duration: 1s;
       &:hover {
@@ -302,13 +296,13 @@ function TitleRending() {
   const O = styled.div`
     color: white;
     font-size: 7rem;
-    animation: ${popUp} 1s 1.5s, ${slidein} 1s 1.5s;
+    animation: ${popUp} 1s 2.5s, ${slidein} 1s 2.5s;
     animation-fill-mode: backwards;
     transition-duration: 1s;
     @media ${props => props.theme.tablet} {
       color: white;
       font-size: 7rem;
-      animation: ${popUp} 1s 1.5s, ${slidein} 1s 1.5s;
+      animation: ${popUp} 1s 2.5s, ${slidein} 1s 2.5s;
       animation-fill-mode: backwards;
       transition-duration: 1s;
       &:hover {

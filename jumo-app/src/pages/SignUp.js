@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import { BiX } from 'react-icons/bi';
 import { signIn } from '../actions';
 import Inputs from '../atoms/Inputs';
 import server, { clientURL } from '../apis/server';
@@ -97,7 +98,9 @@ const SignUp = ({ close, closeHandler, openHandler }) => {
                 <div>SIGN UP</div>
                 <Image>
                   <img src={img} alt="icon" width="140px" height="80px" />
-                  <X onClick={closeHandler}>x</X>
+                  <X onClick={closeHandler}>
+                    <BiX color="white" />
+                  </X>
                 </Image>
               </Title>
               <br />
@@ -183,7 +186,7 @@ const Title = styled.div`
 `;
 const Image = styled.div`
   background-color: #293848;
-  padding: 0px 0px 5px 10px;
+  padding: 0px 7px 5px 10px;
 `;
 const Alert = styled.div`
   color: red;
@@ -230,7 +233,7 @@ const Line = styled.div`
   border-right: none;
   border-bottom: 1px solid #c29b86;
 `;
-const X = styled.button`
+const X = styled.div`
   float: right;
   width: 20px;
   height: 20px;
