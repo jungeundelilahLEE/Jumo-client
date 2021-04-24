@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-return */
 /* eslint-disable consistent-return */
 /* eslint-disable object-shorthand */
 /* eslint-disable no-else-return */
@@ -11,11 +12,10 @@ import ReviewInput from '../components/ReviewInput';
 import ReviewList from '../components/ReviewList';
 
 const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
-  const state = useSelector(states => states.userReducer);
-  const { likeItems } = state;
-  const [likeValue, setLikeValue] = useState(false);
+  const [likeList, setLikeList] = useState([]);
+  const [likeId, setLikeId] = useState([]);
   const accessToken = localStorage.getItem('accessToken');
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [allReivews, setAllReviews] = useState([]);
   const { name } = useParams();
 
@@ -38,8 +38,6 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
     createdAt: null,
     updatedAt: null,
   });
-
-  const dispatch = useDispatch();
 
   const getMakgeolliInfo = async () => {
     // setIsLoading(true);
@@ -79,14 +77,44 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
       });
 
       const { data } = res.data;
-      const userLikesInfo = data.map(el => {
+      const userLikesInfo = data.map(el => el.makgeolli_id);
+      const getLikeId = data.map(el => {
         if (el.makgeolli_id === item.id) {
-          setLikeValue(true);
+          return el.id;
         }
-        return el.makgeolli_id;
+        return;
       });
 
-      // dispatch(addLike(userLikesInfo));
+      setLikeList(userLikesInfo);
+      setLikeId(getLikeId);
+
+      // .then(res => {
+      //   const { data } = res.data;
+      //   return data;
+      // })
+      // .then(data => {
+      //   const userLikesInfo = data.map(el => el.makgeolli_id);
+      //   const getLikeId = data.map(el => {
+      //     if (el.makgeolli_id === itemId) {
+      //       return el.id;
+      //     }
+      //     return;
+      //   });
+
+      //   setLikeList([...userLikesInfo]);
+      //   setLikeId([...getLikeId]);
+      // });
+
+      // const { data } = res.data;
+      // const userLikesInfo = data.map(el => el.makgeolli_id);
+      // const getLikeId = data.map(el => {
+      //   if (el.makgeolli_id === item.id) {
+      //     return el.id;
+      //   }
+      //   return el.makgeolli_id;
+      // });
+
+      // setLikeList(data);
     } catch (err) {
       console.log(err);
     }
@@ -102,16 +130,8 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
           { name: name },
           { headers: { Authorization: `Bearer ${accessToken}` } },
         );
-
-        // const { data } = plusLike.data;
-        // const userLikesInfo = data.map(el => {
-        //   if (el.makgeolli_id === item.id) {
-        //     setLikeValue(true);
-        //   }
-        //   return el.makgeolli_id;
-        // });
-
-        // dispatch(addLike(userLikesInfo));
+        // window.location.reload();
+        // setLikeList(prev => [...prev, itemId]);
       } catch (err) {
         console.log(err);
       }
@@ -125,14 +145,11 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
       try {
         const minusLike = await server.post(
           '/like/remove',
-          { name: name, id: item.id },
+          { name: name, id: likeId },
           { headers: { Authorization: `Bearer ${accessToken}` } },
         );
-        const { data } = minusLike.data;
-        const userLikesInfo = data.map(el => el.makgeolli_id);
-        setLikeValue(false);
-
-        // dispatch(addLike(userLikesInfo));
+        // window.location.reload();
+        // setLikeList(prev => prev.filter(el => el !== delLike));
       } catch (err) {
         console.log(err);
       }
@@ -145,26 +162,29 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
       setNavHeader(true);
     }
     getMakgeolliInfo();
-    if (accessToken) {
-      getUserInfo();
-      getUserLikesInfo();
-    }
+    getUserInfo();
   }, []);
 
   useEffect(() => {
-    getUserLikesInfo();
-  }, [likeValue]);
+    if (accessToken) {
+      getUserLikesInfo();
+    }
+  }, [item]);
+
+  useEffect(() => {
+    if (accessToken) {
+      getMakgeolliInfo();
+    }
+  }, [isLoading]);
 
   const handleLike = () => {
     handleAddLike();
-    setLikeValue(true);
-    // dispatch(addLike(item.id));
+    setIsLoading(!isLoading);
   };
 
   const handleRemoveLike = () => {
     handleDeleteLike();
-    setLikeValue(false);
-    // dispatch(removeLike(item.id));
+    setIsLoading(!isLoading);
   };
 
   return (
@@ -181,8 +201,7 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
           <StyleDescInfo>
             <div>조회수 : {item.views}</div>
             <div>
-              <div>{likeItems[0]}</div>
-              {!likeValue ? (
+              {!likeList.includes(item.id) ? (
                 <StyleSmallLikeBtn onClick={() => handleLike()}>
                   {item.likes}
                 </StyleSmallLikeBtn>
@@ -209,7 +228,7 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
           <StyleDescBottom>{item.explain}</StyleDescBottom>
         </StyleDescBox>
 
-        {!likeItems.includes(item.id) ? (
+        {!likeList.includes(item.id) ? (
           <StyleLikeBtn onClick={() => handleLike()}>LIKE</StyleLikeBtn>
         ) : (
           <StyleLikeBtn onClick={() => handleRemoveLike()}>
