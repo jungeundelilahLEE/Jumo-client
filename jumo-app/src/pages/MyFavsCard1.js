@@ -4,14 +4,17 @@ import styled from 'styled-components';
 // eslint-disable-next-line import/no-cycle
 import { useSelector } from 'react-redux';
 import Nav from './Nav';
-import MakImg from '../images/intro-sec1.png';
+import Makg1 from '../images/makg1.jpeg';
+import Makg2 from '../images/makg2.jpeg';
+import Makg3 from '../images/makg3.jpeg';
+
 import TrashBinImg from '../images/trash-bin.png';
 import UsernameEditBtn from './UsernameEditBtn';
 import MypageMyReviews from './MypageMyReviews';
 import MypageMyFavs from './MypageMyFavs';
 
 const MyFavsCard1 = () => {
-  const makImg = MakImg;
+  // const makImg = MakImg;
 
   const dragStart = e => {
     const { target } = e;
@@ -28,13 +31,13 @@ const MyFavsCard1 = () => {
   return (
     <>
       <Div1 onDragStart={dragStart} onDragOver={dragOver} draggable="true">
-        <Image src={makImg} alt="막걸리이미지" />
+        <Image src={Makg1} alt="막걸리이미지" />
       </Div1>
       <Div1 onDragStart={dragStart} onDragOver={dragOver} draggable="true">
-        <Image src={makImg} alt="막걸리이미지" />
+        <Image src={Makg2} alt="막걸리이미지" />
       </Div1>
       <Div1 onDragStart={dragStart} onDragOver={dragOver} draggable="true">
-        <Image src={makImg} alt="막걸리이미지" />
+        <Image src={Makg3} alt="막걸리이미지" />
       </Div1>
     </>
   );

@@ -5,6 +5,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { BsFillCaretLeftFill, BsFillCaretRightFill } from 'react-icons/bs';
 import { updateCarousel } from '../actions';
 
 import BestMain from '../components/BestMain';
@@ -65,10 +66,12 @@ const BestMakgeollis = () => {
   return (
     <StyleListTop>
       <StyleBestBox>
-        <StyleTitle>BEST TOP 10</StyleTitle>
+        <StyleTitle>JUMOs PICK BEST TOP 10</StyleTitle>
         <StyleBestMain>
-          {/* <StyleLeftArrow onClick={preBestHandler}>{'<'}</StyleLeftArrow> */}
-          <Aleft onClick={preBestHandler} />
+          <StyleLeftArrow onClick={preBestHandler}>
+            <Left />
+          </StyleLeftArrow>
+          {/* <Aleft onClick={preBestHandler} /> */}
 
           <StyleBestList>
             {topList.map((item, idx) => {
@@ -95,8 +98,10 @@ const BestMakgeollis = () => {
             })}
           </StyleBestList>
 
-          {/* <StyleRightArrow onClick={nextBestHandler}>{'>'}</StyleRightArrow> */}
-          <Aright onClick={nextBestHandler} />
+          <StyleRightArrow onClick={nextBestHandler}>
+            <Right />
+          </StyleRightArrow>
+          {/* <Aright onClick={nextBestHandler} /> */}
         </StyleBestMain>
       </StyleBestBox>
 
@@ -121,14 +126,47 @@ const BestMakgeollis = () => {
     </StyleListTop>
   );
 };
-
+//! 화살표
+const StyleLeftArrow = styled.div`
+  @media ${props => props.theme.tablet} {
+  }
+  @media ${props => props.theme.desktop} {
+    margin: 0 4vmin 0 0;
+  }
+`;
+const StyleRightArrow = styled.div`
+  @media ${props => props.theme.tablet} {
+  }
+  @media ${props => props.theme.desktop} {
+    margin: 0 4vmin 0 0;
+  }
+`;
+const Left = styled(BsFillCaretLeftFill)`
+  display: flex;
+  width: 4em;
+  height: auto;
+  color: #ffffff;
+  z-index: 1;
+  filter: drop-shadow(5px 5px 5px #000);
+`;
+const Right = styled(BsFillCaretRightFill)`
+  display: flex;
+  width: 4em;
+  height: auto;
+  color: #ffffff;
+  z-index: 1;
+  filter: drop-shadow(5px 5px 5px #000);
+`;
 const StyleListTop = styled.div`
   display: flex;
   width: 100vw;
-  background-color: #293848;
+  background: linear-gradient(to left, white, rgba(41, 56, 72, 0.8), white);
+  /* background: linear-gradient(to left, white, #722128, white); */
+
+  /* background-color: #293848; */
   display: flex;
   flex-direction: column;
-  border: 4px solid black;
+  /* border: 4px solid black; */
   padding-top: 0;
   @media ${props => props.theme.tablet} {
   }
@@ -140,9 +178,9 @@ const StyleBestBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 100vw;
-  height: 50vh; //!  이부분 태블릿/데스크탑에서는 조정해야
+  height: 60vh; //!  이부분 태블릿/데스크탑에서는 조정해야
   padding: 1em 0em 1em 0em;
-  /* border: 5px dashed yellow; */
+  /* border: 5px dashed red; */
   align-items: center;
   justify-content: center;
   @media ${props => props.theme.tablet} {
@@ -152,15 +190,27 @@ const StyleBestBox = styled.div`
 `;
 
 const StyleTitle = styled.div`
+  font-family: 'Sansation';
   display: flex;
-  font-size: 2rem;
+  font-size: 3.5rem;
   /* text-align: center; */
   color: white;
-  font-weight: 500;
+  font-weight: bolder;
   z-index: 500;
   top: 0;
-  /* margin-top: -100px; */
-  padding-bottom: 150px;
+  margin-top: 6em;
+  padding-bottom: 2em;
+  background: linear-gradient(
+    to right,
+    #926f34,
+    #e0aa3e,
+    #f7ef8a,
+    #edc967,
+    #ae8625
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
   @media ${props => props.theme.tablet} {
   }
   @media ${props => props.theme.desktop} {
@@ -168,13 +218,14 @@ const StyleTitle = styled.div`
 `;
 
 const StyleBestMain = styled.div`
-  border: 2px dashed blue;
+  /* border: 2px dashed blue; */
   display: flex;
   flex-direction: row;
   width: 100vw;
   align-items: center;
   justify-content: space-around;
   margin-top: 2em;
+  margin-bottom: 7em;
   @media ${props => props.theme.tablet} {
     justify-content: space-evenly;
   }

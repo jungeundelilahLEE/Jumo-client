@@ -119,7 +119,7 @@ const MypageMyReviewBox = ({
   //! StarBox (컴포넌트) / StyleInput 추가
   return (
     <>
-      <MyReviewImg src={image} alt="makImg" />
+      {/* <MyReviewImg src={image} alt="makImg" /> */}
       <MyReviewContent>
         <MyReviewCreatedAt>
           {date} <StarBox star={star} />
@@ -201,14 +201,16 @@ const MyReviewContent = styled.div`
 `;
 const MyReviewCreatedAt = styled.div`
   display: flex;
+  flex-direction: row;
   color: gray;
   font-size: 1.2em;
-  padding: 1em;
+  padding: 0.5em;
   @media ${props => props.theme.tablet} {
     font-size: 1.3em;
   }
   @media ${props => props.theme.desktop} {
     font-size: 1.3em;
+    flex-direction: row;
   }
 `;
 const MyReviewReview = styled.textarea`

@@ -41,47 +41,47 @@ function Nav({ openHandler }) {
       <StyledNav>
         {isLogin === 'true' ? (
           <Link to="/user/info">
-            <Button>
+            <Button1>
               <Img src={remoteMypage} alt="mypage" />
               <Div>MYPAGE</Div>
-            </Button>
+            </Button1>
           </Link>
         ) : (
-          <Button onClick={openHandler}>
+          <Button1 onClick={openHandler}>
             <Img src={remoteMypage} alt="SignIn" />
-          </Button>
+          </Button1>
         )}
 
         {isLogin === 'true' ? (
           <Link to="/">
-            <Button onClick={handleClickLogout}>
+            <Button2 onClick={handleClickLogout}>
               <Img src={remoteLogout} alt="logout" />
               <Div>SIGNOUT</Div>
-            </Button>
+            </Button2>
           </Link>
         ) : (
           ''
         )}
 
         <Link to="/intro">
-          <Button>
+          <Button3>
             <Img src={remoteIntro} alt="intro" />
             <Div>INTRO</Div>
-          </Button>
+          </Button3>
         </Link>
 
         <Link to="/makgeolli/info">
-          <Button>
+          <Button4>
             <Img src={remoteMak} alt="mak" />
             <Div>MAKGEOLLI</Div>
-          </Button>
+          </Button4>
         </Link>
 
         <Link to="/brewery/info">
-          <Button>
+          <Button5>
             <Img src={remoteBrew} alt="brew" dd />
             <Div>BREWERY</Div>
-          </Button>
+          </Button5>
         </Link>
       </StyledNav>
     </>
@@ -136,7 +136,157 @@ const StyledNav = styled.div`
   }
 `;
 
-const Button = styled.button`
+const Button1 = styled.button`
+  display: flex;
+  flex-direction: column;
+  width: 60px;
+  height: 60px;
+  justify-content: space-around;
+  align-items: center;
+  background: none;
+  border-style: none;
+  @media ${props => props.theme.tablet} {
+    display: flex;
+    flex-direction: column;
+    width: 70px;
+    height: 70px;
+    justify-content: space-around;
+    align-items: center;
+  }
+  @media ${props => props.theme.desktop} {
+    :before {
+      content: 'MYPAGE';
+      color: white;
+      font-size: 1.4em;
+      font-weight: bolder;
+      display: block;
+      /* align-items: center; */
+      /* text-align: center; */
+      justify-content: flex-end;
+      padding-top: 1.2em;
+      padding-left: 3em;
+      padding-right: 0;
+      /* align-items: center; */
+      width: 220%;
+      height: 55%;
+      background: #c29b86;
+      position: absolute;
+      top: 0%;
+      left: -600%;
+      transition: all 0.3s;
+      box-shadow: 3px 3px 3px #8c8b88;
+      text-shadow: 2px 2px 2px #8c8b88;
+      border-radius: 1.8em 0 0 0;
+    }
+    display: inline;
+    position: relative;
+    /* overflow: hidden; */
+    &:hover:before {
+      left: 0;
+    }
+  }
+`;
+const Button2 = styled.button`
+  display: flex;
+  flex-direction: column;
+  width: 60px;
+  height: 60px;
+  justify-content: space-around;
+  align-items: center;
+  background: none;
+  border-style: none;
+  @media ${props => props.theme.tablet} {
+    display: flex;
+    flex-direction: column;
+    width: 70px;
+    height: 70px;
+    justify-content: space-around;
+    align-items: center;
+  }
+  @media ${props => props.theme.desktop} {
+    :before {
+      content: 'LOG OUT';
+      color: white;
+      font-size: 1.4em;
+      font-weight: bolder;
+      display: block;
+      /* align-items: center; */
+      /* text-align: center; */
+      justify-content: flex-end;
+      padding-top: 1.2em;
+      padding-left: 3em;
+      padding-right: 0;
+      /* align-items: center; */
+      width: 220%;
+      height: 55%;
+      background: #c29b86;
+      position: absolute;
+      top: 0%;
+      left: -600%;
+      transition: all 0.3s;
+      box-shadow: 3px 3px 3px #8c8b88;
+      text-shadow: 2px 2px 2px #8c8b88;
+      border-radius: 1.8em 0 0 0;
+    }
+    display: inline;
+    position: relative;
+    /* overflow: hidden; */
+    &:hover:before {
+      left: 0;
+    }
+  }
+`;
+const Button3 = styled.button`
+  display: flex;
+  flex-direction: column;
+  width: 60px;
+  height: 60px;
+  justify-content: space-around;
+  align-items: center;
+  background: none;
+  border-style: none;
+  @media ${props => props.theme.tablet} {
+    display: flex;
+    flex-direction: column;
+    width: 70px;
+    height: 70px;
+    justify-content: space-around;
+    align-items: center;
+  }
+  @media ${props => props.theme.desktop} {
+    :before {
+      content: 'INTRO';
+      color: white;
+      font-size: 1.4em;
+      font-weight: bolder;
+      display: block;
+      /* align-items: center; */
+      /* text-align: center; */
+      justify-content: flex-end;
+      padding-top: 1.2em;
+      padding-left: 3em;
+      padding-right: 0;
+      /* align-items: center; */
+      width: 220%;
+      height: 55%;
+      background: #c29b86;
+      position: absolute;
+      top: 0%;
+      left: -600%;
+      transition: all 0.3s;
+      box-shadow: 3px 3px 3px #8c8b88;
+      text-shadow: 2px 2px 2px #8c8b88;
+      border-radius: 1.8em 0 0 0;
+    }
+    display: inline;
+    position: relative;
+    /* overflow: hidden; */
+    &:hover:before {
+      left: 0;
+    }
+  }
+`;
+const Button4 = styled.button`
   display: flex;
   flex-direction: column;
   width: 60px;
@@ -156,6 +306,56 @@ const Button = styled.button`
   @media ${props => props.theme.desktop} {
     :before {
       content: 'MAKGEOLLI';
+      color: white;
+      font-size: 1.4em;
+      font-weight: bolder;
+      display: block;
+      /* align-items: center; */
+      /* text-align: center; */
+      justify-content: flex-end;
+      padding-top: 1.2em;
+      padding-left: 3em;
+      padding-right: 0;
+      /* align-items: center; */
+      width: 220%;
+      height: 55%;
+      background: #c29b86;
+      position: absolute;
+      top: 0%;
+      left: -600%;
+      transition: all 0.3s;
+      box-shadow: 3px 3px 3px #8c8b88;
+      text-shadow: 2px 2px 2px #8c8b88;
+      border-radius: 1.8em 0 0 0;
+    }
+    display: inline;
+    position: relative;
+    /* overflow: hidden; */
+    &:hover:before {
+      left: 0;
+    }
+  }
+`;
+const Button5 = styled.button`
+  display: flex;
+  flex-direction: column;
+  width: 60px;
+  height: 60px;
+  justify-content: space-around;
+  align-items: center;
+  background: none;
+  border-style: none;
+  @media ${props => props.theme.tablet} {
+    display: flex;
+    flex-direction: column;
+    width: 70px;
+    height: 70px;
+    justify-content: space-around;
+    align-items: center;
+  }
+  @media ${props => props.theme.desktop} {
+    :before {
+      content: 'BREWERY';
       color: white;
       font-size: 1.4em;
       font-weight: bolder;

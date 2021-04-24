@@ -23,7 +23,7 @@ const ReviewList = ({ makgeolliId, allReivews, setAllReviews }) => {
     <StyleReviewList>
       <StyleReviewsTop>
         <div className="StyleReviewsCategory" />
-        <div>{allReivews.length}</div>
+        <div>총 {allReivews.length}개의 리뷰가 있습니다</div>
       </StyleReviewsTop>
 
       <div>

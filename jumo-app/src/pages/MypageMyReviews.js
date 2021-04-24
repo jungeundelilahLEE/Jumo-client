@@ -81,7 +81,7 @@ const MyReviewsBox = styled.div`
     display: flex;
     flex-direction: row;
     width: 60vw;
-    height: 23vh;
+    height: 25vh;
     justify-content: center;
     align-items: center;
   }

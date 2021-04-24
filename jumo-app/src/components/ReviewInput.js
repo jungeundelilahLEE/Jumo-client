@@ -109,11 +109,11 @@ const ReviewInput = ({ makgeolliId, setAllReviews }) => {
           </StyleBtnItem>
         </StyleInputWrap>
 
-        <StyleBtnWrap>
+        {/* <StyleBtnWrap>
           <StyleBtnArea>
             <StyleBtnPhoto>photo</StyleBtnPhoto>
           </StyleBtnArea>
-        </StyleBtnWrap>
+        </StyleBtnWrap> */}
       </div>
     </StyleInputBox>
   );
@@ -156,12 +156,14 @@ const StyleInputWrap = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 20vmin;
+  height: 25vmin;
+  margin: 0 auto;
   justify-content: center;
   align-items: center;
   box-shadow: 3px 2px 3px 1px rgba(194, 155, 134, 0.3),
     -1px -1px 3px 1px rgba(194, 155, 134, 0.3);
   border-radius: 2vmin;
+  /* border: 10px solid red; */
   @media ${props => props.theme.tablet} {
     display: flex;
     flex-direction: row;
@@ -197,11 +199,8 @@ const StyleInput = styled.textarea`
   resize: none;
   font-size: 1.1rem;
   padding: 2vmin;
-  /* border: 2px solid pink; */
-
   @media ${props => props.theme.mobile} {
   }
-
   @media ${props => props.theme.tablet} {
   }
 

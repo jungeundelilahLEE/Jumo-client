@@ -9,7 +9,7 @@ const StarIcon = props => {
 
   const fillColor = useMemo(() => {
     if (star >= index + 1) {
-      return '#ffdb58'; // #ffdb58 === 노란색
+      return '#d1fc35'; // #ffdb58 === 노란색
     }
     if (star < index + 1 && index - star < 0) {
       return 'half';
@@ -20,7 +20,7 @@ const StarIcon = props => {
   return (
     <div>
       {fillColor === 'half' ? (
-        <StylesHalfStars fill="#ffdb58" />
+        <StylesHalfStars fill="#d1fc35" />
       ) : (
         <StyleStars fill={fillColor} />
       )}

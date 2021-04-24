@@ -5,44 +5,66 @@ import { BsEye, BsChatSquareDots, BsHeart } from 'react-icons/bs';
 
 const MakgeolliCard = ({ item }) => {
   return (
-    <StyleCard>
-      <StyleItem itemImage={item.image}>
-        <StyleItemInfo>
-          <StyleInfoTop>
-            {/* <div className="StyleInfoName">{item.name}</div> */}
-            <StyleInfoTitle>{item.name}</StyleInfoTitle>
-            <StyleInfoVol>{item.content} % vol</StyleInfoVol>
-          </StyleInfoTop>
-          <StyleInfoBox>
-            {/* <div className="StyleViews">Views: {item.views}</div>
+    <Sec>
+      <StyleCard>
+        <StyleItem itemImage={item.image}>
+          <StyleItemInfo>
+            <StyleInfoTop>
+              {/* <div className="StyleInfoName">{item.name}</div> */}
+              <StyleInfoTitle>{item.name}</StyleInfoTitle>
+              <StyleInfoVol>{item.content} % vol</StyleInfoVol>
+            </StyleInfoTop>
+            <StyleInfoBox>
+              {/* <div className="StyleViews">Views: {item.views}</div>
             <div className="StyleLikes">Likes: {item.likes}</div> */}
-            <IconComment />
-            <Comment>{item.views}</Comment>
-            <IconLike />
-            <Like>{item.likes}</Like>
-          </StyleInfoBox>
-        </StyleItemInfo>
-      </StyleItem>
+              <IconComment />
+              <Comment>{item.views}</Comment>
+              <IconLike />
+              <Like>{item.likes}</Like>
+            </StyleInfoBox>
+          </StyleItemInfo>
+        </StyleItem>
 
-      <StyleMobileInfoBox>
-        {/* <div>{item.name}</div>
+        <StyleMobileInfoBox>
+          {/* <div>{item.name}</div>
         <div>
           <div className="StyleMobileViews">Views: {item.views}</div>
           <div className="StyleMobileLikes">Likes: {item.likes}</div>
         </div> */}
-        <MobileTitle>{item.name}</MobileTitle>
-        <MobileBox>
-          <IconComment />
-          <Comment>{item.views}</Comment>
-          <IconLike />
-          <Like>{item.likes}</Like>
-        </MobileBox>
-      </StyleMobileInfoBox>
-    </StyleCard>
+          <MobileTitle>{item.name}</MobileTitle>
+          <MobileBox>
+            <IconComment />
+            <Comment>{item.views}</Comment>
+            <IconLike />
+            <Like>{item.likes}</Like>
+          </MobileBox>
+        </StyleMobileInfoBox>
+      </StyleCard>
+      <Title>{item.name}</Title>
+    </Sec>
   );
 };
-
+const Sec = styled.div`
+  display: flex;
+  /* border: 3px solid red; */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+`;
+const Title = styled.div`
+  font-family: 'Nanum Gothic';
+  font-size: 1.4em;
+  color: black;
+  font-weight: bolder;
+  justify-content: center;
+  align-items: center;
+  @media screen and (min-width: 0px) and (max-width: 1024px) {
+    display: none;
+  } ;
+`;
 const StyleCard = styled.div`
+  /* border: 10px solid red; */
   display: flex;
   flex-direction: column;
   box-shadow: 3px 3px 5px 3px rgba(214, 214, 214, 0.5),
@@ -82,7 +104,7 @@ const StyleCard = styled.div`
     background-color: rgba(255, 255, 255, 0.5);
     padding: 0;
     border-radius: 1vmin;
-    margin-bottom: 4vmin;
+    margin-bottom: 2vmin;
     width: 15em;
     height: 20em;
     justify-content: center;

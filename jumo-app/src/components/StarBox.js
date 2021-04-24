@@ -14,8 +14,9 @@ const StarBox = ({ star }) => {
 
 const StyleStarBox = styled.div`
   width: 20vmin;
-  padding-top: 2vmin;
+  /* padding-top: 2vmin; */
   display: flex;
+  padding-left: 5px;
 
   @media ${props => props.theme.mobile} {
   }

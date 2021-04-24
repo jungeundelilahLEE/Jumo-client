@@ -143,25 +143,27 @@ const Mypage = ({ channelHandler, navHeader, setNavHeader }) => {
             <Top>
               <MyProfile>
                 <MyProfileTitle>MY&nbsp;PROFILE</MyProfileTitle>
-                <MyProfileList>NAME</MyProfileList>
-                {/* <MyProfileContent>{user.username}</MyProfileContent> */}
-                {/* //!어디있지? */}
-                <UsernameEditBtn
-                  username={username}
-                  submitUserName={submitUserName}
-                  handleEditBtn={handleEditBtn}
-                  handleCancelBtn={handleCancelBtn}
-                  save={save}
-                  edit={edit}
-                />
-                <MyProfileList>EMAIL</MyProfileList>
-                <MyProfileContent>{email}</MyProfileContent>
-                <MyProfileList>REGISTERED DATE</MyProfileList>
-                <MyProfileContent>{formDate}</MyProfileContent>
+                <Div>
+                  <MyProfileList>NAME</MyProfileList>
+                  {/* <MyProfileContent>{user.username}</MyProfileContent> */}
+                  {/* //!어디있지? */}
+                  <UsernameEditBtn
+                    username={username}
+                    submitUserName={submitUserName}
+                    handleEditBtn={handleEditBtn}
+                    handleCancelBtn={handleCancelBtn}
+                    save={save}
+                    edit={edit}
+                  />
+                  <MyProfileList>EMAIL</MyProfileList>
+                  <MyProfileContent>{email}</MyProfileContent>
+                  <MyProfileList>REGISTERED DATE</MyProfileList>
+                  <MyProfileContent>{formDate}</MyProfileContent>
+                </Div>
               </MyProfile>
 
               {/* <MyProfileHello>Hello {username}! Wellcome back!</MyProfileHello> */}
-              <G>
+              {/* <G>
                 <MyProfileHello1>H</MyProfileHello1>
                 <MyProfileHello11>e</MyProfileHello11>
                 <MyProfileHello111>l</MyProfileHello111>
@@ -170,7 +172,7 @@ const Mypage = ({ channelHandler, navHeader, setNavHeader }) => {
                 <MyProfileHello2>{user.username}</MyProfileHello2>
                 <MyProfileHello3>Wellcome</MyProfileHello3>
                 <MyProfileHello33>back!</MyProfileHello33>
-              </G>
+              </G> */}
             </Top>
 
             {clicked === false ? (
@@ -231,6 +233,10 @@ const Mypage = ({ channelHandler, navHeader, setNavHeader }) => {
   );
 };
 
+const Div = styled.div`
+  margin-bottom: 3em;
+`;
+
 const Section = styled.section`
   display: flex;
   flex-direction: column;
@@ -267,7 +273,7 @@ const MyProfile = styled.div`
     display: flex;
     flex-direction: column;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     margin: 0px;
     font-size: 20px;
     animation-name: showItem;
@@ -298,6 +304,7 @@ const MyProfile = styled.div`
     /* padding-bottom: 1em; */
     /* border: 1px solid red; */
     font-size: 20px;
+    z-index: -1;
     animation-name: showItem;
     animation-duration: 3s;
     animation-iteration-count: 1;
@@ -314,96 +321,6 @@ const MyProfile = styled.div`
   }
 `;
 
-const TitleDiv = styled.div`
-  animation-name: showItem;
-  animation-duration: 4s;
-  animation-iteration-count: 1;
-  @keyframes showItem {
-    0% {
-      transform: translateY(-100px);
-      opacity: 0;
-      /* border: 2px solid red; */
-    }
-    100% {
-      transform: translateY(0px);
-      opacity: 1;
-      /* border: 2px solid orange; */
-    }
-  }
-  @media ${props => props.theme.tablet} {
-    /* margin: 9em 0em 33m; */
-    /* border: 1px solid red;  */
-  }
-  @media ${props => props.theme.desktop} {
-  }
-`;
-const NameDiv = styled.div`
-  justify-content: center;
-  align-items: center;
-  animation-name: dd;
-  animation-duration: 3s;
-  animation-iteration-count: 1;
-  @keyframes dd {
-    0% {
-      transform: translateY(0px);
-      opacity: 0;
-    }
-    50% {
-      transform: translateY(0px);
-      opacity: 0;
-      color: white;
-    }
-    100% {
-      transform: translateY(0px);
-      opacity: 1;
-    }
-  }
-`;
-const EmailDiv = styled.div`
-  /* border: 1px solid black; */
-  animation-name: dd;
-  animation-duration: 3.5s;
-  animation-iteration-count: 1;
-  @keyframes dd {
-    0% {
-      transform: translateY(0px);
-      opacity: 0;
-    }
-    50% {
-      transform: translateY(0px);
-      opacity: 0;
-      color: white;
-    }
-    100% {
-      transform: translateY(0px);
-      opacity: 1;
-    }
-  }
-`;
-const CreatedDiv = styled.div`
-  /* border: 1px solid black; */
-  /* padding-bottom: 2em; */
-
-  animation-name: dd;
-  animation-duration: 4s;
-  animation-iteration-count: 1;
-  @keyframes dd {
-    0% {
-      transform: translateY(0px);
-      opacity: 0;
-    }
-    50% {
-      transform: translateY(0px);
-      opacity: 0;
-      color: white;
-    }
-    100% {
-      transform: translateY(0px);
-      opacity: 1;
-    }
-  }
-`;
-
 const MyProfileTitle = styled.div`
   display: flex;
   flex-direction: row;
@@ -413,14 +330,18 @@ const MyProfileTitle = styled.div`
   justify-content: center;
   margin-top: 70%;
   margin-bottom: 20%;
-  @media ${props => props.theme.tabMyProfileTitlelet} {
+  text-shadow: 7px 12px 9px #707070;
+  @media ${props => props.theme.tablet} {
+    text-shadow: 7px 12px 9px #707070;
+  }
+  @media ${props => props.theme.tablet} {
     // 테블릿
     display: flex;
     text-indent: none;
-    margin-top: 55%;
+    margin-top: 25%;
     margin-bottom: 20%;
     font-size: 3.6em;
-    text-shadow: 17px 12px 9px #707070;
+    /* text-shadow: 17px 12px 9px #707070; */
   }
   @media ${props => props.theme.desktop} {
     // 데스크탑
@@ -432,6 +353,18 @@ const MyProfileTitle = styled.div`
     font-size: 3.8em;
     text-indent: 3em;
     text-shadow: none;
+
+    position: relative;
+    animation: move 5s infinite;
+    @keyframes move {
+      from {
+        left: 0px;
+      }
+      to {
+        left: 200px;
+        text-shadow: 17px 12px 9px #707070;
+      }
+    }
   }
 `;
 const MyProfileList = styled.li`
@@ -466,6 +399,7 @@ const MyProfileContent = styled.li`
   align-items: center;
   font-size: 0.9em;
   margin: 0.5em;
+  /* margin-bottom: 5em; */
   @media ${props => props.theme.tablet} {
     font-size: 1.2em;
   }
@@ -495,12 +429,12 @@ const MyBtn = styled.div`
     display: flex;
     flex-direction: row;
     width: 60vw;
-    margin-top: 10em;
+    /* margin-top: 20em; */
     justify-content: flex-start;
     /* border: 1px solid red; */
     margin-left: 35%;
     margin-right: 0;
-    margin-top: 15em;
+    margin-top: 20em;
     align-items: baseline;
   }
 `;
@@ -643,9 +577,9 @@ const G = styled.div`
     margin-top: 20em;
     margin-left: 30%;
     /* height: 40vh; */
-    /* border: 1px solid black; */
+    border: 10px solid black;
+    overflow: hidden;
   }
-
   @media ${props => props.theme.mobile} {
     display: none;
     width: 0;
