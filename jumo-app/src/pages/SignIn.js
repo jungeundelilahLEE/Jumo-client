@@ -9,7 +9,13 @@ import server, { clientURL } from '../apis/server';
 import Inputs from '../atoms/Inputs';
 import img from '../images/JustJ.PNG';
 
-const SignIn = ({ open, closeHandler, signupModalHandler }) => {
+const SignIn = ({
+  open,
+  closeHandler,
+  signupModalHandler,
+  navHeader,
+  setNavHeader,
+}) => {
   // document.body.style.overflow = 'hidden';
 
   const history = useHistory();
@@ -60,12 +66,19 @@ const SignIn = ({ open, closeHandler, signupModalHandler }) => {
 
             localStorage.setItem('oauth', 'local');
             closeHandler();
-            history.push('/makgeolli/info');
-            window.location.reload();
+            history.push('/');
+            if (navHeader) {
+              setNavHeader(false);
+            }
           });
       }
     } catch (err) {
       setErrorMessage('이메일 혹은 비밀번호가 일치하지 않습니다');
+    }
+  };
+  const onKeyPress = e => {
+    if (e.key === 'Enter') {
+      submitHandler();
     }
   };
 
@@ -123,7 +136,11 @@ const SignIn = ({ open, closeHandler, signupModalHandler }) => {
               </Title>
               <br />
               <Input>
-                <Inputs inputInfo={inputInfo} inputHandler={inputHandler} />
+                <Inputs
+                  inputInfo={inputInfo}
+                  inputHandler={inputHandler}
+                  onKeyPress={onKeyPress}
+                />
                 <br />
                 <Alert>{errorMessage}</Alert>
                 <br />

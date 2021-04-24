@@ -12,7 +12,7 @@ import remoteIntro from '../images/remote-intro1.png';
 import remoteMak from '../images/remote-mak1.png';
 import remoteBrew from '../images/remote-brew1.png';
 
-function Nav({ openHandler }) {
+function Nav({ openHandler, navHeader, setNavHeader }) {
   const dispatch = useDispatch();
   const accessToken = localStorage.getItem('accessToken');
   const isLogin = localStorage.getItem('isLogin');
@@ -30,8 +30,8 @@ function Nav({ openHandler }) {
       dispatch(signOut());
       localStorage.setItem('isLogin', JSON.stringify(false));
       history.push('/');
-      // window.location.reload();
     } catch (err) {
+      localStorage.clear();
       console.log(err);
     }
   };
