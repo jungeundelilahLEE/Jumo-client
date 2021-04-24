@@ -219,12 +219,7 @@ const Detail = ({ channelHandler, navHeader, setNavHeader }) => {
               <p>생산지역 :{item.area} </p>
             </StyleKinds>
           </StyleExplanation>
-          {/* <StyleDescBottom>{item.explain}</StyleDescBottom> */}
-          <StyleDescBottom>
-            <div>item:{item.id}</div>
-            <div>likeId:{likeId}</div>
-            <div>likeList:{likeList}</div>
-          </StyleDescBottom>
+          <StyleDescBottom>{item.explain}</StyleDescBottom>
         </StyleDescBox>
 
         {!likeList.includes(item.id) ? (
